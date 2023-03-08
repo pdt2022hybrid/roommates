@@ -1,0 +1,8 @@
+{
+  "name": "roommates",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue",
+  "id": "5121af3e"
+}

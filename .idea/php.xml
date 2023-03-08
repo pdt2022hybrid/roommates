@@ -1,67 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
   </component>
-  <component name="ChangeListManager">
-    <list default="true" id="9f4e5d32-234c-41c2-bacd-5d0b0884c1f3" name="Changes" comment="cms">
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/roommates.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/.browserslistrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/babel.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/capacitor.config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cypress.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ionic.config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/jest.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/assets/icon/favicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/assets/icon/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/assets/shapes.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/resources/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/resources/splash.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/App.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/components/ExploreContainer.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/router/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/shims-vue.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/theme/variables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/views/Tab1Page.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/views/Tab2Page.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/views/Tab3Page.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/views/TabsPage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/tests/e2e/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/tests/e2e/plugins/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/tests/e2e/specs/test.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/tests/e2e/support/commands.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/tests/e2e/support/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/tests/unit/example.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/tsconfig.json" afterDir="false" />
-    </list>
-    <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-    <option name="LAST_RESOLUTION" value="IGNORE" />
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
-    <pharConfigPath>$PROJECT_DIR$/cms/composer.json</pharConfigPath>
-    <execution />
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="highlightLevel" value="WARNING" />
+    <option name="transferred" value="true" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpIncludePathManager">
     <include_path>
       <path value="$PROJECT_DIR$/cms/vendor/composer" />
       <path value="$PROJECT_DIR$/cms/vendor/justinrainbow/json-schema" />
@@ -181,58 +130,11 @@
       <path value="$PROJECT_DIR$/cms/vendor/october/all" />
     </include_path>
   </component>
-  <component name="ProjectId" id="2MiqPGuuhAyYz9vUDgaepTWF7FT" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Applications/MAMP/htdocs/roommates&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="9f4e5d32-234c-41c2-bacd-5d0b0884c1f3" name="Changes" comment="" />
-      <created>1678260724996</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1678260724996</updated>
-      <workItem from="1678260727523" duration="630000" />
-      <workItem from="1678261395056" duration="789000" />
-    </task>
-    <task id="LOCAL-00001" summary="cms">
-      <created>1678261648718</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1678261648718</updated>
-    </task>
-    <task id="LOCAL-00002" summary="cms">
-      <created>1678261678498</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1678261678498</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
-    <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="cms" />
-    <option name="LAST_COMMIT_MESSAGE" value="cms" />
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
   </component>
 </project>
