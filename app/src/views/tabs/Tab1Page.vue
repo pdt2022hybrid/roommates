@@ -13,7 +13,7 @@
       </ion-header>
       
       <ExploreContainer name="Tab 1 page" />
-      <ion-button shape="round">Button</ion-button>
+      <ion-button shape="round" color="primary" ion-color-primary>Button</ion-button>
     </ion-content>
   </ion-page>
 </template>

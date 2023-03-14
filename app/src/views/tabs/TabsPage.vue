@@ -7,7 +7,7 @@
           <ion-icon :icon="triangle" />
           <ion-label>Tab 1</ion-label>
         </ion-tab-button>
-
+        
         <ion-tab-button tab="tab2" href="/tabs/tab2">
           <ion-icon :icon="ellipse" />
           <ion-label>Tab 2</ion-label>
