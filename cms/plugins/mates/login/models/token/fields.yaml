@@ -1,0 +1,22 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: ID
+        disabled: true
+        span: auto
+    user_id:
+        label: User ID
+        disabled: true
+        span: auto
+    token:
+        label: Token
+        disabled: true
+        span: auto
+    token_created_at:
+        label: Token Created At
+        disabled: true
+        type: datepicker
+        span: auto
