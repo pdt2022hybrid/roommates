@@ -29,13 +29,15 @@ class SignUpController extends Controller
         ];
         $user = Auth::authenticate($creds);
 
-        $generatedToken = bin2hex(random_bytes(32));
+        $generatedToken = bin2hex(random_bytes(64));
 
         //netusim ci funguje
         // VYGENERUJE SA NOVY TOKEN AK UZ EXISTUJE
         while(Token::where('token', $generatedToken)->first()) {
-            $generatedToken = bin2hex(random_bytes(32));
+            $generatedToken = bin2hex(random_bytes(64));
         }
+
+        Token::where('user_id', $user->id)->delete();
 
         $token = new Token();
         $token->token = $generatedToken;
@@ -43,6 +45,9 @@ class SignUpController extends Controller
         $token->token_created_at = Carbon::now();
         $token->save();
 
-        return UserResource::make($user);
+        return response()->json([
+            'token' => $generatedToken,
+            'token_type' => 'bearer'
+        ]);
     }
 }
