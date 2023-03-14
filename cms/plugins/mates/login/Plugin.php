@@ -1,6 +1,7 @@
 <?php namespace Mates\Login;
 
 use Backend;
+use Mates\Login\Classes\Extend\UserExtend;
 use System\Classes\PluginBase;
 
 /**
@@ -36,7 +37,7 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        //
+        UserExtend::UserExtend();
     }
 
     /**

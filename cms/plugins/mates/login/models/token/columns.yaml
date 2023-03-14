@@ -6,3 +6,13 @@ columns:
     id:
         label: ID
         searchable: true
+    user_name:
+        label: User Name
+        searchable: true
+        relation: user
+        select: name
+    user_id:
+        label: User ID
+    token_created_at:
+        label: Token Created At
+

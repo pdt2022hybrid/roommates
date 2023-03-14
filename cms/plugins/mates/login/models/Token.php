@@ -20,4 +20,8 @@ class Token extends Model
      * @var array rules for validation
      */
     public $rules = [];
+
+    public $belongsTo = [
+        'user' => 'RainLab\User\Models\User'
+    ];
 }
