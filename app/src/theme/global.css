@@ -1,0 +1,7 @@
+ion-toolbar >ion-title {
+    color: #989AA2  ;
+}
+
+ion-toolbar {
+    --background: white;
+    }
