@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
 
+import { IonicVue } from '@ionic/vue';
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
 
@@ -21,21 +23,10 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-//Global css
-
-import './theme/global.css'
-
-
-
-import { IonContent, IonicVue, IonPage } from '@ionic/vue';
-
-import * as IonComponents from '@ionic/vue';
-
-const app = createApp(App).use(IonicVue).use(router);
-
-app.component('ion-content', IonContent);
-app.component('ion-page', IonPage);
-
+const app = createApp(App)
+  .use(IonicVue)
+  .use(router);
+  
 router.isReady().then(() => {
-    app.mount('#app')
-})
+  app.mount('#app');
+});
