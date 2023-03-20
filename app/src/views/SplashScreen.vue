@@ -2,7 +2,7 @@
     <ion-page @click="this.$router.push({path: 'tabs/tab1'})">
         <ion-content>
             <div id="container">
-                <img src="@/../resources/logo_full.svg" class="logo">
+                <img src="@/../resources/logo_full.svg" class="logo" alt="Roommates">
             </div>
         </ion-content>
     </ion-page>
