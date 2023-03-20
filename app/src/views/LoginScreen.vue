@@ -11,7 +11,7 @@
                 <ion-input type="password" placeholder="Write your password here..."></ion-input>
             </ion-item>
             <ion-button fill="outline" color="dark">Log In</ion-button>
-            <p><u>Or if you are new user, Sign Up</u></p>
+            <p class="register-text"><u>Or if you are a new user, Sign Up</u></p>
         </ion-content>
     </ion-page>
 </template>
@@ -30,7 +30,10 @@
         top: 50%;
         transform: translateY(-50%);
     }
-    h2 {
 
+    .register-text {
+      color: #606060;
+    } .register-text:hover {
+      color: #000000;
     }
 </style>
