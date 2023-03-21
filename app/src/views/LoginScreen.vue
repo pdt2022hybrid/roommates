@@ -13,12 +13,12 @@
                     v-model="this.password" :type="this.showPass ? '' : 'password'"
                     placeholder="Write your password here...">
                 </ion-input>
-                <ion-button @click="this.showPass = !this.showPass" clear color="light" type="button">
+                <ion-button @click="this.showPass = !this.showPass; this.errorMsg='TEST'" clear color="light" type="button">
                     <ion-icon :icon="showPass ? eyeOffOutline : eyeOutline"> </ion-icon>
                 </ion-button>
             </ion-item>
             <p style="color: #EC445A;">{{ this.errorMsg }}</p>
-            <ion-button class="login-btn" fill="outline" color="dark">Log In</ion-button>
+            <ion-button @click="login(this.email, this.password)" class="login-btn" fill="outline" color="dark">Log In</ion-button>
             <p class="register-text"><u>Or if you are a new user, Sign Up</u></p>
         </ion-content>
     </ion-page>
@@ -28,7 +28,7 @@
     import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonIcon } from '@ionic/vue';
     import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
     import axios from 'axios';
-    import {defineComponent, reactive} from 'vue';
+    import { defineComponent } from 'vue';
 
     export default defineComponent({
         name: 'LoginScreen',
@@ -43,24 +43,19 @@
             }
         },
         methods: {
-            reactive,
-            login: async function(email, password) {
+            login: async function (email, password) {
                 if(!email || !password) {
                     this.errorMsg = 'Please fill all fields...';
                     return;
                 }
-                try {
-                    await axios.post('https://roomates.hybridlab.dev/cms/api/auth/login', {
-                        email: this.email,
-                        password: this.password
-                    }).then(function (response) {
-                        console.log(response);
-                    }).catch(function (error) {
-                        console.error(error);
-                    })
-                } catch(e) {
-                    console.error(e);
-                }
+                await axios.post('https://roomates.hybridlab.dev/cms/api/auth/login', {
+                    email: this.email,
+                    password: this.password
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.error(error);
+                })
             }
         },
         setup() {
