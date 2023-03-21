@@ -1,5 +1,5 @@
 <template>
-    <ion-page @click="this.$router.push({path: 'tabs/tab1'})">
+    <ion-page @click="this.$router.push({path: '/login'})">
         <ion-content>
             <div id="container">
                 <img src="@/../resources/logo_full.svg" class="logo" alt="Roommates">
@@ -12,13 +12,12 @@
     import { IonPage, IonContent/*, IonImg*/ } from '@ionic/vue';
     import { defineComponent } from 'vue';
     import { useRouter } from 'vue-router';
-
     export default defineComponent({
         name: 'SplashScreen',
         components: { IonPage, IonContent/*, IonImg*/ },
         setup() {
             const router = useRouter();
-            setTimeout( () => router.push({path: '/tabs/tab1'}), 2000);
+            setTimeout( () => router.push({path: '/login'}), 2000);
             return { router };
         }
     });
