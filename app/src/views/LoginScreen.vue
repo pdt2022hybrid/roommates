@@ -5,21 +5,21 @@
             <h2>Welcome back, log in...</h2>
             <ion-item>
                 <ion-label position="stacked">Email</ion-label>
-                <ion-input v-model="this.email" placeholder="Write your email here..."></ion-input>
+                <ion-input v-model="this.email" type="email" placeholder="Write your email here..."></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">Password</ion-label>
                 <ion-input
-                    v-model="this.password" :type="this.showPass ? '' : 'password'"
+                    v-model="this.password" :type="this.showPass ? 'text' : 'password'"
                     placeholder="Write your password here...">
                 </ion-input>
-                <ion-button @click="this.showPass = !this.showPass; this.errorMsg='TEST'" clear color="light" type="button">
+                <ion-button @click="this.showPass = !this.showPass" clear color="light" type="button">
                     <ion-icon :icon="showPass ? eyeOffOutline : eyeOutline"> </ion-icon>
                 </ion-button>
             </ion-item>
             <p style="color: #EC445A;">{{ this.errorMsg }}</p>
             <ion-button @click="login(this.email, this.password)" class="login-btn" fill="outline" color="dark">Log In</ion-button>
-            <p class="register-text"><u>Or if you are a new user, Sign Up</u></p>
+            <p @click="this.$router.push({path: '/signUp'})" class="register-text"><u>Or if you are a new user, Sign Up</u></p>
         </ion-content>
     </ion-page>
 </template>
@@ -39,7 +39,6 @@
                 password: '',
                 showPass: false,
                 errorMsg: '',
-                eyeOffOutline: eyeOffOutline //nefunguje bez toho
             }
         },
         methods: {
@@ -47,7 +46,7 @@
                 if(!email || !password) {
                     this.errorMsg = 'Please fill all fields...';
                     return;
-                }
+                } else this.errorMsg = '';
                 await axios.post('https://roomates.hybridlab.dev/cms/api/auth/login', {
                     email: this.email,
                     password: this.password
@@ -59,20 +58,12 @@
             }
         },
         setup() {
-            return { eyeOutline };
+            return { eyeOutline, eyeOffOutline };
         }
     })
 </script>
 
 <style scoped>
-    body {
-        text-align: center;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-    }
 
     .login-btn {
         --border-radius: 4vw;

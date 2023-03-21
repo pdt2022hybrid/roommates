@@ -24,14 +24,6 @@
 </script>
 
 <style scoped>
-    body {
-        text-align: center;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-    }
 
     #container {
         flex-direction: column;
