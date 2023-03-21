@@ -1,32 +1,79 @@
 <template>
   <ion-page>
 
-    <div class="header">
-      Sign Up
-    </div>
+    <ion-header class="header">
+      <ion-toolbar>
+        <ion-icon :icon="chevronBackOutline"></ion-icon>
+        <ion-title>
+          Sign Up
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
 
     <ion-content>
       <ion-item>
+        <ion-label position="stacked">First Name</ion-label>
+        <ion-input v-model="firstName" placeholder="Write your first name here..."></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Last Name</ion-label>
+        <ion-input v-model="lastName" placeholder="Write your last name here..."></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-label position="stacked">Email</ion-label>
-        <ion-input placeholder="Write your email here..."></ion-input>
+        <ion-input v-model="mail" placeholder="Write your email here..."></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Password</ion-label>
-        <ion-input type="password" placeholder="Write your password here..."></ion-input>
+        <ion-input v-model="password" type="password" placeholder="Write your password here..."></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Confirm password</ion-label>
-        <ion-input type="password" placeholder="Repeat password"></ion-input>
+        <ion-input v-model="confirmPassword" type="password" placeholder="Repeat password"></ion-input>
       </ion-item>
-      <ion-button shape="round" fill="outline" color="dark">Sign Up</ion-button>
+      <ion-button v-on:click="signUp()" shape="round" fill="outline" color="dark">
+        Sign Up
+      </ion-button>
+      Please fill all fields...
     </ion-content>
-    Please fill all fields...
   </ion-page>
 </template>
 
-<script setup>
-import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader, IonIcon } from '@ionic/vue';
+<script>
+
+import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader, IonIcon, IonToolbar } from '@ionic/vue';
+import { chevronBackOutline } from 'ionicons/icons';
+import axios from 'axios';
 import { defineComponent } from 'vue';
+export default {
+  components: {
+    IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonIcon, IonToolbar
+  },
+  data() {
+    return {
+      chevronBackOutline,
+      firstName: "",
+      lastName: "",
+      mail: "",
+      password: "",
+      confirmPassword: "",
+    }
+  },
+  methods: {
+    async signUp() {
+        const addNewUser = await axios.post("https://roomates.hybridlab.dev/cms/api/auth/signup", {
+        name: this.firstName,
+        surname: this.lastName,
+        email: this.mail,
+        password: this.password,
+        password_confirmation: this.confirmPassword
+      })
+      console.log(addNewUser)
+    }
+  }
+}
+
+
 </script>
 
 <style scoped>
@@ -38,7 +85,7 @@ import { defineComponent } from 'vue';
     background-color: white;
     font-family: 'Noto Sans', sans-serif;
     font-size: 18px !important;
-    padding: 16px 0;
+    padding: 16px
   }
 
 ion-item {
@@ -47,9 +94,18 @@ ion-item {
   padding-right: 16px;
 }
 
+ion-icon {
+  color: black;
+  width: 24px;
+  height: 24px;
+  float: left !important;
+}
+
 ion-button {
   width: 200px !important;
   font-weight: 700 !important;
+  --ion-border-color: #262B2C;
+  border-radius: 20px;
 }
 
 ion-label {
