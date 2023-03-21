@@ -6,6 +6,7 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/', redirect: '/splash' },
   { path: '/splash', component: () => import('@/views/SplashScreen.vue') },
   { path: '/login', component: () => import('@/views/LoginScreen.vue') },
+  { path: '/signUp', component: () => import('@/views/SignUpScreen.vue') },
   {
     path: '/tabs/',
     component: TabsPage,
