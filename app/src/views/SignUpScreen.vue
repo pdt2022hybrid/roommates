@@ -41,13 +41,13 @@
 
 <script>
 
-import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader, IonIcon, IonToolbar } from '@ionic/vue';
+import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
 import { chevronBackOutline } from 'ionicons/icons';
 import axios from 'axios';
 import { defineComponent } from 'vue';
 export default {
   components: {
-    IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonIcon, IonToolbar
+    IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonIcon, IonToolbar, IonTitle, IonHeader
   },
   data() {
     return {
@@ -60,18 +60,17 @@ export default {
     }
   },
   methods: {
-    async signUp() {
-        const addNewUser = await axios.post("https://roomates.hybridlab.dev/cms/api/auth/signup", {
+    signUp: async function () {
+      await axios.post('https://roomates.hybridlab.dev/cms/api/auth/signup', {
         name: this.firstName,
         surname: this.lastName,
         email: this.mail,
         password: this.password,
-        password_confirmation: this.confirmPassword
+        password_confirmation: this.confirmPasswords,
       })
-      console.log(addNewUser)
+    }
     }
   }
-}
 
 
 </script>
