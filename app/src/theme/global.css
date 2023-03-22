@@ -26,3 +26,11 @@ body {
     --ion-color-shade: var(--ion-color-primary-shade);
     --ion-color-tint: var(--ion-color-primary-tint);
 }
+
+.custom-btn {
+    --border-radius: 4vw;
+    --padding-top: 13px;
+    --padding-bottom: 13px;
+    --padding-start: 75px;
+    --padding-end: 75px;
+}

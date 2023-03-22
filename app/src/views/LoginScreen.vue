@@ -18,7 +18,7 @@
                 </ion-button>
             </ion-item>
             <p style="color: #EC445A;">{{ this.errorMsg }}</p>
-            <ion-button @click="login(this.email, this.password)" class="login-btn" fill="outline" color="dark">Log In</ion-button>
+            <ion-button @click="login(this.email, this.password)" class="custom-btn" fill="outline" color="dark">Log In</ion-button>
             <p @click="this.$router.push({path: '/signUp'})" class="register-text"><u>Or if you are a new user, Sign Up</u></p>
         </ion-content>
     </ion-page>
@@ -64,14 +64,6 @@
 </script>
 
 <style scoped>
-
-    .login-btn {
-        --border-radius: 4vw;
-        --padding-top: 13px;
-        --padding-bottom: 13px;
-        --padding-start: 75px;
-        --padding-end: 75px;
-    }
 
     .register-text {
       color: #606060;
