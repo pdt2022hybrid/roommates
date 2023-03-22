@@ -8,6 +8,7 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/login', component: () => import('@/views/LoginScreen.vue') },
   { path: '/signUp', component: () => import('@/views/SignUpScreen.vue') },
   { path: '/chooseTypeOfPlace', component: () => import('@/views/ChooseTypeScreen.vue') },
+  { path: '/createRoom', component: () => import('@/views/CreateRoomScreen.vue') },
   {
     path: '/tabs/',
     component: TabsPage,

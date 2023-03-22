@@ -12,6 +12,7 @@
 
 <script>
 import { IonPage, IonContent, IonButton } from '@ionic/vue';
+import { chevronBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
