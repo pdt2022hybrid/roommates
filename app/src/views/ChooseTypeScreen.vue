@@ -1,18 +1,17 @@
 <template>
     <ion-page>
         <ion-content>
-            <h2>What type of place you have?</h2>
-            <img src="@/../resources/img_typeofplace.png" alt="">
-            <ion-button class="custom-btn" fill="outline" color="dark">New</ion-button>
-            <p>or...</p>
-            <ion-button class="custom-btn" fill="outline" color="dark">Existing</ion-button>
+            <p class="text-title">What type of place do you have?</p>
+            <img class="img-deco" src="@/../resources/img_typeofplace.png" alt="">
+            <ion-button class="custom-btn btn-new" fill="outline" color="dark">New</ion-button>
+            <p class="text-or">or...</p>
+            <ion-button class="custom-btn btn-existing" fill="outline" color="dark">Existing</ion-button>
         </ion-content>
     </ion-page>
 </template>
 
 <script>
 import { IonPage, IonContent, IonButton } from '@ionic/vue';
-import { chevronBackOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -20,3 +19,43 @@ export default defineComponent({
     components: { IonPage, IonContent, IonButton }
 });
 </script>
+
+<style scoped>
+    p {
+        font-family: 'Noto Sans', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 22px;
+        align-items: center;
+        text-align: center;
+        letter-spacing: -0.408px;
+        color: #262B2C;
+    }
+
+    .text-title {
+        position: relative;
+        top: 21vh;
+        font-size: 24px;
+    }
+
+    .img-deco {
+        position: relative;
+        top: 21vh;
+    }
+
+    .btn-new {
+        position: relative;
+        top: 26vh;
+    }
+
+    .text-or {
+        position: relative;
+        top: 24vh;
+        font-size: 14px;
+    }
+
+    .btn-existing {
+        position: relative;
+        top: 22vh;
+    }
+</style>
