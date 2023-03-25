@@ -1,0 +1,26 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: ID
+        disabled: true
+    name:
+        label: Name
+        span: auto
+    room_count:
+        label: Room Count
+        span: auto
+        type: number
+    room_url:
+        label: Room URL
+        span: auto
+        type: text
+    room_owner_id:
+        #        neskor toto prerob na relation
+        label: Room Owner Id
+        span: auto
+    miniroom:
+        type: partial
+        path: $/mates/room/controllers/rooms/_miniroom.htm

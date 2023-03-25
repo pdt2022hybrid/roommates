@@ -1,4 +1,4 @@
-<?php namespace Mates\User;
+<?php namespace Mates\Room;
 
 use Backend;
 use System\Classes\PluginBase;
@@ -16,7 +16,7 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name' => 'user',
+            'name' => 'room',
             'description' => 'No description provided yet...',
             'author' => 'mates',
             'icon' => 'icon-leaf'
@@ -47,7 +47,7 @@ class Plugin extends PluginBase
         return []; // Remove this line to activate
 
         return [
-            'Mates\User\Components\MyComponent' => 'myComponent',
+            'Mates\Room\Components\MyComponent' => 'myComponent',
         ];
     }
 
@@ -59,8 +59,8 @@ class Plugin extends PluginBase
         return []; // Remove this line to activate
 
         return [
-            'mates.user.some_permission' => [
-                'tab' => 'user',
+            'mates.room.some_permission' => [
+                'tab' => 'room',
                 'label' => 'Some permission'
             ],
         ];
@@ -71,14 +71,13 @@ class Plugin extends PluginBase
      */
     public function registerNavigation()
     {
-        return []; // Remove this line to activate
 
         return [
-            'user' => [
-                'label' => 'user',
-                'url' => Backend::url('mates/user/mycontroller'),
+            'room' => [
+                'label' => 'Main Rooms',
+                'url' => Backend::url('mates/room/rooms'),
                 'icon' => 'icon-leaf',
-                'permissions' => ['mates.user.*'],
+                'permissions' => ['mates.room.*'],
                 'order' => 500,
             ],
         ];

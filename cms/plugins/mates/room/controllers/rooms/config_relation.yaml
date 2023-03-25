@@ -1,0 +1,9 @@
+miniroom:
+    label: Roomlist
+    deferredBinding: true
+    view:
+        list: $/mates/room/models/miniroom/columns.yaml
+        toolbarButtons: create|delete
+    manage:
+        form: $/mates/room/models/miniroom/fields.yaml
+        recordsPerPage: 10

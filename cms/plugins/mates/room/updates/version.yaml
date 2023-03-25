@@ -1,0 +1,4 @@
+1.0.1:
+    - create table
+    - create_rooms_table.php
+    - create_minirooms_table.php
