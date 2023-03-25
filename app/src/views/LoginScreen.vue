@@ -14,7 +14,7 @@
                     placeholder="Write your password here...">
                 </ion-input>
                 <ion-button @click="this.showPass = !this.showPass" clear color="light" type="button">
-                    <ion-icon :icon="showPass ? eyeOffOutline : eyeOutline"> </ion-icon>
+                    <ion-icon :icon="showPass ? eyeOffOutline : eyeOutline"/>
                 </ion-button>
             </ion-item>
             <p style="color: #EC445A;">{{ this.errorMsg }}</p>
@@ -25,14 +25,12 @@
 </template>
 
 <script>
-    import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonIcon } from '@ionic/vue';
     import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
     import axios from 'axios';
     import { defineComponent } from 'vue';
 
     export default defineComponent({
         name: 'LoginScreen',
-        components: { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonIcon },
         data() {
             return {
                 email: '',
