@@ -10,11 +10,11 @@ body {
 #app {
     --ion-color-primary: #FF4961;
     --ion-color-primary-rgb: 255,73,97;
-    --ion-color-primary-contrast: #000000;
+    --ion-color-primary-contrast: #FFFFFF;
     --ion-color-primary-contrast-rgb: 0,0,0;
-    --ion-color-primary-shade: #e04055;
-    --ion-color-primary-tint: #ff5b71;
-    --ion-background-color: #ffffff !important;
+    --ion-color-primary-shade: #E04055;
+    --ion-color-primary-tint: #FF5b71;
+    --ion-background-color: #FFFFFF !important;
     --ion-background-color-rgb: 255,255,255 !important;
 }
 

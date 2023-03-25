@@ -9,12 +9,10 @@
 </template>
 
 <script>
-    import { IonPage, IonContent/*, IonImg*/ } from '@ionic/vue';
     import { defineComponent } from 'vue';
     import { useRouter } from 'vue-router';
     export default defineComponent({
         name: 'SplashScreen',
-        components: { IonPage, IonContent/*, IonImg*/ },
         setup() {
             const router = useRouter();
             setTimeout( () => router.push({path: '/login'}), 2000);
