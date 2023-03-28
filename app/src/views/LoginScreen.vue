@@ -1,8 +1,8 @@
 <template>
     <ion-page>
         <ion-content>
-            <p style="color: #989AA2;">Log In</p>
-            <h2>Welcome back, log in...</h2>
+            <p class="text-title">Log In</p>
+            <p class="text-main">Welcome back, log in...</p>
             <ion-item>
                 <ion-label position="stacked">Email</ion-label>
                 <ion-input v-model="this.email" type="email" placeholder="Write your email here..."></ion-input>
@@ -62,6 +62,26 @@
 </script>
 
 <style scoped>
+    p {
+        font-family: 'Noto Sans', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 22px;
+        letter-spacing: -0.408px;
+    }
+
+    .text-title {
+        //position: relative;
+        font-size: 18px;
+        //top: 5.5vh;
+        color: #989AA2;
+    }
+
+    .text-main {
+        font-size: 24px;
+        //top: 19vh;
+        color: #262B2C;
+    }
 
     .register-text {
       color: #606060;
