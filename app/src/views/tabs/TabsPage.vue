@@ -4,7 +4,7 @@
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
 
-          <!--Nefunguje require
+          <!--TODO Nefunguje require
           <ion-tab-button v-for="tab in this.tabs" :key="tab.tab" tab="{{ tab.tab }}" href="{{ tab.href }}">
               <ion-label :src="require(tab.icon)" alt=""></ion-label>
               <ion-label>{{ tab.text }}</ion-label>
@@ -12,7 +12,7 @@
           -->
 
           <ion-tab-button tab="home" href="/tabs/home">
-              <ion-icon :src="require(`@/../resources/tab_home.svg`)" />
+              <ion-icon :src="require(`@/../resources/tab_home.svg`)" :style="{ color: $router.currentRoute.value.path === '/tabs/home' ? 'red' : 'black' }" />
               <ion-label>Home</ion-label>
           </ion-tab-button>
 
@@ -73,3 +73,9 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+ion-tab-button {
+    --color-selected: #FF4961 !important;
+}
+</style>
