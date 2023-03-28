@@ -10,8 +10,9 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
-      <ion-item>
+    <ion-content fullscreen>
+      <div class="content">
+        <ion-item>
         <ion-label position="stacked">First Name</ion-label>
         <ion-input v-model="firstName" placeholder="Write your first name here..."></ion-input>
       </ion-item>
@@ -35,6 +36,7 @@
         Sign Up
       </ion-button>
       Please fill all fields...
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -61,13 +63,14 @@ export default {
   },
   methods: {
     signUp: async function () {
-      await axios.post('https://roomates.hybridlab.dev/cms/api/auth/signup', {
+      const data = {
         name: this.firstName,
         surname: this.lastName,
         email: this.mail,
         password: this.password,
-        password_confirmation: this.confirmPasswords,
-      })
+        password_confirmation: this.confirmPassword
+      }
+      await axios.post('https://roomates.hybridlab.dev/cms/api/auth/signup', data)
     }
     }
   }
@@ -87,10 +90,24 @@ export default {
     padding: 16px
   }
 
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+ion-toolbar {
+  --border-width: 0px;
+  --border-style: none;
+  --background: white;
+}
+
 ion-item {
   font-family: 'Roboto', sans-serif;
   --ion-border-color: #C6C6C8;
   padding-right: 16px;
+  width: 100vw;
 }
 
 ion-icon {
