@@ -7,12 +7,12 @@
                     <ion-title color="#989AA2">New Room</ion-title>
                 </ion-toolbar>
             </ion-header>
-            <h2>Creating a room, how exciting...</h2>
-            <ion-item>
+            <p class="title">Creating a room, how exciting...</p>
+            <ion-item class="inputs">
                 <ion-label position="stacked">Name of place</ion-label>
                 <ion-input v-model="this.name" type="text" placeholder="What should we call your place ?"></ion-input>
             </ion-item>
-            <ion-item>
+            <ion-item class="inputs">
                 <ion-select placeholder="Which rooms will be in your place ?" @ionChange="selectedRooms = $event.detail.value" :multiple="true">
                     <ion-select-option v-for="room in presetRooms" :key="room.id" :value="room">{{ room.name }}</ion-select-option>
                 </ion-select>
@@ -21,7 +21,7 @@
             <p>{{ JSON.stringify(selectedRooms) }}</p>
             <h1>{{ numberOfRooms }}</h1>
             -->
-            <ion-grid>
+            <ion-grid class="inputs">
                 <ion-row class="ion-align-items-end">
                     <ion-col>
                         <ion-item ref="input" class="ion-invalid">
@@ -43,7 +43,7 @@
                     </ion-chip>
                 </ion-label>
             </ion-list>
-            <ion-button class="custom-btn">Create</ion-button>
+            <ion-button class="custom-btn btn-create">Create</ion-button>
         </ion-content>
     </ion-page>
 </template>
@@ -117,6 +117,27 @@ export default defineComponent({
     font-family: 'Noto Sans', sans-serif;
     font-size: 18px !important;
     padding: 16px
+}
+
+.title {
+    position: relative;
+    top: 10vh;
+    z-index: 10;
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 22px;
+}
+
+.inputs {
+    position: relative;
+    top: 16vh;
+}
+
+.btn-create {
+    position: relative;
+    top: 28vh;
 }
 
 ion-icon {
