@@ -125,4 +125,11 @@ ion-icon {
     height: 24px;
     float: left !important;
 }
+
+ion-grid {
+    padding-left: 0;
+}
+ion-col {
+    padding-left: 0;
+}
 </style>
