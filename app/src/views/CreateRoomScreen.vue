@@ -52,15 +52,7 @@
 import { IonSelect, IonSelectOption, IonChip, IonNote } from '@ionic/vue';
 import { defineComponent, computed } from 'vue';
 import { chevronBackOutline, closeOutline } from 'ionicons/icons';
-
-class PresetRoom {
-    id: string;
-    name: string;
-    constructor(id: string, name: string) {
-        this.id = id;
-        this.name = name;
-    }
-}
+import { PresetRoom } from '@/types';
 
 export default defineComponent({
     name: 'ChooseTypeScreen',
