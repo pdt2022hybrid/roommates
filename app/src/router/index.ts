@@ -14,10 +14,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/tabs/',
     component: TabsPage,
     children: [
-      //{ path: '', redirect: '/tabs/tab1' },
-      { path: 'tab1', component: () => import('@/views/tabs/Tab1Page.vue') },
-      { path: 'tab2', component: () => import('@/views/tabs/Tab2Page.vue') },
-      { path: 'tab3', component: () => import('@/views/tabs/Tab3Page.vue') }
+      { path: 'home', component: () => import('@/views/tabs/TabHome.vue') },
+      { path: 'tasks', component: () => import('@/views/tabs/TabTasks.vue') },
+      { path: 'add', component: () => import('@/views/tabs/TabAdd.vue') },
+      { path: 'calendar', component: () => import('@/views/tabs/TabCalendar.vue') },
+      { path: 'profile', component: () => import('@/views/tabs/TabProfile.vue') }
     ]
   }
 ]
