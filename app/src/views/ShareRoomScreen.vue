@@ -1,0 +1,92 @@
+<template>
+    <ion-page>
+
+        <ion-header class="header">
+            <ion-toolbar>
+            <ion-icon :icon="chevronBackOutline"></ion-icon>
+            <ion-title>
+               Share Room
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <h1>
+            Share your place to your 
+            <br> 
+            <span>
+                Roommates !
+            </span>
+        </h1>
+
+        <ion-item>
+            <p>
+
+            </p>
+            <img slot="end" class="icon" src="../../resources/22-send.svg" alt="">
+        </ion-item>
+
+        <ion-item>
+            <p>
+                
+            </p>
+            <img slot="end" class="icon" src="../../resources/19-uplaod.svg" alt="">
+        </ion-item>
+
+        <ion-button shape="round">
+            Create
+        </ion-button>
+
+    </ion-content>
+
+    </ion-page>
+</template>
+
+<script>
+
+import { chevronBackOutline } from 'ionicons/icons';
+import { IonHeader, IonItem, IonTitle, IonToolbar, IonContent, IonInput, IonButton } from '@ionic/vue';
+
+export default {
+    componets: {
+        IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton
+    },
+
+    data() {
+        return {
+            chevronBackOutline,
+        }
+    }
+}
+
+</script>
+
+<style scoped>
+
+ion-icon {
+  color: black;
+  width: 24px;
+  height: 24px;
+  float: left !important;
+}
+
+span {
+    font-weight: 700;
+}
+
+ion-content {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+ion-item {
+    padding-right: 16px !important;
+    display: block;
+}
+
+ion-button {
+    width: 200px;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 600;
+}
+
+</style>
