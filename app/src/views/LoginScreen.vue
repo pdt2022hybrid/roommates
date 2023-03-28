@@ -7,16 +7,24 @@
                 <ion-label position="stacked">Email</ion-label>
                 <ion-input v-model="this.email" type="email" placeholder="Write your email here..."></ion-input>
             </ion-item>
-            <ion-item>
-                <ion-label position="stacked">Password</ion-label>
-                <ion-input
-                    v-model="this.password" :type="this.showPass ? 'text' : 'password'"
-                    placeholder="Write your password here...">
-                </ion-input>
-                <ion-button @click="this.showPass = !this.showPass" clear color="light" type="button">
-                    <ion-icon :icon="showPass ? eyeOffOutline : eyeOutline"/>
-                </ion-button>
-            </ion-item>
+            <ion-grid>
+                <ion-row class="ion-align-items-end">
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="stacked">Password</ion-label>
+                            <ion-input
+                                v-model="this.password" :type="this.showPass ? 'text' : 'password'"
+                                placeholder="Write your password here...">
+                            </ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="auto">
+                        <ion-button @click="this.showPass = !this.showPass" clear color="light" type="button">
+                            <ion-icon :icon="showPass ? eyeOffOutline : eyeOutline"/>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
             <p style="color: #EC445A;">{{ this.errorMsg }}</p>
             <ion-button @click="login(this.email, this.password)" class="custom-btn" fill="outline" color="dark">Log In</ion-button>
             <p @click="this.$router.push({path: '/signUp'})" class="register-text"><u>Or if you are a new user, Sign Up</u></p>
@@ -87,5 +95,12 @@
       color: #606060;
     } .register-text:hover {
       color: #000000;
+    }
+
+    ion-grid {
+        padding-left: 0;
+    }
+    ion-col {
+        padding-left: 0;
     }
 </style>
