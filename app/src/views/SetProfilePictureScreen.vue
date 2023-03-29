@@ -17,7 +17,9 @@
       <div class="content">
 
         <button>
-          <label for="files" @change="onFileSelected"></label>          
+          <label for="files" @change="onFileSelected">
+            <img src="../../resources/SetProfilePicture.svg" alt="">
+          </label>          
           <input id="files" type="file">
         </button>
 
@@ -73,10 +75,8 @@ export default {
 
   button {
     border: none !important;
-    background-image: url(../../resources/SetProfilePicture.svg);
     height: 310px;
     width: 300px;
-    background-color: white;
   }
 
   label {
@@ -85,8 +85,8 @@ export default {
     color: red;
   }
 
-  input {
-    
+  img {
+    background-color: white;
   }
 
 .later {
