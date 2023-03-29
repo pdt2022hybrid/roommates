@@ -14,13 +14,21 @@
     </ion-header>
 
     <ion-content>
-      <img src="../../resources/SetProfilePicture.svg" alt="">
+      <div class="content">
+
+        <button>
+          <label for="files" @change="onFileSelected">
+            <img src="../../resources/SetProfilePicture.svg" alt="">
+          </label>          
+          <input id="files" type="file">
+        </button>
 
         <ion-item lines="none">
             <p>
                 By clicking on profile icon you can change your profile picture or by clicking on the button.
             </p>
         </ion-item>
+      </div>
     </ion-content>
 
     </ion-page>
@@ -34,6 +42,18 @@ export default {
     components: {
     IonPage, IonContent, IonToolbar, IonTitle, IonLabel, IonHeader, IonItem
   },
+
+  data() {
+    return {
+      selectedFile: null,
+    }
+  },
+
+  methods: {
+    onFileSelected(event) {
+      this.selectedFile = event.target.files[0]
+    }
+  }
 }
 
 </script>
@@ -45,7 +65,28 @@ export default {
     background-color: white;
     font-family: 'Noto Sans', sans-serif;
     font-size: 18px !important;
-    padding: 16px 0;
+    padding: 16px 16px;
+  }
+
+  .content {
+    position: absolute;
+    top: 10%;
+  }
+
+  button {
+    border: none !important;
+    height: 310px;
+    width: 300px;
+  }
+
+  label {
+    height: 100% !important;
+    width: 100% !important;
+    color: red;
+  }
+
+  img {
+    background-color: white;
   }
 
 .later {
@@ -59,6 +100,18 @@ p {
     font-size: 12px;
     font-weight: 600;
     text-align: center;
+    padding-top: 80px;
+}
+
+ion-toolbar {
+  --border-width: 0px;
+  --border-style: none;
+  --background: white;
+  vertical-align: middle;
+}
+
+ion-title {
+  color: #989AA2;
 }
 
 </style>
