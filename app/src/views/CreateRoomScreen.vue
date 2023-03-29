@@ -35,7 +35,7 @@
                     </ion-col>
                 </ion-row>
             </ion-grid>
-            <ion-list>
+            <ion-list class="inputs">
                 <ion-label text-wrap class="ion-text-wrap">
                     <ion-chip v-for="room in customRooms" :key="room">
                         <ion-label>{{ room }}</ion-label>
@@ -90,6 +90,7 @@ export default defineComponent({
             this.customRooms.push(room);
             this.customRoomInput = '';
             this.customRoomError = '';
+            this.customRooms.sort();
         },
         removeCustomRoom(room: string) {
             const i = this.customRooms.findIndex(o => o === room);
