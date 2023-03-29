@@ -15,8 +15,10 @@
 
     <ion-content>
       <div class="content">
+
         <button>
-          <img src="../../resources/SetProfilePicture.svg">
+          <label for="files" @change="onFileSelected"></label>          
+          <input id="files" type="file">
         </button>
 
         <ion-item lines="none">
@@ -38,6 +40,18 @@ export default {
     components: {
     IonPage, IonContent, IonToolbar, IonTitle, IonLabel, IonHeader, IonItem
   },
+
+  data() {
+    return {
+      selectedFile: null,
+    }
+  },
+
+  methods: {
+    onFileSelected(event) {
+      this.selectedFile = event.target.files[0]
+    }
+  }
 }
 
 </script>
@@ -55,6 +69,24 @@ export default {
   .content {
     position: absolute;
     top: 10%;
+  }
+
+  button {
+    border: none !important;
+    background-image: url(../../resources/SetProfilePicture.svg);
+    height: 310px;
+    width: 300px;
+    background-color: white;
+  }
+
+  label {
+    height: 100% !important;
+    width: 100% !important;
+    color: red;
+  }
+
+  input {
+    
   }
 
 .later {
@@ -75,6 +107,7 @@ ion-toolbar {
   --border-width: 0px;
   --border-style: none;
   --background: white;
+  vertical-align: middle;
 }
 
 ion-title {
