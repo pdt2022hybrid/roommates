@@ -14,13 +14,17 @@
     </ion-header>
 
     <ion-content>
-      <img src="../../resources/SetProfilePicture.svg" alt="">
+      <div class="content">
+        <button>
+          <img src="../../resources/SetProfilePicture.svg">
+        </button>
 
         <ion-item lines="none">
             <p>
                 By clicking on profile icon you can change your profile picture or by clicking on the button.
             </p>
         </ion-item>
+      </div>
     </ion-content>
 
     </ion-page>
@@ -45,7 +49,12 @@ export default {
     background-color: white;
     font-family: 'Noto Sans', sans-serif;
     font-size: 18px !important;
-    padding: 16px 0;
+    padding: 16px 16px;
+  }
+
+  .content {
+    position: absolute;
+    top: 10%;
   }
 
 .later {
@@ -59,6 +68,17 @@ p {
     font-size: 12px;
     font-weight: 600;
     text-align: center;
+    padding-top: 80px;
+}
+
+ion-toolbar {
+  --border-width: 0px;
+  --border-style: none;
+  --background: white;
+}
+
+ion-title {
+  color: #989AA2;
 }
 
 </style>
