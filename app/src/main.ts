@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router';
 
 import { IonicVue } from '@ionic/vue';
-import { IonPage, IonContent, IonItem, IonGrid, IonRow, IonCol, IonButton, IonIcon, IonLabel, IonInput, IonTitle, IonHeader, IonToolbar, IonList } from '@ionic/vue';
+import { IonPage, IonContent, IonItem, IonGrid, IonRow, IonCol, IonButton, IonIcon, IonLabel, IonInput, IonTitle, IonHeader, IonToolbar, IonList, IonTabButton, IonTabs, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/vue';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -42,5 +42,12 @@ const app = createApp(App)
     .component("ion-header", IonHeader)
     .component("ion-toolbar", IonToolbar)
     .component("ion-list", IonList)
+    .component("ion-tab-button", IonTabButton)
+    .component("ion-tabs", IonTabs)
+    .component("ion-card", IonCard)
+    .component("ion-card-header", IonCardHeader)
+    .component("ion-card-title", IonCardTitle)
+    .component("ion-card-subtitle", IonCardSubtitle)
+    .component("ion-card-content", IonCardContent)
 
 router.isReady().then(() => app.mount('#app'));
