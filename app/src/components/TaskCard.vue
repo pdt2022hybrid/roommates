@@ -5,7 +5,7 @@
                 {{ title }}
             </ion-card-title>
             <ion-card-subtitle>
-                <img src="@/../resources/room_living.svg">
+                <img :src="this.getIcon()" alt="">
                 {{ date }}
             </ion-card-subtitle>
         </ion-card-header>
@@ -16,7 +16,7 @@
     </ion-card>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({
     name: "TaskCard",
@@ -24,8 +24,13 @@ export default defineComponent({
         title: String,
         date: String,
         priority: Number,
-        author: String
-
+        author: String,
+        icon: String
+    },
+    methods: {
+        getIcon: function () {
+            return require(`@/../resources/${this.icon}`);
+        }
     }
 })
 </script>

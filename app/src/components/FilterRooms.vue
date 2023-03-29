@@ -1,47 +1,9 @@
 <template>
-    <!--<ion-tab-button v-for="room in rooms" :key="room">
-        <--<img :src="room.img" alt="">->
-        <span>
-            {{ room.name }}
-        </span>
-    </ion-tab-button>-->
     <ion-grid>
         <ion-row>
-            <ion-col>
-                <img src="../../resources/room_kitchen.svg" alt="">
-                <p>
-                    Kitchen
-                </p>
-            </ion-col>
-            <ion-col>
-                <img src="../../resources/room_living.svg" alt="">
-                <p>
-                    Living room
-                </p>
-            </ion-col>
-            <ion-col>
-                <img src="../../resources/room_bathroom.svg" alt="">
-                <p>
-                    Bath room
-                </p>
-            </ion-col>
-            <ion-col>
-                <img src="../../resources/room_work.svg" alt="">
-                <p>
-                    Working room
-                </p>
-            </ion-col>
-            <ion-col>
-                <img src="../../resources/room_dining.svg" alt="">
-                <p>
-                    Dining room
-                </p>
-            </ion-col>
-            <ion-col>
-                <img src="../../resources/room_custom.svg" alt="">
-                <p>
-                    Custom room
-                </p>
+            <ion-col v-for="room in rooms" :key="room">
+                <img :src="this.getIcon(room.icon)" alt="">
+                <p>{{ room.name }}</p>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -49,37 +11,18 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { presetRoomsWithCustom } from "@/types";
 
 export default defineComponent({
     name: 'FilterRooms',
     data () {
         return {
-            rooms: [
-                {
-                    name: 'Kitchen',
-                    img: '../../resources/room_kitchen.svg'
-                },
-                {
-                    name: 'Living Room',
-                    img: '../../resources/room_living.svg'
-                },
-                {
-                    name: 'Bathroom',
-                    img: '../../resources/room_bathroom.svg'
-                },
-                {
-                    name: 'Work Room',
-                    img: '../../resources/room_work.svg'
-                },
-                {
-                    name: 'Dining Room',
-                    img: '../../resources/room_dining.svg'
-                },
-                {
-                    name: 'Custom Room',
-                    img: '../../resources/room_custom.svg'
-                }
-            ]
+            rooms: presetRoomsWithCustom
+        }
+    },
+    methods: {
+        getIcon: function (icon) {
+            return require(`@/../resources/${icon}`)
         }
     }
 });
