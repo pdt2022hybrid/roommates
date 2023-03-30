@@ -14,7 +14,7 @@
                 </ion-grid>
             </ion-card-title>
             <ion-card-subtitle>
-                <img :src="this.icon" alt="">
+                <img v-if="this.hasIcon" :src="this.icon" alt="">
                 {{ task.date.toLocaleDateString("sk-SK") }}
             </ion-card-subtitle>
         </ion-card-header>
