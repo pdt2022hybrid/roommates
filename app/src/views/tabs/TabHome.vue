@@ -1,25 +1,36 @@
 <template>
-  <ion-page>
-    <top-bar title="Home" :menu="true"></top-bar>
+<ion-page>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Home</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      
-      <ExploreContainer name="Tab 1 page" />
-      <ion-button shape="round" color="primary" ion-color-primary>Button</ion-button>
+        <top-bar title="Home" :menu="true"></top-bar>
+        <filter-rooms></filter-rooms>
+        <task-card v-for="task in this.tasks" :key="task" :task="task"></task-card>
+        <ion-header collapse="condense">
+            <ion-toolbar>
+                <ion-title size="large">Home</ion-title>
+            </ion-toolbar>
+        </ion-header>
     </ion-content>
-  </ion-page>
+</ion-page>
 </template>
 
 <script lang="ts">
-  import ExploreContainer from '@/components/ExploreContainer.vue';
   import TopBar from '@/components/TopBar.vue';
+  import FilterRooms from '@/components/FilterRooms.vue';
+  import TaskCard from '@/components/TaskCard.vue';
   import { defineComponent } from 'vue';
+  import { Task, Priority } from '@/types';
 
   export default defineComponent({
-    components: { ExploreContainer, TopBar },
+      components: { TopBar, FilterRooms, TaskCard },
+      data() {
+          return {
+              tasks: [
+                  new Task("UPRAC KUCHYNU", "RICHARD EGYED", new Date(Date.parse('2023-1-12')), Priority.HIGH, 'kitchen'),
+                  new Task("ALE NO UZ", "LUPTACIK", new Date(Date.parse('2023-1-12')), Priority.MEDIUM, 'bath'),
+                  new Task("CHOD DOMOV", "SLOBODA", new Date(Date.parse('2023-1-12')), Priority.LOW, 'living'),
+                  new Task("UPRAC SVOJU IZBU", "MAREK TOPOLSKY", new Date(Date.parse('2023-1-12')), Priority.LOW, 'work')
+              ]
+          }
+      }
   });
 </script>

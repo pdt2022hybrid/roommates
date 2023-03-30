@@ -1,0 +1,98 @@
+<template>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-grid>
+                    <ion-row class="ion-justify-content-between">
+                        <ion-col size="auto">
+                            {{ task.title }}
+                        </ion-col>
+                        <ion-col size="auto" class="priority" :style="{ background: task.priority.color }">
+                            {{ task.priority }}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-title>
+            <ion-card-subtitle>
+                <img v-if="this.hasIcon" :src="this.icon" alt="">
+                {{ task.date.toLocaleDateString("sk-SK") }}
+            </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+            <span style="color: #2FDF75">BY: </span>{{ task.author }}
+        </ion-card-content>
+    </ion-card>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { Task, getPresetRoom } from '@/types'
+export default defineComponent({
+    name: "TaskCard",
+    props: {
+        task: Task,
+    },
+    data() {
+        return {
+            hasIcon: false,
+            icon: null
+        }
+    },
+    methods: {
+        getIcon: function () {
+            this.hasIcon = false;
+            if(this.task?.room) {
+                const room = getPresetRoom(this.task.room);
+                if(room?.icon) {
+                    this.icon = require(`@/../resources/${room.icon}`);
+                    this.hasIcon = true;
+                }
+            }
+        }
+    },
+    mounted() {
+        this.getIcon();
+    }
+})
+</script>
+
+<style scoped>
+.priority {
+    padding: 0 7px;
+    border-radius: 5px;
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 16px;
+    align-items: center;
+    text-align: right;
+    letter-spacing: 1.5px;
+    color: #FFFFFF;
+}
+
+ion-card {
+    text-align: left;
+}
+ion-card-header {
+    display: flex;
+    flex-flow: column-reverse;
+}
+ion-card-title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 1.5px;
+}
+ion-card-subtitle {
+    color: #EC445A;
+}
+
+ion-grid {
+    padding: 0;
+}
+ion-col {
+    padding: 0;
+}
+</style>

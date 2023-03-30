@@ -1,51 +1,40 @@
 <template>
-    <section>
-        <div>
-            <img src="../../resources/room_kitchen.svg" alt="">
-            <span>
-                Kitchen
-            </span>
-        </div>
-        <div>
-            <img src="../../resources/room_living.svg" alt="">
-            <span>
-                Living room
-            </span>
-        </div>
-        <div>
-            <img src="../../resources/room_bathroom.svg" alt="">
-            <span>
-                Bath room
-            </span>
-        </div>
-        <div>
-            <img src="../../resources/room_work.svg" alt="">
-            <span>
-                Working room
-            </span>
-        </div>
-        <div>
-            <img src="../../resources/room_dining.svg" alt="">
-            <span>
-                Dining room
-            </span>
-        </div>
-        <div>
-            <img src="../../resources/room_custom.svg" alt="">
-            <span>
-                Custom room
-            </span>
-        </div>
-    </section>
+    <ion-grid>
+        <ion-row>
+            <ion-col v-for="room in rooms" :key="room">
+                <img :src="this.getIcon(room.icon)" alt="">
+                <p>{{ room.name }}</p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </template>
 
-<style>
+<script>
+import { defineComponent } from 'vue';
+import { presetRoomsWithCustom } from "@/types";
+
+export default defineComponent({
+    name: 'FilterRooms',
+    data () {
+        return {
+            rooms: presetRoomsWithCustom
+        }
+    },
+    methods: {
+        getIcon: function (icon) {
+            return require(`@/../resources/${icon}`)
+        }
+    }
+});
+</script>
+
+<style scoped>
 
 img {
     height: 30px;
     width: 29px;
 }
-div {
+/*div {
     display: flex;
     flex-direction: column;
     padding: 16px;
@@ -57,11 +46,11 @@ section {
     color: black;
     font-family: 'Noto Sans', sans-serif;
     font-size: 10px;
-}
+}*/
 
-span {
-    display: flex;
-    flex-direction: row;
+p {
+    font-weight: 400;
+    font-size: 10px;
 }
 
 </style>

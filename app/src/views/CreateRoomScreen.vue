@@ -35,7 +35,7 @@
                     </ion-col>
                 </ion-row>
             </ion-grid>
-            <ion-list>
+            <ion-list class="inputs">
                 <ion-label text-wrap class="ion-text-wrap">
                     <ion-chip v-for="room in customRooms" :key="room">
                         <ion-label>{{ room }}</ion-label>
@@ -52,15 +52,7 @@
 import { IonSelect, IonSelectOption, IonChip, IonNote } from '@ionic/vue';
 import { defineComponent, computed } from 'vue';
 import { chevronBackOutline, closeOutline } from 'ionicons/icons';
-
-class PresetRoom {
-    id: string;
-    name: string;
-    constructor(id: string, name: string) {
-        this.id = id;
-        this.name = name;
-    }
-}
+import { PresetRoom, presetRooms } from '@/types';
 
 export default defineComponent({
     name: 'ChooseTypeScreen',
@@ -73,13 +65,7 @@ export default defineComponent({
             customRooms: [] as string[],
             customRoomInput: '',
             customRoomError: '',
-            presetRooms: [
-                new PresetRoom('kitchen', "Kitchen"),
-                new PresetRoom('work', "Work Room"),
-                new PresetRoom('bath', "Bathroom"),
-                new PresetRoom('dining', "Dining Room"),
-                new PresetRoom('living', "Living Room")
-            ]
+            presetRooms: presetRooms
         }
     },
     methods: {
@@ -98,6 +84,7 @@ export default defineComponent({
             this.customRooms.push(room);
             this.customRoomInput = '';
             this.customRoomError = '';
+            this.customRooms.sort();
         },
         removeCustomRoom(room: string) {
             const i = this.customRooms.findIndex(o => o === room);
