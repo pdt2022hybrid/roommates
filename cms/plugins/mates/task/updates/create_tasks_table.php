@@ -19,10 +19,10 @@ return new class extends Migration
         Schema::create('mates_task_tasks', function(Blueprint $table) {
             $table->id();
 
-            $table->integer('miniroom_id')->nullable();
-            $table->integer('status_id')->nullable();
+            $table->integer('miniroom_id')->nullable(); // mozno name ale potom room_ids
+            $table->integer('status_id')->nullable(); // mozno name
             $table->integer('user_created_id')->nullable();
-            $table->integer('user_assigned_id')->nullable();
+            $table->integer('user_assigned_id')->nullable(); // mozno name
 
             $table->string('name');
             $table->string('description')->nullable();
