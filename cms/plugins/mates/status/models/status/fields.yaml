@@ -1,11 +1,10 @@
 # ===================================
-#  List Column Definitions
+#  Form Field Definitions
 # ===================================
 
-columns:
+fields:
     id:
         label: ID
-        searchable: true
+        disabled: true
     name:
         label: Name
-        span: auto

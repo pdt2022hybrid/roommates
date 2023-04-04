@@ -1,11 +1,11 @@
-<?php namespace Mates\Room\Updates;
+<?php namespace Mates\Task\Updates;
 
 use Schema;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
 /**
- * CreateRoomsTable Migration
+ * CreateTasksTable Migration
  *
  * @link https://docs.octobercms.com/3.x/extend/database/structure.html
  */
@@ -16,13 +16,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('mates_room_rooms', function(Blueprint $table) {
+        Schema::create('mates_task_tasks', function(Blueprint $table) {
             $table->id();
 
+            $table->integer('room_id')->nullable();
+            $table->integer('miniroom_id')->nullable();
+            $table->integer('status_id')->nullable();
+
             $table->string('name');
-            $table->integer('room_count');
-            $table->string('room_url')->nullable();
-            $table->integer('room_owner_id');
+            $table->string('description')->nullable();
+            $table->string('priority')->nullable();
 
             $table->timestamps();
         });
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mates_room_rooms');
+        Schema::dropIfExists('mates_task_tasks');
     }
 };

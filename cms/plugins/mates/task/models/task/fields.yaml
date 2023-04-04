@@ -1,0 +1,46 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: ID
+        disabled: true
+    name:
+        label: Name
+        span: auto
+    description:
+        label: Description
+        span: auto
+        type: textarea
+#        type: dropdown
+#        options: $/mates/room/models/miniroom/options_type.yaml
+    priority:
+        label: Priority
+        span: auto
+#        type: dropdown
+#        options: $/mates/room/models/miniroom/options_priority.yaml
+    room:
+        label: Room
+        span: auto
+        type: recordfinder
+        list: $/mates/room/models/room/columns.yaml
+        nameFrom: name
+        prompt: Please select a room
+        emptyOption: '-- Please select a room --'
+    miniroom:
+        label: MiniRoom
+        span: auto
+        type: recordfinder
+        list: $/mates/room/models/miniroom/columns.yaml
+        nameFrom: name
+        prompt: Please select a miniroom
+        emptyOption: '-- Please select a miniroom --'
+    status:
+        label: Status
+        span: auto
+        type: recordfinder
+        list: $/mates/status/models/status/columns.yaml
+        nameFrom: name
+        prompt: Please select a status
+        emptyOption: '-- Please select a status --'

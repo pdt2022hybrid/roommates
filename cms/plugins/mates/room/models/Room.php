@@ -1,6 +1,7 @@
 <?php namespace Mates\Room\Models;
 
 use Model;
+use Mates\Task\Models\Task;
 
 /**
  * Room Model
@@ -24,6 +25,9 @@ class Room extends Model
     public $hasMany = [
         'miniroom' => [
             Miniroom::class,
+        ],
+        'tasks' => [
+            Task::class,
         ]
     ];
 }
