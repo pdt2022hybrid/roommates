@@ -45,6 +45,7 @@
 
 import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
 import { chevronBackOutline } from 'ionicons/icons';
+import { eyeOutline } from 'ionicons/icons';
 import axios from 'axios';
 import { defineComponent } from 'vue';
 export default {
@@ -54,6 +55,7 @@ export default {
   data() {
     return {
       chevronBackOutline,
+      eyeOutline,
       firstName: "",
       lastName: "",
       mail: "",
@@ -82,13 +84,54 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600&family=Roboto&display=swap');
 
-  .header {
-    color: #989AA2;
-    background-color: white;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 18px !important;
-    padding: 16px
-  }
+.header {
+  background-color: white;
+  padding: 16px
+}
+
+.content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottom {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pl-11rem {
+  padding-left: 11rem;
+}
+
+.row {
+  display: flex;
+}
+
+.header-md::after {
+  display: none;
+}
+
+ion-toolbar {
+  --border-width: 0px;
+  --border-style: none;
+  --background: white;
+}
+
+ion-toolbar > ion-title {
+  color: #989AA2;
+  font-weight: 600;
+  font-size: 18px !important;
+}
+
+ion-content > ion-title {
+  color: #262B2C;
+  font-size: 24px;
+  font-weight: 600;
+}
 
   .content {
     position: absolute;
@@ -119,9 +162,14 @@ ion-icon {
 
 ion-button {
   width: 200px !important;
+  height: 48px;
   font-weight: 700 !important;
-  --ion-border-color: #262B2C;
-  border-radius: 20px;
+  --border-color: #262B2C;
+  --border-radius: 20px;
+  --border-width: 0.5px;
+  color: #262B2C;
+  text-transform: none;
+  font-size: 17px;
 }
 
 ion-label {
