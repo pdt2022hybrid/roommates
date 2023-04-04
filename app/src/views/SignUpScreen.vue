@@ -3,7 +3,9 @@
 
     <ion-header class="header">
       <ion-toolbar>
-        <ion-icon :icon="chevronBackOutline"></ion-icon>
+        <router-link to="/login">
+          <ion-icon :icon="chevronBackOutline"></ion-icon>
+        </router-link>
         <ion-title>
           Sign Up
         </ion-title>
@@ -30,15 +32,25 @@
         <ion-item>
           <ion-label position="stacked">Password</ion-label>
           <div class="row">
-            <ion-input v-model="password" type="password" placeholder="Write your password here..."></ion-input>
-            <ion-icon class="pl-11rem" :icon="eyeOutline"></ion-icon>
+            <ion-input v-model="password" :type="inputTypePassword" placeholder="Write your password here..."></ion-input>
+            <span v-if="inputTypePassword == 'password'">
+              <ion-icon @click="toggleShowPassword" :icon="eyeOutline" class="show"></ion-icon>
+            </span>
+            <span v-else>
+              <ion-icon @click="toggleShowPassword" :icon="eyeOffOutline"></ion-icon>
+            </span>
           </div>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Confirm password</ion-label>
           <div class="row">
-            <ion-input v-model="confirmPassword" type="password" placeholder="Repeat password"></ion-input>
-            <ion-icon class="pl-11rem" :icon="eyeOutline"></ion-icon>
+            <ion-input :type="inputTypeConfirmed" v-model="confirmPassword" placeholder="Repeat password"></ion-input>
+            <span v-if="inputTypeConfirmed == 'password'">
+              <ion-icon @click="toggleShowConfirmed" :icon="eyeOutline" class="show"></ion-icon>
+            </span>
+            <span v-else>
+              <ion-icon @click="toggleShowConfirmed" :icon="eyeOffOutline"></ion-icon>
+            </span>
           </div>
         </ion-item>
       </div>
@@ -56,8 +68,10 @@
 import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
 import { chevronBackOutline } from 'ionicons/icons';
 import { eyeOutline } from 'ionicons/icons';
+import { eyeOffOutline } from 'ionicons/icons';
 import axios from 'axios';
 import { defineComponent } from 'vue';
+import * as url from "url";
 export default {
   components: {
     IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonIcon, IonToolbar, IonTitle, IonHeader
@@ -66,11 +80,14 @@ export default {
     return {
       chevronBackOutline,
       eyeOutline,
+      eyeOffOutline,
       firstName: "",
       lastName: "",
       mail: "",
       password: "",
       confirmPassword: "",
+      inputTypePassword: "password",
+      inputTypeConfirmed: "password",
     }
   },
   methods: {
@@ -83,8 +100,18 @@ export default {
         password_confirmation: this.confirmPassword
       }
       await axios.post('https://roomates.hybridlab.dev/cms/api/auth/signup', data)
+    },
+
+    toggleShowPassword() {
+      this.inputTypePassword =
+          this.inputTypePassword === "password" ? "text" : "password"
+    },
+
+    toggleShowConfirmed() {
+      this.inputTypeConfirmed =
+          this.inputTypeConfirmed === "password" ? "text" : "password"
     }
-  }
+  },
 }
 
 
@@ -106,6 +133,10 @@ export default {
   transform: translate(-50%, -50%);
 }
 
+.show {
+  ion-align-self: end;
+}
+
 .bottom {
   position: absolute;
   top: 70%;
@@ -113,12 +144,13 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.pl-11rem {
-  padding-left: 11rem;
+d-none {
+  display: none;
 }
 
 .row {
   display: flex;
+  width: 100%;
 }
 
 .header-md::after {
@@ -154,6 +186,9 @@ ion-icon {
   color: black;
   width: 24px;
   height: 24px;
+}
+
+ ion-icon {
   float: left !important;
 }
 
