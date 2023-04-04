@@ -19,13 +19,17 @@ return new class extends Migration
         Schema::create('mates_task_tasks', function(Blueprint $table) {
             $table->id();
 
-            $table->integer('room_id')->nullable();
             $table->integer('miniroom_id')->nullable();
             $table->integer('status_id')->nullable();
+            $table->integer('user_created_id')->nullable();
+            $table->integer('user_assigned_id')->nullable();
 
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('priority')->nullable();
+            $table->timestamp('deadline')->nullable();
+            //$table->integer('promised_completion_date')->nullable();
+            //$table->timestamp('auto_cancel_date')->nullable();
+            //TODO: neskorsie $table->string('priority')->nullable();
 
             $table->timestamps();
         });
