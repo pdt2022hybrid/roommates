@@ -10,48 +10,62 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
-      <ion-item>
-        <ion-label position="stacked">First Name</ion-label>
-        <ion-input v-model="firstName" placeholder="Write your first name here..."></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Last Name</ion-label>
-        <ion-input v-model="lastName" placeholder="Write your last name here..."></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input v-model="mail" placeholder="Write your email here..."></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Password</ion-label>
-        <ion-input v-model="password" type="password" placeholder="Write your password here..."></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Confirm password</ion-label>
-        <ion-input v-model="confirmPassword" type="password" placeholder="Repeat password"></ion-input>
-      </ion-item>
-      <ion-button v-on:click="signUp()" shape="round" fill="outline" color="dark">
-        Sign Up
-      </ion-button>
-      Please fill all fields...
+    <ion-content fullscreen>
+      <ion-title class="ion-padding">
+        Welcome to app, Sign Up...
+      </ion-title>
+      <div class="content">
+        <ion-item>
+          <ion-label position="stacked">First Name</ion-label>
+          <ion-input v-model="firstName" placeholder="Write your first name here..."></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Last Name</ion-label>
+          <ion-input v-model="lastName" placeholder="Write your last name here..."></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input v-model="mail" placeholder="Write your email here..."></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <div class="row">
+            <ion-input v-model="password" type="password" placeholder="Write your password here..."></ion-input>
+            <ion-icon class="pl-11rem" :icon="eyeOutline"></ion-icon>
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Confirm password</ion-label>
+          <div class="row">
+            <ion-input v-model="confirmPassword" type="password" placeholder="Repeat password"></ion-input>
+            <ion-icon class="pl-11rem" :icon="eyeOutline"></ion-icon>
+          </div>
+        </ion-item>
+      </div>
+      <div class="bottom">
+        <ion-button v-on:click="signUp()" fill="outline">
+          Sign Up
+        </ion-button>
+      </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
 
-import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader, IonIcon, IonToolbar } from '@ionic/vue';
+import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
 import { chevronBackOutline } from 'ionicons/icons';
+import { eyeOutline } from 'ionicons/icons';
 import axios from 'axios';
 import { defineComponent } from 'vue';
 export default {
   components: {
-    IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonIcon, IonToolbar
+    IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonIcon, IonToolbar, IonTitle, IonHeader
   },
   data() {
     return {
       chevronBackOutline,
+      eyeOutline,
       firstName: "",
       lastName: "",
       mail: "",
@@ -60,15 +74,15 @@ export default {
     }
   },
   methods: {
-    async signUp() {
-        const addNewUser = await axios.post("https://roomates.hybridlab.dev/cms/api/auth/signup", {
+    signUp: async function () {
+      const data = {
         name: this.firstName,
         surname: this.lastName,
         email: this.mail,
         password: this.password,
         password_confirmation: this.confirmPassword
-      })
-      console.log(addNewUser)
+      }
+      await axios.post('https://roomates.hybridlab.dev/cms/api/auth/signup', data)
     }
   }
 }
@@ -80,18 +94,60 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@600&family=Roboto&display=swap');
 
-  .header {
-    color: #989AA2;
-    background-color: white;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 18px !important;
-    padding: 16px
-  }
+.header {
+  background-color: white;
+  padding: 16px
+}
+
+.content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottom {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pl-11rem {
+  padding-left: 11rem;
+}
+
+.row {
+  display: flex;
+}
+
+.header-md::after {
+  display: none;
+}
+
+ion-toolbar {
+  --border-width: 0px;
+  --border-style: none;
+  --background: white;
+}
+
+ion-toolbar > ion-title {
+  color: #989AA2;
+  font-weight: 600;
+  font-size: 18px !important;
+}
+
+ion-content > ion-title {
+  color: #262B2C;
+  font-size: 24px;
+  font-weight: 600;
+}
 
 ion-item {
   font-family: 'Roboto', sans-serif;
   --ion-border-color: #C6C6C8;
-  padding-right: 16px;
+  padding: 0 16px;
+  width: 100vw;
 }
 
 ion-icon {
@@ -103,9 +159,14 @@ ion-icon {
 
 ion-button {
   width: 200px !important;
+  height: 48px;
   font-weight: 700 !important;
-  --ion-border-color: #262B2C;
-  border-radius: 20px;
+  --border-color: #262B2C;
+  --border-radius: 20px;
+  --border-width: 0.5px;
+  color: #262B2C;
+  text-transform: none;
+  font-size: 17px;
 }
 
 ion-label {
