@@ -89,10 +89,7 @@ ion-card-subtitle {
     color: #EC445A;
 }
 
-ion-grid {
-    padding: 0;
-}
-ion-col {
+ion-grid, ion-col {
     padding: 0;
 }
 </style>

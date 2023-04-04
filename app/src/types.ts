@@ -41,6 +41,10 @@ export const presetRooms = [
     new PresetRoom('dining', "Dining room", 'room_dining.svg')
 ];
 
+export function createCustomRoom(name: string): PresetRoom {
+    return new PresetRoom('custom', name, 'room_custom.svg')
+}
+
 export const presetRoomsWithCustom:PresetRoom[] = presetRooms.concat(new PresetRoom('custom', "Custom room", 'room_custom.svg'));
 
 export type roomType = 'kitchen' | 'living' | 'bath' | 'work' | 'dining' | 'custom';

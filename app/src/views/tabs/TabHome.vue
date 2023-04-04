@@ -1,9 +1,9 @@
 <template>
 <ion-page>
     <ion-content :fullscreen="true">
-        <top-bar title="Home" :menu="true"></top-bar>
-        <filter-rooms></filter-rooms>
-        <task-card v-for="task in this.tasks" :key="task" :task="task"></task-card>
+        <top-bar title="Home" :menu="true"/>
+        <filter-rooms/>
+        <task-card v-for="task in this.tasks" :key="task" :task="task"/>
         <ion-header collapse="condense">
             <ion-toolbar>
                 <ion-title size="large">Home</ion-title>
