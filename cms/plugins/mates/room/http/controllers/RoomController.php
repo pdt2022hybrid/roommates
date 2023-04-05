@@ -16,12 +16,11 @@ class RoomController extends Controller
         $user = User::where('id', $request->get('tokenUserID'))->first();
         $postData = [
             'room_name' => post('room_name'),
-            'room_count' => intval(post('room_count')),
             'room_owner_id' => $user->id,
         ];
         $room = new Room();
         $room->name = $postData['room_name'];
-        $room->room_count = $postData['room_count'];
+        $room->room_count = 0;
         $room->room_owner_id = $postData['room_owner_id'];
         $room->save();
 

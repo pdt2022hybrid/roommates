@@ -6,3 +6,9 @@ columns:
     id:
         label: ID
         searchable: true
+    name:
+        label: Name
+        span: auto
+    room[name]:
+        label: Room
+        span: auto
