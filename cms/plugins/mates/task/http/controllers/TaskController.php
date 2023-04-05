@@ -105,7 +105,7 @@ class TaskController extends Controller
         $task->status_id = 3;
         $task->save();
 
-        //TODO: Topolsky dorob Task Resource a vratit ho
+        return 0;//TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function findTask($id, Request $request) {
