@@ -1,6 +1,7 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 import router from './router';
+import { store, key } from './store';
 
 import { IonicVue } from '@ionic/vue';
 import { IonPage, IonContent, IonItem, IonGrid, IonRow, IonCol, IonButton, IonIcon, IonLabel, IonInput, IonTitle, IonHeader, IonToolbar, IonList, IonTabButton, IonTabs, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonSelect, IonSelectOption, IonCheckbox, IonRadio, IonRadioGroup } from '@ionic/vue';
@@ -27,6 +28,7 @@ import './theme/global.css';
 
 const app = createApp(App)
     .use(IonicVue)
+    .use(store, key)
     .use(router)
     .component("ion-page", IonPage)
     .component("ion-content", IonContent)

@@ -25,7 +25,7 @@
             </ion-select>
         </ion-item>
         <p class="subtitle">Roommate</p>
-        <ion-item v-for="roommate in this.roommates" :key="roommate">
+        <ion-item v-for="roommate in $store.state.room.members" :key="roommate">
             <ion-label>{{ roommate }}</ion-label>
             <ion-checkbox justify="space-between"></ion-checkbox>
         </ion-item>
@@ -33,11 +33,11 @@
         <ion-radio-group value="most">
             <ion-item>
                 <ion-label>Most Important</ion-label>
-                <ion-radio value="most" justify="space-between">Space Between Label and Control</ion-radio>
+                <ion-radio value="most" justify="space-between"/>
             </ion-item>
             <ion-item>
                 <ion-label>Least Important</ion-label>
-                <ion-radio value="least" justify="space-between">Space Between Label and Control</ion-radio>
+                <ion-radio value="least" justify="space-between"/>
             </ion-item>
         </ion-radio-group>
         </ion-content>
@@ -48,14 +48,12 @@
 <script>
 import { close } from 'ionicons/icons';
 import { defineComponent } from "vue";
-import { useStore } from 'vuex'
 
 export default defineComponent({
     name: "TaskFilter",
     data() {
         return {
             close,
-            store: useStore(),
             show: false,
             optionsDate: [
                 {
@@ -82,12 +80,6 @@ export default defineComponent({
                         { id: "oldest", text: "Oldest" },
                     ]
                 },
-            ],
-            roommates: [
-                'Marek Topolsky',
-                'Richard Egyed',
-                'Sloboda',
-                'Luptacik'
             ]
         }
     }

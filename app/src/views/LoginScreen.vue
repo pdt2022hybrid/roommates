@@ -11,38 +11,30 @@
 
         <ion-content fullscreen>
 
-          <ion-title class="ion-padding">
-            Welcome back, log in...
-          </ion-title>
+            <ion-title class="ion-padding">
+                Welcome back, log in...
+            </ion-title>
 
             <div class="content">
-              <ion-item>
-                <ion-label position="stacked">Email</ion-label>
-                <ion-input v-model="this.email" placeholder="Write your email here..."></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Password</ion-label>
-                <div class="row">
-                  <ion-input :type="inputTypePassword"
-                             v-model="this.password"
-                             placeholder="Write your password here...">
-                  </ion-input>
-                  <span v-if="inputTypePassword == 'password'">
-                      <ion-icon @click="toggleShowPassword" :icon="eyeOutline" class="show"></ion-icon>
-                    </span>
-                  <span v-else>
-                        <ion-icon @click="toggleShowPassword" :icon="eyeOffOutline"></ion-icon>
-                    </span>
-                </div>
-              </ion-item>
-              <p style="color: #EC445A;">{{ this.errorMsg }}</p>
+                <ion-item>
+                    <ion-label position="stacked">Email</ion-label>
+                    <ion-input v-model="this.email" placeholder="Write your email here..."></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="stacked">Password</ion-label>
+                    <div class="row">
+                        <ion-input :type="showPass ? 'text' : 'password'" v-model="this.password" placeholder="Write your password here..."/>
+                        <ion-icon @click="showPass = !showPass" :icon="showPass ? eyeOffOutline : eyeOutline" class="show"></ion-icon>
+                    </div>
+                </ion-item>
+                <p style="color: #EC445A;">{{ this.errorMsg }}</p>
             </div>
 
             <div class="bottom">
               <ion-button @click="login(this.email, this.password)" class="login-btn" fill="outline" color="dark">Log In</ion-button>
             </div>
 
-            <p class="register-text"><u>Or if you are a new user, Sign Up</u></p>
+            <p @click="this.$router.push({path: '/signUp'})" class="register-text"><u>Or if you are a new user, Sign Up</u></p>
 
         </ion-content>
     </ion-page>
@@ -61,7 +53,6 @@
                 password: '',
                 showPass: false,
                 errorMsg: '',
-                inputTypePassword: "password",
                 eyeOutline,
                 eyeOffOutline,
             }
@@ -82,10 +73,6 @@
                 })
             },
 
-          toggleShowPassword() {
-            this.inputTypePassword =
-                this.inputTypePassword === "password" ? "text" : "password"
-          },
         },
     })
 </script>
