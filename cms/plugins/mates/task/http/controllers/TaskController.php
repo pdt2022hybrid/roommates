@@ -31,7 +31,7 @@ class TaskController extends Controller
         $task->deadline = $postData['deadline'];
         $task->save();
 
-        return 0;
+        return 0; //TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function completeTask() {
@@ -49,5 +49,7 @@ class TaskController extends Controller
 
         $task->status_id = 3;
         $task->save();
+
+        //TODO: Topolsky dorob Task Resource a vratit ho
     }
 }
