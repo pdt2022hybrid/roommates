@@ -8,4 +8,4 @@ columns:
         searchable: true
     name:
         label: Name
-        span: auto
+        searchable: true

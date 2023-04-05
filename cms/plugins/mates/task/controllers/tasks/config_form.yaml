@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Task
+
+# Model Form Field configuration
+form: $/mates/task/models/task/fields.yaml
+
+# Model Class name
+modelClass: Mates\Task\Models\Task
+
+# Default redirect location
+defaultRedirect: mates/task/tasks
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: mates/task/tasks/update/:id
+    redirectClose: mates/task/tasks
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: mates/task/tasks
+    redirectClose: mates/task/tasks
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title

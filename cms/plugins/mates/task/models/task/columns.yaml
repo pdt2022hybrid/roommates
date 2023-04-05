@@ -9,3 +9,6 @@ columns:
     name:
         label: Name
         span: auto
+    room[name]:
+        label: Room
+        span: auto

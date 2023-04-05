@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Status
+
+# Model Form Field configuration
+form: $/mates/status/models/status/fields.yaml
+
+# Model Class name
+modelClass: Mates\Status\Models\Status
+
+# Default redirect location
+defaultRedirect: mates/status/statuses
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: mates/status/statuses/update/:id
+    redirectClose: mates/status/statuses
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: mates/status/statuses
+    redirectClose: mates/status/statuses
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title

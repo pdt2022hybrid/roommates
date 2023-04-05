@@ -1,34 +1,30 @@
-<?php namespace Mates\Room\Models;
+<?php namespace Mates\Status\Models;
 
-use Model;
 use Mates\Task\Models\Task;
+use Model;
 
 /**
- * Miniroom Model
+ * Status Model
  *
  * @link https://docs.octobercms.com/3.x/extend/system/models.html
  */
-class Miniroom extends Model
+class Status extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
     /**
      * @var string table name
      */
-    public $table = 'mates_room_minirooms';
+    public $table = 'mates_status_statuses';
 
     /**
      * @var array rules for validation
      */
     public $rules = [];
 
-    public $belongsTo = [
-        'room' => [
-            Room::class,
-            'key' => 'room_id',
-        ],
+    public $hasMany = [
         'tasks' => [
-            Task::class,
+            Task::class
         ]
     ];
 }
