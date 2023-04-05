@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router';
 
 import { IonicVue } from '@ionic/vue';
+import { IonPage, IonContent, IonItem, IonGrid, IonRow, IonCol, IonButton, IonIcon, IonLabel, IonInput, IonTitle, IonHeader, IonToolbar, IonList, IonTabButton, IonTabs, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonSelect, IonSelectOption, IonCheckbox, IonRadio, IonRadioGroup } from '@ionic/vue';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -22,12 +23,36 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import  './theme/global.css';
+import './theme/global.css';
 
 const app = createApp(App)
-  .use(IonicVue)
-  .use(router);
-  
-router.isReady().then(() => {
-  app.mount('#app');
-});
+    .use(IonicVue)
+    .use(router)
+    .component("ion-page", IonPage)
+    .component("ion-content", IonContent)
+    .component("ion-item", IonItem)
+    .component("ion-grid", IonGrid)
+    .component("ion-row", IonRow)
+    .component("ion-col", IonCol)
+    .component("ion-button", IonButton)
+    .component("ion-icon", IonIcon)
+    .component("ion-label", IonLabel)
+    .component("ion-input", IonInput)
+    .component("ion-title", IonTitle)
+    .component("ion-header", IonHeader)
+    .component("ion-toolbar", IonToolbar)
+    .component("ion-list", IonList)
+    .component("ion-tab-button", IonTabButton)
+    .component("ion-tabs", IonTabs)
+    .component("ion-card", IonCard)
+    .component("ion-card-header", IonCardHeader)
+    .component("ion-card-title", IonCardTitle)
+    .component("ion-card-subtitle", IonCardSubtitle)
+    .component("ion-card-content", IonCardContent)
+    .component("ion-select", IonSelect)
+    .component("ion-select-option", IonSelectOption)
+    .component("ion-checkbox", IonCheckbox)
+    .component("ion-radio", IonRadio)
+    .component("ion-radio-group", IonRadioGroup)
+
+router.isReady().then(() => app.mount('#app'));
