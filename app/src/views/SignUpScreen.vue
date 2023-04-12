@@ -56,7 +56,9 @@
       </div>
       <div class="bottom">
         <ion-button v-on:click="signUp()" fill="outline">
-          Sign Up
+          <router-link to="/setProfilePicture">
+            Sign Up
+          </router-link>
         </ion-button>
       </div>
     </ion-content>
@@ -126,15 +128,16 @@ export default {
   padding: 16px
 }
 
+a {
+  color: #262B2C !important;
+  text-decoration: none;
+}
+
 .content {
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.show {
-  ion-align-self: end;
 }
 
 .bottom {
