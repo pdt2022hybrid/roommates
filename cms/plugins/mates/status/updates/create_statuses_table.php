@@ -33,3 +33,5 @@ return new class extends Migration
         Schema::dropIfExists('mates_status_statuses');
     }
 };
+
+//TODO: clearni subor

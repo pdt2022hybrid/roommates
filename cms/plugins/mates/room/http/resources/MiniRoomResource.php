@@ -10,7 +10,7 @@ class MiniRoomResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
-            'room' => new RoomResource($this->room)
+            'room' => new RoomResource($this->room) //TODO: toto je picovina ma tam byt RoomResource::make($this->room)
         ];
     }
 }

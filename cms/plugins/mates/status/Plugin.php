@@ -83,3 +83,5 @@ class Plugin extends PluginBase
         ];
     }
 }
+
+//TODO: plugin.php files clearnut

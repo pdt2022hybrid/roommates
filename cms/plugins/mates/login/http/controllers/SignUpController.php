@@ -21,6 +21,8 @@ class SignUpController extends Controller
         ];
         $user = Auth::register($creds);
         return UserResource::make($user);
+        //TODO: je ti jasne ze toto vies realne vopchat do jedneho riadku
+        //return UserResource::make(Auth::register(post()));
     }
     public function login() {
         $creds = [

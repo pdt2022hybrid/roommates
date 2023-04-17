@@ -19,7 +19,7 @@ class TokenMiddleware
     public function handle($request, $next) {
         $token = $request->headers->get('token');;
 
-        $tokenUser = Token::where('token', $token)->first();
+        $tokenUser = Token::where('token', $token)->first(); //TODO: mozes pouzit findOrFail(), alebo firstOrFail()
 
         if (!$tokenUser) {
             return response()->json([
@@ -30,7 +30,7 @@ class TokenMiddleware
         if (Carbon::create($tokenUser->token_created_at)->diffInMinutes(Carbon::now()) > 60) {
             return response()->json([
                 'error' => 'Token expired'
-            ], 401);
+            ], 401); //TODO: throwni nejaky exception, nie takto
         }
 
         $request->attributes->add(['tokenUserID' => $tokenUser->user_id]);

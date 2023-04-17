@@ -46,3 +46,6 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
+
+//TODO: clearni README.md
+//TODO: clearni root directory od useless suborov, pozri ako to je na finradar alebo wgrid

@@ -15,5 +15,8 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::post('task/{id}', [TaskController::class, 'findTask']);
         Route::post('tasks/room/{id}', [TaskController::class, 'findTasksByRoom']);
         Route::post('tasks/user/{id}', [TaskController::class, 'findTasksByUser']);
+        //TODO: naozaj by si mohol pouzit tie api standarty,
+        // https://laravel.com/docs/5.5/controllers#resource-controllers
+        //https://stackoverflow.com/questions/23505875/laravel-routeresource-vs-routecontroller
     });
 });
