@@ -2,3 +2,4 @@
     - create table
     - create_rooms_table.php
     - create_minirooms_table.php
+    - create_user_room_table.php

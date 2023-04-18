@@ -24,3 +24,6 @@ fields:
     miniroom:
         type: partial
         path: $/mates/room/controllers/rooms/_miniroom.htm
+    users:
+        type: relation
+        nameFrom: email

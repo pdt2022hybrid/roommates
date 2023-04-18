@@ -126,7 +126,7 @@ class TaskController extends Controller
 
     public function findTasksByRoom($id, Request $request) {
         $user = User::where('id', $request->get('tokenUserID'))->first();
-        $tasks = Task::where('room_id', $id)->get();
+        $tasks = Task::where('room_id', $id)->whereNot('status_id', 3)->get();
 
         if(!$tasks) {
             return response()->json([

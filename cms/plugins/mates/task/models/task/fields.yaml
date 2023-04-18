@@ -15,11 +15,6 @@ fields:
         type: textarea
 #        type: dropdown
 #        options: $/mates/room/models/miniroom/options_type.yaml
-    priority:
-        label: Priority
-        span: auto
-#        type: dropdown
-#        options: $/mates/room/models/miniroom/options_priority.yaml
     room:
         label: Room
         span: auto

@@ -24,7 +24,7 @@ class RoomController extends Controller
         $room->room_owner_id = $postData['room_owner_id'];
         $room->save();
 
-        return new RoomResource($room);
+        return RoomResource::make($room);
     }
 
     public function createMiniRoom() {
@@ -48,6 +48,6 @@ class RoomController extends Controller
         $miniRoom->name = $postData['izba_name'];
         $miniRoom->save();
 
-        return new MiniRoomResource($miniRoom);
+        return MiniRoomResource::make($miniRoom);
     }
 }
