@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Code
+
+# Model Form Field configuration
+form: $/mates/code/models/code/fields.yaml
+
+# Model Class name
+modelClass: Mates\Code\Models\Code
+
+# Default redirect location
+defaultRedirect: mates/code/codes
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: mates/code/codes/update/:id
+    redirectClose: mates/code/codes
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: mates/code/codes
+    redirectClose: mates/code/codes
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title

@@ -3,6 +3,7 @@
 use Model;
 use Mates\Task\Models\Task;
 use RainLab\User\Models\User;
+use Mates\Code\Models\Code;
 
 /**
  * Room Model
@@ -47,4 +48,12 @@ class Room extends Model
             'key' => 'room_owner_id',
         ],
     ];
+
+    public $hasOne = [
+        'code'=> [
+            Code::class,
+            'key' => 'code_id'
+
+        ]
+        ];
 }
