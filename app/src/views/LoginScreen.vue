@@ -11,10 +11,6 @@
 
         <ion-content fullscreen>
 
-            <ion-title class="ion-padding">
-                Welcome back, log in...
-            </ion-title>
-
             <div class="content">
                 <ion-item>
                     <ion-label position="stacked">Email</ion-label>
@@ -34,7 +30,9 @@
               <ion-button @click="login(this.email, this.password)" class="login-btn" fill="outline" color="dark">Log In</ion-button>
             </div>
 
-            <p @click="this.$router.push({path: '/signUp'})" class="register-text"><u>Or if you are a new user, Sign Up</u></p>
+            <router-link class="link" to="/signUp">
+              Or if you are a new user, Sign Up
+            </router-link>
 
         </ion-content>
     </ion-page>
@@ -106,12 +104,7 @@
       transform: translate(-50%, -50%);
     }
 
-    u {
-      position: absolute;
-      bottom: 1%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+
 
     .show {
       ion-align-self: end;
@@ -120,6 +113,16 @@
     .bottom {
       position: absolute;
       top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .link {
+      color: #989AA2;
+      font-weight: 500;
+      font-size: 14px;
+      position: absolute;
+      top: 80%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
