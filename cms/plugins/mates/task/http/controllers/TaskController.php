@@ -3,11 +3,11 @@
 namespace Mates\Task\Http\Controllers;
 
 use Backend\Classes\Controller;
+use Illuminate\Http\Request;
 use Mates\Room\Models\Miniroom;
+use Mates\Task\Http\Resources\TaskResource;
 use Mates\Task\Models\Task;
 use RainLab\User\Models\User;
-use Illuminate\Http\Request;
-use Mates\Room\Http\resources\TaskResource;
 
 class TaskController extends Controller
 {
@@ -44,7 +44,7 @@ class TaskController extends Controller
         $task->deadline = $postData['deadline'];
         $task->save();
 
-        return TaskResource::collection($task); //TODO: Topolsky dorob Task Resource a vratit ho
+        return TaskResource::make($task); //TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function updateTask($id, Request $request) {
@@ -87,7 +87,7 @@ class TaskController extends Controller
         $task->deadline = $postData['deadline'];
         $task->save();
 
-        return TaskResource::collection($task); //TODO: Topolsky dorob Task Resource a vratit ho
+        return TaskResource::make($task); //TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function completeTask(Request $request) {
@@ -108,7 +108,7 @@ class TaskController extends Controller
         $task->status_id = 3;
         $task->save();
 
-        return TaskResource::collection($task);//TODO: Topolsky dorob Task Resource a vratit ho
+        return TaskResource::make($task);//TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function findTask($id, Request $request) {
@@ -121,7 +121,7 @@ class TaskController extends Controller
             ], 404);
         }
 
-        return TaskResource::collection($task); // TODO: Topolsky prerob na vracanie resource
+        return TaskResource::make($task); // TODO: Topolsky prerob na vracanie resource
     }
 
     public function findTasksByRoom($id, Request $request) {
@@ -134,7 +134,7 @@ class TaskController extends Controller
             ], 404);
         }
 
-        return TaskResource::collection($task); // TODO: Topolsky prerob na vracanie resource (collection)
+        return TaskResource::collection($tasks); // TODO: Topolsky prerob na vracanie resource (collection)
     }
 
     public function findTasksByUser($id, Request $request) {
@@ -147,6 +147,6 @@ class TaskController extends Controller
             ], 404);
         }
 
-        return TaskResource::collection($task);// TODO: Topolsky prerob na vracanie resource (collection)
+        return TaskResource::collection($tasks);// TODO: Topolsky prerob na vracanie resource (collection)
     }
 }

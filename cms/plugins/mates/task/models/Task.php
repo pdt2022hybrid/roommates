@@ -4,6 +4,7 @@ use Mates\Status\Models\Status;
 use Model;
 use Mates\Room\Models\Room;
 use Mates\Room\Models\Miniroom;
+use RainLab\User\Models\User;
 
 /**
  * Task Model
@@ -36,6 +37,13 @@ class Task extends Model
         'status' => [
             Status::class,
             'key' => 'status_id',
+        ],
+        'user' => [
+            User::class,
+        ],
+        'user_assigned' => [
+            User::class,
+            'key' => 'user_assigned_id',
         ],
     ];
 }
