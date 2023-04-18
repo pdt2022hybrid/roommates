@@ -40,6 +40,7 @@ class Task extends Model
         ],
         'user' => [
             User::class,
+            'key' => 'user_created_id',
         ],
         'user_assigned' => [
             User::class,
