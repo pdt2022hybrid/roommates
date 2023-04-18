@@ -15,7 +15,7 @@
         name: 'SplashScreen',
         setup() {
             const router = useRouter();
-            setTimeout( () => router.push({path: '/login'}), 2000);
+            setTimeout( () => router.push({path: '/login'}), 600);
             return { router };
         }
     });
