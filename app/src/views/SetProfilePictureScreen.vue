@@ -109,8 +109,8 @@ export default {
 
   button {
     border: none !important;
-    height: 310px;
-    width: 300px;
+    width: 80vw;
+    height: 80vw;
     background-color: white;
   }
 
