@@ -13,22 +13,19 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content fullscreen>
       <div class="content">
 
         <button>
           <label for="files" @change="onFileSelected">
-            <img src="../../resources/SetProfilePicture.svg" alt="">
-          </label>          
-          <input id="files" type="file">
+            <img class="rounded" id="picture" :src="picture ? picture : avatar" alt="">
+          </label>
+            <input @change="onFileSelected" id="files" type="file">
         </button>
-
-        <ion-item lines="none">
-            <p>
-                By clicking on profile icon you can change your profile picture or by clicking on the button.
-            </p>
-        </ion-item>
       </div>
+      <span class="bottom">
+        By clicking on profile icon you can change your profile picture or by clicking on the button.
+      </span>
     </ion-content>
 
     </ion-page>
@@ -36,24 +33,43 @@
 
 <script>
 
-import { IonPage, IonContent, IonHeader,IonTitle, IonItem, IonLabel, IonToolbar } from '@ionic/vue';
+import { IonPage, IonContent, IonHeader,IonTitle, IonLabel, IonToolbar } from '@ionic/vue';
+import avatar from '../../resources/SetProfilePicture.svg'
+import {ref} from 'vue'
 
 export default {
     components: {
-    IonPage, IonContent, IonToolbar, IonTitle, IonLabel, IonHeader, IonItem
+    IonPage, IonContent, IonToolbar, IonTitle, IonLabel, IonHeader
   },
 
   data() {
     return {
+      avatar,
       selectedFile: null,
+      fileContents: null,
+      picture: null
     }
   },
 
+  mounted() {
+    this.picture = ref(localStorage.getItem('picture') || null)
+  },
   methods: {
-    onFileSelected(event) {
-      this.selectedFile = event.target.files[0]
-    }
-  }
+    onFileSelected(e) {
+      const file = e.target.files[0]
+      const fr = new FileReader();
+
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const vm = this
+
+      fr.onload = function() {
+        vm.picture = ref(fr.result)
+        localStorage.setItem('picture', fr.result)
+      }.bind(vm)
+
+      fr.readAsDataURL(file);
+    },
+  },
 }
 
 </script>
@@ -70,13 +86,32 @@ export default {
 
   .content {
     position: absolute;
-    top: 10%;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%, -50%);
+  }
+
+  .rounded {
+    border-radius: 100%;
+  }
+
+
+.bottom {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+  input {
+    display: none;
   }
 
   button {
     border: none !important;
     height: 310px;
     width: 300px;
+    background-color: white;
   }
 
   label {
@@ -87,6 +122,8 @@ export default {
 
   img {
     background-color: white;
+    width: 100%;
+    height: 100%;
   }
 
 .later {
@@ -95,12 +132,12 @@ export default {
     font-weight: 600;
 }
 
-p {
+span {
     color: #989AA2;
     font-size: 12px;
     font-weight: 600;
     text-align: center;
-    padding-top: 80px;
+    width: 80%;
 }
 
 ion-toolbar {
