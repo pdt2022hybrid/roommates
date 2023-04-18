@@ -75,7 +75,6 @@ class TaskController extends Controller
             ], 404);
         }
 
-        //TODO: prerob aby sa nemusel vyplnat znova cely form ale iba updatenute veci
 
         $task->user_assigned_id = $postData['user_assigned_id'];
         $task->user_created_id = $postData['user_created_id'];
