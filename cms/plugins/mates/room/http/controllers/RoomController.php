@@ -32,7 +32,8 @@ class RoomController extends Controller
         return RoomResource::make($room);
     }
 
-    public function createMiniRoom() {
+    public function createMiniRoom(Request $request) {
+        $user = User::where('id', $request->get('tokenUserID'))->first();
         $postData = [
             'room_id' => post('room_id'),
             'izba_name' => post('izba_name'),
@@ -54,5 +55,11 @@ class RoomController extends Controller
         $miniRoom->save();
 
         return MiniRoomResource::make($miniRoom);
+    }
+
+    public function getAllMiniRooms(Request $request) {
+        $user = User::where('id', $request->get('tokenUserID'))->first();
+
+        return MiniRoomResource::collection(Miniroom::all());
     }
 }
