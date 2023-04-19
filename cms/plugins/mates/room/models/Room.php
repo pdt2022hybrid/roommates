@@ -2,6 +2,8 @@
 
 use Model;
 use Mates\Task\Models\Task;
+use RainLab\User\Models\User;
+use Mates\Code\Models\Code;
 
 /**
  * Room Model
@@ -28,6 +30,29 @@ class Room extends Model
         ],
         'tasks' => [
             Task::class,
-        ]
+        ],
     ];
+
+    public $belongsToMany = [
+        'users' => [
+            User::class,
+            'table' => 'mates_user_room',
+            'key' => 'room_id',
+            'otherKey' => 'user_id',
+        ],
+    ];
+
+    public $belongsTo = [
+        'room_owner' => [
+            User::class,
+            'key' => 'room_owner_id',
+        ],
+    ];
+
+    public $hasOne = [
+        'code'=> [
+            Code::class,
+            'key' => 'code_id'
+        ]
+    ]; // todo: add code_id to room table
 }

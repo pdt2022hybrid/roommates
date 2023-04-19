@@ -3,18 +3,16 @@
 namespace Mates\Task\Http\Controllers;
 
 use Backend\Classes\Controller;
+use Illuminate\Http\Request;
 use Mates\Room\Models\Miniroom;
+use Mates\Task\Http\Resources\TaskResource;
 use Mates\Task\Models\Task;
 use RainLab\User\Models\User;
-use Illuminate\Http\Request;
-use Mates\Room\Http\resources\TaskResource;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TaskController extends Controller
 {
     public function createTask(Request $request) {
-        $user = User::where('id', $request->get('tokenUserID'))->firstOrFail(); //TODO: mozes pouzit findOrFail(), alebo firstOrFail()
-
+        $user = User::where('id', $request->get('tokenUserID'))->first();
         $postData = [
 
             'user_assigned_id' => post('user_assigned_id'),
@@ -25,7 +23,7 @@ class TaskController extends Controller
             'task_name' => post('task_name'),
             'task_description' => post('task_description'),
             'deadline' => post('deadline'),
-        ]; //TODO: uplne hejtujem tieto picoviny, aspon si to naformatuj pekne
+        ];
 
         $miniRoom = Miniroom::where('id', $postData['miniroom_id'])->first();
 
@@ -33,7 +31,7 @@ class TaskController extends Controller
             return response()->json([
                 'error' => 'Miniroom not found'
             ], 404);
-        } //TODO: toto je picovina, bud tiez pouzi findOrFail() alebo firstOrFail(), alebo throwni nejaky exception, napriklad ModelNotFoundException
+        }
 
         $task = new Task();
         $task->user_assigned_id = $postData['user_assigned_id'];
@@ -44,21 +42,20 @@ class TaskController extends Controller
         $task->name = $postData['task_name'];
         $task->description = $postData['task_description'];
         $task->deadline = $postData['deadline'];
-        //TODO: pocul si uz o takej veci ze $task->fill() ??
         $task->save();
 
-        return TaskResource::collection($task); //TODO: Topolsky dorob Task Resource a vratit ho
+        return TaskResource::make($task); //TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function updateTask($id, Request $request) {
         $user = User::where('id', $request->get('tokenUserID'))->first();
-        $task = Task::where('id', $id)->first(); //TODO: firstOrFail()
+        $task = Task::where('id', $id)->first();
 
         if(!$task) {
             return response()->json([
                 'error' => 'Task not found'
             ], 404);
-        } //TODO: zbytocne
+        }
 
         $postData = [
             'user_assigned_id' => post('user_assigned_id'),
@@ -78,7 +75,6 @@ class TaskController extends Controller
             ], 404);
         }
 
-        //TODO: prerob aby sa nemusel vyplnat znova cely form ale iba updatenute veci
 
         $task->user_assigned_id = $postData['user_assigned_id'];
         $task->user_created_id = $postData['user_created_id'];
@@ -90,7 +86,7 @@ class TaskController extends Controller
         $task->deadline = $postData['deadline'];
         $task->save();
 
-        return TaskResource::collection($task); //TODO: Topolsky dorob Task Resource a vratit ho
+        return TaskResource::make($task); //TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function completeTask(Request $request) {
@@ -111,7 +107,7 @@ class TaskController extends Controller
         $task->status_id = 3;
         $task->save();
 
-        return TaskResource::collection($task);//TODO: Topolsky dorob Task Resource a vratit ho
+        return TaskResource::make($task);//TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function findTask($id, Request $request) {
@@ -124,12 +120,12 @@ class TaskController extends Controller
             ], 404);
         }
 
-        return TaskResource::collection($task); // TODO: Topolsky prerob na vracanie resource
+        return TaskResource::make($task); // TODO: Topolsky prerob na vracanie resource
     }
 
     public function findTasksByRoom($id, Request $request) {
         $user = User::where('id', $request->get('tokenUserID'))->first();
-        $tasks = Task::where('room_id', $id)->get();
+        $tasks = Task::where('room_id', $id)->whereNot('status_id', 3)->get();
 
         if(!$tasks) {
             return response()->json([
@@ -137,7 +133,7 @@ class TaskController extends Controller
             ], 404);
         }
 
-        return TaskResource::collection($task); // TODO: Topolsky prerob na vracanie resource (collection)
+        return TaskResource::collection($tasks); // TODO: Topolsky prerob na vracanie resource (collection)
     }
 
     public function findTasksByUser($id, Request $request) {
@@ -147,9 +143,9 @@ class TaskController extends Controller
         if(!$tasks) {
             return response()->json([
                 'error' => 'Tasks not found'
-            ], 404); //TODO: zase
+            ], 404);
         }
 
-        return TaskResource::collection($task);// TODO: Topolsky prerob na vracanie resource (collection)
+        return TaskResource::collection($tasks);// TODO: Topolsky prerob na vracanie resource (collection)
     }
 }

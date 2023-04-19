@@ -13,18 +13,18 @@ use Mates\Room\Http\Resources\RoomResource;
 class RoomController extends Controller
 {
     public function createRoom(Request $request) {
-        $user = User::where('id', $request->get('tokenUserID'))->first(); //TODO: mozes pouzit findOrFail(), alebo firstOrFail()
+        $user = User::where('id', $request->get('tokenUserID'))->first();
         $postData = [
             'room_name' => post('room_name'),
             'room_owner_id' => $user->id,
-        ]; //TODO: zase
+        ];
         $room = new Room();
         $room->name = $postData['room_name'];
         $room->room_count = 0;
         $room->room_owner_id = $postData['room_owner_id'];
         $room->save();
 
-        return new RoomResource($room); //TODO: preco new RoomResource? RoomResource::make($room)
+        return RoomResource::make($room);
     }
 
     public function createMiniRoom() {
@@ -48,6 +48,6 @@ class RoomController extends Controller
         $miniRoom->name = $postData['izba_name'];
         $miniRoom->save();
 
-        return new MiniRoomResource($miniRoom);
+        return MiniRoomResource::make($miniRoom);
     }
 }

@@ -4,6 +4,7 @@ use Mates\Status\Models\Status;
 use Model; //TODO: ked nahradis "Model" z "October\Rain\Database\Model" tak to lepsie doplna veci
 use Mates\Room\Models\Room;
 use Mates\Room\Models\Miniroom;
+use RainLab\User\Models\User;
 
 //TODO: clearni si kazdy model file od picovin
 
@@ -41,6 +42,14 @@ class Task extends Model
         'status' => [
             Status::class,
             'key' => 'status_id',
+        ],
+        'user' => [
+            User::class,
+            'key' => 'user_created_id',
+        ],
+        'user_assigned' => [
+            User::class,
+            'key' => 'user_assigned_id',
         ],
     ];
 }

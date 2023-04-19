@@ -30,7 +30,7 @@ return new class extends Migration
             $table->timestamp('deadline')->nullable();
             //$table->integer('promised_completion_date')->nullable();
             //$table->timestamp('auto_cancel_date')->nullable();
-            //TODO: neskorsie $table->string('priority')->nullable();
+            //$table->string('priority')->nullable();
 
             $table->timestamps();
         });
