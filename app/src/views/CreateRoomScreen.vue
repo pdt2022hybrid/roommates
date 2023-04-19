@@ -43,7 +43,7 @@
                     </ion-chip>
                 </ion-label>
             </ion-list>
-            <ion-button @click="this.create()" class="custom-btn btn-create">Create</ion-button>
+            <ion-button @click="addNewRoom" class="custom-btn">Create</ion-button>
         </ion-content>
     </ion-page>
 </template>
@@ -52,11 +52,20 @@
 import { IonSelect, IonSelectOption, IonChip, IonNote } from '@ionic/vue';
 import { defineComponent, computed } from 'vue';
 import { chevronBackOutline, closeOutline } from 'ionicons/icons';
-import { PresetRoom, presetRooms, createCustomRoom } from '@/types';
+import axios from 'axios';
+
+class PresetRoom {
+    id: string;
+    name: string;
+    constructor(id: string, name: string) {
+        this.id = id;
+        this.name = name;
+    }
+}
 
 export default defineComponent({
     name: 'ChooseTypeScreen',
-    components: { IonSelect, IonSelectOption, IonChip, IonNote },
+    components: { IonChip, IonNote },
     data() {
         return {
             chevronBackOutline, closeOutline,
@@ -66,7 +75,6 @@ export default defineComponent({
             customRooms: [] as PresetRoom[],
             customRoomInput: '',
             customRoomError: '',
-            presetRooms: presetRooms
         }
     },
     methods: {
@@ -91,13 +99,23 @@ export default defineComponent({
             const i = this.customRooms.findIndex(o => o.name === room);
             if(i > -1) this.customRooms.splice(i,1);
         },
-        create() { //TODO
-            if(!this.name || !this.selectedRooms) return;
-            this.$store.commit('setRoomName', this.name);
-            this.$store.commit('setPresetRooms', this.selectedRooms);
-            this.$store.commit('setCustomRooms', this.customRooms);
-            this.$router.push({path: '/tabs/home'});
+      async addNewRoom() {
+          const izba = this.customRooms
+        try {
+          const addNewPlace = await axios.post("https://roomates.hybridlab.dev/cms/api/v1/room/create ", {
+            room_name: this.name,
+          });
+          console.log(addNewPlace); // Log the response to the console
+        } catch (error) {
+          console.error(error); // Log the error to the console
         }
+        const addNewRoom = await axios.post("https://roomates.hybridlab.dev/cms/api/v1/room/miniroom/create", {
+          izba_name: izba,
+        })
+      }
+    },
+    setup() {
+        return { chevronBackOutline, closeOutline };
     }
 });
 </script>
