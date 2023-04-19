@@ -12,6 +12,11 @@ use Mates\Room\Http\Resources\RoomResource;
 
 class RoomController extends Controller
 {
+    public function getAllRooms(Request $request) {
+        $user = User::where('id', $request->get('tokenUserID'))->first();
+
+        return RoomResource::collection(Room::all());
+    }
     public function createRoom(Request $request) {
         $user = User::where('id', $request->get('tokenUserID'))->first();
         $postData = [
