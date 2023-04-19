@@ -8,7 +8,9 @@
           Set profile picture
         </ion-title>
         <ion-label class="later">
-            Later
+            <router-link to="/ChooseTypeOfPlace">
+              Later
+            </router-link>
         </ion-label>
       </ion-toolbar>
     </ion-header>
@@ -68,6 +70,7 @@ export default {
       }.bind(vm)
 
       fr.readAsDataURL(file);
+      window.location.replace("https://roomates.hybridlab.dev/ChooseTypeOfPlace")
     },
   },
 }
@@ -82,6 +85,10 @@ export default {
     font-family: 'Noto Sans', sans-serif;
     font-size: 18px !important;
     padding: 16px 16px;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   .content {
