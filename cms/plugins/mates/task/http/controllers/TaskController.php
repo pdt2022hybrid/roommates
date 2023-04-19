@@ -14,9 +14,7 @@ class TaskController extends Controller
     public function createTask(Request $request) {
         $user = User::where('id', $request->get('tokenUserID'))->first();
         $postData = [
-
             'user_assigned_id' => post('user_assigned_id'),
-
             'user_created_id' => $user->id,
             'miniroom_id' => post('miniroom_id'),
             'status_id' => post('status_id'),
