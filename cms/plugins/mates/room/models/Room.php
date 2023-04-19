@@ -53,7 +53,6 @@ class Room extends Model
         'code'=> [
             Code::class,
             'key' => 'code_id'
-
         ]
-        ];
+    ]; // todo: add code_id to room table
 }

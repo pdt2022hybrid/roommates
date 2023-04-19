@@ -23,7 +23,6 @@ class Code extends Model
     public $rules = [];
 
     public $belongsTo = [
-
         'room' => [
             Room::class
         ]
