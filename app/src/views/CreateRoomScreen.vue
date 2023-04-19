@@ -12,11 +12,6 @@
                 <ion-label position="stacked">Name of place</ion-label>
                 <ion-input v-model="this.name" type="text" placeholder="What should we call your place ?"></ion-input>
             </ion-item>
-            <ion-item>
-                <ion-select placeholder="Which rooms will be in your place ?" @ionChange="selectedRooms = $event.detail.value" :multiple="true">
-                    <ion-select-option v-for="room in presetRooms" :key="room.id" :value="room">{{ room.name }}</ion-select-option>
-                </ion-select>
-            </ion-item>
             <!--
             <p>{{ JSON.stringify(selectedRooms) }}</p>
             <h1>{{ numberOfRooms }}</h1>
@@ -43,7 +38,7 @@
                     </ion-chip>
                 </ion-label>
             </ion-list>
-            <ion-button class="custom-btn">Create</ion-button>
+            <ion-button @click="addNewRoom" class="custom-btn">Create</ion-button>
         </ion-content>
     </ion-page>
 </template>
@@ -52,6 +47,7 @@
 import { IonSelect, IonSelectOption, IonChip, IonNote } from '@ionic/vue';
 import { defineComponent, computed } from 'vue';
 import { chevronBackOutline, closeOutline } from 'ionicons/icons';
+import axios from 'axios';
 
 class PresetRoom {
     id: string;
@@ -64,7 +60,7 @@ class PresetRoom {
 
 export default defineComponent({
     name: 'ChooseTypeScreen',
-    components: { IonSelect, IonSelectOption, IonChip, IonNote },
+    components: { IonChip, IonNote },
     data() {
         return {
             name: '',
@@ -73,13 +69,6 @@ export default defineComponent({
             customRooms: [] as string[],
             customRoomInput: '',
             customRoomError: '',
-            presetRooms: [
-                new PresetRoom('kitchen', "Kitchen"),
-                new PresetRoom('work', "Work Room"),
-                new PresetRoom('bath', "Bathroom"),
-                new PresetRoom('dining', "Dining Room"),
-                new PresetRoom('living', "Living Room")
-            ]
         }
     },
     methods: {
@@ -102,7 +91,21 @@ export default defineComponent({
         removeCustomRoom(room: string) {
             const i = this.customRooms.findIndex(o => o === room);
             if(i > -1) this.customRooms.splice(i,1);
+        },
+      async addNewRoom() {
+          const izba = this.customRooms
+        try {
+          const addNewPlace = await axios.post("https://roomates.hybridlab.dev/cms/api/v1/room/create ", {
+            room_name: this.name,
+          });
+          console.log(addNewPlace); // Log the response to the console
+        } catch (error) {
+          console.error(error); // Log the error to the console
         }
+        const addNewRoom = await axios.post("https://roomates.hybridlab.dev/cms/api/v1/room/miniroom/create", {
+          izba_name: izba,
+        })
+      }
     },
     setup() {
         return { chevronBackOutline, closeOutline };
