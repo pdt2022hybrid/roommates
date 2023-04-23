@@ -17,15 +17,9 @@ class TokenMiddleware
      * @return mixed
      */
     public function handle($request, $next) {
-        $token = $request->headers->get('token');;
+        $token = $request->bearerToken();
 
-        $tokenUser = Token::where('token', $token)->first(); //TODO: mozes pouzit findOrFail(), alebo firstOrFail()
-
-        if (!$tokenUser) {
-            return response()->json([
-                'error' => 'Token not found'
-            ], 401);
-        }
+        $tokenUser = Token::where('token', $token)->firstOrFail();
 
 //        if (Carbon::create($tokenUser->token_created_at)->diffInMinutes(Carbon::now()) > 60) {
 //            return response()->json([

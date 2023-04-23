@@ -62,4 +62,12 @@ class RoomController extends Controller
 
         return MiniRoomResource::collection(Miniroom::all());
     }
+
+    public function getRoom($id) {
+        return RoomResource::make(Room::where('id', $id)->firstOrFail());
+    }
+
+    public function getMiniRoom($id) {
+        return RoomResource::make(Miniroom::where('id', $id)->firstOrFail());
+    }
 }
