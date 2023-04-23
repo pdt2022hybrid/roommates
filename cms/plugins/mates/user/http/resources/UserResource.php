@@ -3,7 +3,6 @@
 namespace Mates\User\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Carbon\Carbon;
 
 class UserResource extends JsonResource
 {
@@ -14,7 +13,8 @@ class UserResource extends JsonResource
             "name" => $this->name,
             "surname" => $this->surname,
             "email" => $this->email,
-            "registered_at" => Carbon::parse($this->created_at)->format('d.m.Y')
+            "is_activated" => $this->is_activated,
+            "registered_at" => date($this->created_at),
         ];
     }
 }

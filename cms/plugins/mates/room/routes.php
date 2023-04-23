@@ -13,8 +13,6 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::post('room/miniroom/create', [RoomController::class, 'createMiniRoom']); //TODO: naozaj by si mohol pouzit tie api standarty
         Route::get('rooms/all', [RoomController::class, 'getAllRooms']);
         Route::get('minirooms/all', [RoomController::class, 'getAllMiniRooms']);
-        Route::get('rooms/{id}', [RoomController::class, 'getRoom']);
-        Route::get('minitooms/{id}', [RoomController::class, 'getMiniRoom']);
 
         //TODO: Route na joinnutie pravdepodobne vytvori nejake ID roomke z ktoreho sa sprvi URL
         //TODO: Toto url presmeruje s datami roomky na FE, ktory uz len posle request na signup usera a nasledne na join
