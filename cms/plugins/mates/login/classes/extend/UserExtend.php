@@ -9,8 +9,12 @@ class UserExtend
 {
     public static function UserExtend() {
         User::extend(function($model) {
-            $model->hasMany['rooms'] = [
+//            $model->hasOne['room'] = [
+//                Room::class,
+//            ];
+            $model->belongsTo['room'] = [
                 Room::class,
+                'key' => 'room_id',
             ];
         });
     }

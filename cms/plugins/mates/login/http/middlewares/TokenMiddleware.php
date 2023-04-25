@@ -20,7 +20,6 @@ class TokenMiddleware
         $token = $request->bearerToken();
 
         $tokenUser = Token::where('token', $token)->firstOrFail();
-//        dd($tokenUser);
 
         //check if token is expired
 //        if (Carbon::create($tokenUser->token_created_at)->diffInMinutes(Carbon::now()) > 60) {

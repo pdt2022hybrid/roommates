@@ -49,7 +49,8 @@ class SignUpController extends Controller
 
         return response()->json([
             'token' => $generatedToken,
-            'token_type' => 'bearer'
+            'token_type' => 'bearer',
+            'user' => new UserResource($user)
         ]);
     }
 }

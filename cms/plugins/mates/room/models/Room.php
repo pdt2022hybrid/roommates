@@ -31,16 +31,17 @@ class Room extends Model
         'tasks' => [
             Task::class,
         ],
-    ];
-
-    public $belongsToMany = [
         'users' => [
             User::class,
-            'table' => 'mates_user_room',
-            'key' => 'room_id',
-            'otherKey' => 'user_id',
         ],
     ];
+
+//    public $belongsToMany = [
+//        'users' => [
+//            User::class,
+//            'key' => 'room_id',
+//        ],
+//    ];
 
     public $belongsTo = [
         'room_owner' => [
