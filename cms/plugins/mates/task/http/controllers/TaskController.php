@@ -46,7 +46,7 @@ class TaskController extends Controller
     }
 
     public function updateTask($id, Request $request) {
-        $user = auth()->user();
+        $user = User::where('id', $request->get('tokenUserID'))->first();
         $task = Task::where('id', $id)->first();
 
         if(!$task) {
@@ -88,7 +88,6 @@ class TaskController extends Controller
     }
 
     public function completeTask(Request $request) {
-        $user = auth()->user();
 
         $postData = [
             'task_id' => post('task_id'),
@@ -109,7 +108,6 @@ class TaskController extends Controller
     }
 
     public function findTask($id, Request $request) {
-        $user = auth()->user();
         $task = Task::where('id', $id)->first();
 
         if(!$task) {
@@ -122,7 +120,6 @@ class TaskController extends Controller
     }
 
     public function findTasksByRoom($id, Request $request) {
-        $user = auth()->user();
         $tasks = Task::where('room_id', $id)->whereNot('status_id', 3)->get();
 
         if(!$tasks) {
