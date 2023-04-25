@@ -33,8 +33,6 @@ class SignUpController extends Controller
 
         $generatedToken = bin2hex(random_bytes(64));
 
-        //netusim ci funguje
-        // VYGENERUJE SA NOVY TOKEN AK UZ EXISTUJE
         while(Token::where('token', $generatedToken)->first()) {
             $generatedToken = bin2hex(random_bytes(64));
         }
