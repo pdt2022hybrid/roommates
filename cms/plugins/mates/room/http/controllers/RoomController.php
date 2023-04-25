@@ -13,12 +13,10 @@ use Mates\Room\Http\Resources\RoomResource;
 class RoomController extends Controller
 {
     public function getAllRooms(Request $request) {
-        $user = User::where('id', $request->get('tokenUserID'))->first();
-
         return RoomResource::collection(Room::all());
     }
     public function createRoom(Request $request) {
-        $user = User::where('id', $request->get('tokenUserID'))->first();
+        $user = User::where('id', $request->get('tokenUserID'))->first();;
         $postData = [
             'room_name' => post('room_name'),
             'room_owner_id' => $user->id,
@@ -33,7 +31,6 @@ class RoomController extends Controller
     }
 
     public function createMiniRoom(Request $request) {
-        $user = User::where('id', $request->get('tokenUserID'))->first();
         $postData = [
             'room_id' => post('room_id'),
             'izba_name' => post('izba_name'),
@@ -58,8 +55,6 @@ class RoomController extends Controller
     }
 
     public function getAllMiniRooms(Request $request) {
-        $user = User::where('id', $request->get('tokenUserID'))->first();
-
         return MiniRoomResource::collection(Miniroom::all());
     }
 
