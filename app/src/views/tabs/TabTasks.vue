@@ -4,11 +4,10 @@
         <ion-content :fullscreen="true">
           <ion-header collapse="condense">
             <ion-toolbar>
-              <ion-title size="large">Tasks</ion-title>
+              <ion-title size="large"></ion-title>
             </ion-toolbar>
           </ion-header>
 
-          <ExploreContainer name="Tab 2 page" />
         </ion-content>
     </ion-page>
 </template>
@@ -19,6 +18,6 @@ import TopBar from '@/components/TopBar.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    components: { ExploreContainer, TopBar },
+    components: { TopBar },
 });
 </script>

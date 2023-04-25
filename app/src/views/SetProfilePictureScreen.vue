@@ -24,6 +24,7 @@
           </label>
             <input @change="onFileSelected" id="files" type="file">
         </button>
+
       </div>
       <span class="bottom">
         By clicking on profile icon you can change your profile picture or by clicking on the button.
@@ -70,7 +71,7 @@ export default {
       }.bind(vm)
 
       fr.readAsDataURL(file);
-      window.location.replace("https://roomates.hybridlab.dev/ChooseTypeOfPlace")
+      this.$router.push({path: '/chooseTypeOfPlace'})
     },
   },
 }
