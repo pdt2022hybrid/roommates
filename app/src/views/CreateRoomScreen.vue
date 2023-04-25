@@ -1,148 +1,187 @@
 <template>
-    <ion-page>
-        <ion-content>
-            <ion-header class="header">
-                <ion-toolbar>
-                    <ion-icon @click="this.$router.back()" :icon="chevronBackOutline"/>
-                    <ion-title color="#989AA2">New Room</ion-title>
-                </ion-toolbar>
-            </ion-header>
-            <p class="title">Creating a room, how exciting...</p>
-            <ion-item class="inputs">
-                <ion-label position="stacked">Name of place</ion-label>
-                <ion-input v-model="this.name" type="text" placeholder="What should we call your place ?"></ion-input>
-            </ion-item>
-            <ion-item class="inputs">
-                <ion-select placeholder="Which rooms will be in your place ?" @ionChange="selectedRooms = $event.detail.value;" :multiple="true">
-                    <ion-select-option v-for="room in presetRooms" :key="room.id" :value="room">{{ room.name }}</ion-select-option>
-                </ion-select>
-            </ion-item>
-            <!--
-            <p>{{ JSON.stringify(selectedRooms) }}</p>
-            <h1>{{ numberOfRooms }}</h1>
-            -->
-            <ion-grid class="inputs">
-                <ion-row class="ion-align-items-end">
-                    <ion-col>
-                        <ion-item ref="input" class="ion-invalid">
-                            <ion-label position="stacked">Add custom room</ion-label>
-                            <ion-input v-model="this.customRoomInput" :clear-input="true" maxlength="32" placeholder="Room name"></ion-input>
-                            <ion-note position="" slot="error">{{ this.customRoomError }}</ion-note>
-                        </ion-item>
-                    </ion-col>
-                    <ion-col size="auto">
-                        <ion-button @click="this.addCustomRoom(this.customRoomInput)">Add</ion-button>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-            <ion-list class="inputs">
-                <ion-label text-wrap class="ion-text-wrap">
-                    <ion-chip v-for="room in customRooms" :key="room">
-                        <ion-label>{{ room.name }}</ion-label>
-                        <ion-icon @click="removeCustomRoom(room.name)" :icon="closeOutline"/>
-                    </ion-chip>
-                </ion-label>
-            </ion-list>
-            <ion-button @click="this.create()" class="custom-btn btn-create">Create</ion-button>
-        </ion-content>
-    </ion-page>
+  <ion-page>
+
+    <ion-header class="header">
+      <ion-toolbar>
+        <router-link to="/login">
+          <ion-icon class="ion-float-left" :icon="chevronBackOutline"></ion-icon>
+        </router-link>
+        <ion-title>
+          New room
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content fullscreen>
+      <h3 class="ion-padding">
+        Creating a room, how exciting...
+      </h3>
+      <div class="content">
+        <ion-item>
+          <ion-label position="stacked">
+            Name of place
+          </ion-label>
+          <ion-input v-model="placeName" placeholder="What should we call your place ?"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">
+            Add your rooms
+          </ion-label>
+          <div class="row">
+            <ion-input class="" v-model="newRoomName" placeholder="Click here to write"></ion-input>
+            <ion-button @click="newRoom" class="small">
+              Add
+            </ion-button>
+          </div>
+          <span v-for="room in rooms" v-bind:key="room">
+            <div class="room">
+              {{ room }}
+            </div>
+          </span>
+        </ion-item>
+      </div>
+      <div class="bottom">
+        <ion-button @click="createPlace">
+          Create
+        </ion-button>
+      </div>
+    </ion-content>
+
+  </ion-page>
 </template>
 
-<script lang="ts">
-import { IonSelect, IonSelectOption, IonChip, IonNote } from '@ionic/vue';
-import { defineComponent, computed } from 'vue';
-import { chevronBackOutline, closeOutline } from 'ionicons/icons';
-import { PresetRoom, presetRooms, createCustomRoom } from '@/types';
-
-export default defineComponent({
+<script>
+import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
+import { chevronBackOutline } from 'ionicons/icons';
+import axios from "axios";
+export default {
     name: 'ChooseTypeScreen',
-    components: { IonSelect, IonSelectOption, IonChip, IonNote },
+    components: {
+      IonPage, IonIcon, IonToolbar, IonTitle, IonInput, IonHeader, IonContent, IonItem, IonButton, IonLabel
+    },
     data() {
         return {
-            chevronBackOutline, closeOutline,
-            name: '',
-            numberOfRooms: computed(() => this.selectedRooms.length + this.customRooms.length),
-            selectedRooms: [] as PresetRoom[],
-            customRooms: [] as PresetRoom[],
-            customRoomInput: '',
-            customRoomError: '',
-            presetRooms: presetRooms
+          chevronBackOutline,
+          placeName: '',
+          newRoomName: '',
+          rooms: [],
+          numberOfRooms: null,
         }
     },
     methods: {
-        addCustomRoom(room: string) {
-            room = room.trim().replace(/\s+/g, ' ');
-            if(!room) {
-                this.customRoomError = 'Name must not be empty';
-                this.customRoomInput = room;
-                return;
-            }
-            if(this.customRooms.find(o => o.name === room)) {
-                this.customRoomError = 'Room already exists';
-                this.customRoomInput = room;
-                return;
-            }
-            this.customRooms.push(createCustomRoom(room));
-            this.customRoomInput = '';
-            this.customRoomError = '';
-            this.customRooms.sort();
-        },
-        removeCustomRoom(room: string) {
-            const i = this.customRooms.findIndex(o => o.name === room);
-            if(i > -1) this.customRooms.splice(i,1);
-        },
-        create() { //TODO
-            if(!this.name || !this.selectedRooms) return;
-            this.$store.commit('setRoomName', this.name);
-            this.$store.commit('setPresetRooms', this.selectedRooms);
-            this.$store.commit('setCustomRooms', this.customRooms);
-            this.$router.push({path: '/tabs/home'});
-        }
+      newRoom() {
+        this.rooms.push(this.newRoomName)
+        this.newRoomName = ''
+      },
+      createPlace: async function () {
+        await axios.post('https://roomates.hybridlab.dev/cms/api/v1/room/create', {room_name: this.placeName}, {headers: {
+          Authorization: 'Bearer ' +  localStorage.getItem('userToken')
+          }})
+      },
     }
-});
+};
 </script>
 
 <style scoped>
 .header {
-    color: #989AA2;
-    background-color: white;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 18px !important;
-    padding: 16px
+  background-color: white;
+  padding: 16px
 }
 
-.title {
-    position: relative;
-    top: 10vh;
-    z-index: 10;
-    font-family: 'Noto Sans', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 22px;
+.content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.inputs {
-    position: relative;
-    top: 16vh;
+.bottom {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.btn-create {
-    position: relative;
-    top: 28vh;
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+d-none {
+  display: none;
+}
+
+.header-md::after {
+  display: none;
+}
+
+ion-toolbar {
+  --border-width: 0px;
+  --border-style: none;
+  --background: white;
+}
+
+ion-toolbar > ion-title {
+  color: #989AA2;
+  font-weight: 600;
+  font-size: 18px !important;
+}
+
+ion-content > ion-title {
+  color: #262B2C;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+ion-item {
+  font-family: 'Roboto', sans-serif;
+  --ion-border-color: #C6C6C8;
+  padding: 0 16px;
+  width: 100vw;
 }
 
 ion-icon {
-    color: black;
-    width: 24px;
-    height: 24px;
-    float: left !important;
+  color: black;
+  width: 24px;
+  height: 24px;
 }
 
-ion-grid {
-    padding-left: 0;
+ion-icon {
+  float: left !important;
 }
-ion-col {
-    padding-left: 0;
+
+ion-button {
+  width: 200px !important;
+  height: 48px;
+  font-weight: 700 !important;
+  --border-color: #262B2C;
+  --border-radius: 20px;
+  --border-width: 0.5px;
+  color: #FFFFFF;
+  text-transform: none;
+  font-size: 17px;
+}
+
+.small {
+  width: 20% !important;
+  height: 95%;
+}
+
+h3 {
+  font-weight: 700;
+}
+
+.room {
+  box-shadow: black;
+  padding-top: 8px;
+  border: 0.5px gray;
+  border-radius: 100%;
+}
+
+ion-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px !important;
+  color: #3C3C43;
+  opacity: 60%;
 }
 </style>

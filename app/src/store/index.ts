@@ -12,10 +12,10 @@ export interface State {
 
 export const store = createStore<State>({
     state: {
-        token: localStorage.getItem('roomatesToken'),
-        userName: localStorage.getItem('UserName'),
-        userSureName: localStorage.getItem('UserSureName'),
-        userEmail: localStorage.getItem('UserEmail'),
+        token: localStorage.getItem('userToken')  || '',
+        userName: localStorage.getItem('UserName') || '',
+        userSureName: localStorage.getItem('UserSureName') || '',
+        userEmail: localStorage.getItem('UserEmail') || '',
 
     },
     getters: {
