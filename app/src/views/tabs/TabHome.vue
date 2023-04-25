@@ -3,7 +3,6 @@
     <ion-content :fullscreen="true">
         <top-bar title="Home" :menu="true"/>
         <filter-rooms/>
-        <task-card v-for="task in $store.state.room.tasks" :key="task" :task="task"/>
         <ion-header collapse="condense">
             <ion-toolbar>
                 <ion-title size="large">Home</ion-title>
@@ -20,6 +19,6 @@
   import { defineComponent } from 'vue';
 
   export default defineComponent({
-      components: { TopBar, FilterRooms, TaskCard },
+      components: { TopBar, FilterRooms },
   });
 </script>
