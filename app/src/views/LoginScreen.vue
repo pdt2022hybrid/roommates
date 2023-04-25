@@ -40,8 +40,8 @@
 
 <script>
     import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
-    import axios from 'axios';
     import { defineComponent } from 'vue';
+    import {store} from "@/store";
 
     export default defineComponent({
         name: 'LoginScreen',
@@ -56,19 +56,18 @@
             }
         },
         methods: {
-            login: async function (email, password) {
-                if(!email || !password) {
-                    this.errorMsg = 'Please fill all fields...';
-                    return;
+            async login() {
+              try {
+                if(!this.email || !this.password) {
+                  this.errorMsg = 'Please fill all fields...';
+                  return;
                 } else this.errorMsg = '';
-                await axios.post('https://roomates.hybridlab.dev/cms/api/auth/login', {
-                    email: this.email,
-                    password: this.password
-                }).then(function (response) {
-                    console.log(response);
-                }).catch(function (error) {
-                    console.error(error);
-                })
+                await store.dispatch('login', {email: this.email, password: this.password})
+                this.$router.push({path: '/tabs/home'})
+              }catch (error) {
+                this.errorMsg = error
+                console.log(error)
+              }
             },
 
         },
