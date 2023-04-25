@@ -19,7 +19,6 @@ class UserController extends Controller
     }
 
     public function getRoomUsers(Request $request, $id) {
-        $user = User::where('id', $request->get('tokenUserID'))->first();
         $users = User::where('room_id', $id)->firstOrFail();
 
         return UserResource::collection($users);
