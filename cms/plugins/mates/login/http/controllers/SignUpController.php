@@ -20,15 +20,19 @@ class SignUpController extends Controller
             "password_confirmation" => post("password_confirmation")
         ];
         $user = Auth::register($creds);
-        return UserResource::make($user);
-        //TODO: je ti jasne ze toto vies realne vopchat do jedneho riadku
-        //return UserResource::make(Auth::register(post()));
+        return $this->login($creds['email'], $creds['password']);
     }
-    public function login() {
+    public function login($email = null, $password = null) {
         $creds = [
-            'email' => post('email'),
-            'password' => post('password')
+            'email' => $email,
+            'password' => $password
         ];
+        if($email == null || $password == null) {
+            $creds = [
+                'email' => post('email'),
+                'password' => post('password')
+            ];
+        }
         $user = Auth::authenticate($creds);
 
         $generatedToken = bin2hex(random_bytes(64));

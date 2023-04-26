@@ -22,6 +22,10 @@ class Miniroom extends Model
      */
     public $rules = [];
 
+    public $jsonable = [
+        'name'
+    ];
+
     public $belongsTo = [
         'room' => [
             Room::class,

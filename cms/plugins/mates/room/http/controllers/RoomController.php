@@ -45,13 +45,17 @@ class RoomController extends Controller
 
         $room->room_count++;
         $room->save();
+        $miniRooms = collect();
 
-        $miniRoom = new Miniroom();
-        $miniRoom->room_id = $postData['room_id'];
-        $miniRoom->name = $postData['izba_name'];
-        $miniRoom->save();
+        foreach (post('izba_name') as $name) {
+            $miniRoom = new Miniroom();
+            $miniRoom->room_id = $postData['room_id'];
+            $miniRoom->name = $name;
+            $miniRoom->save();
+            $miniRooms->push($miniRoom);
+        }
 
-        return MiniRoomResource::make($miniRoom);
+        return MiniRoomResource::collection($miniRooms);
     }
 
     public function getAllMiniRooms(Request $request) {
