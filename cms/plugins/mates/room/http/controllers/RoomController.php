@@ -32,8 +32,10 @@ class RoomController extends Controller
 
         $miniRooms = collect();
 
+
+
         if (post('izby')) {
-            foreach (post('izba') as $name) {
+            foreach (post('izby') as $name) {
                 $room->room_count++;
                 $room->save();
                 $miniRoom = new Miniroom();
