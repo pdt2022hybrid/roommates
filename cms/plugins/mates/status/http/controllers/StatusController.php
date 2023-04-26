@@ -9,6 +9,6 @@ use Mates\Status\Models\Status;
 class StatusController extends Controller
 {
     public function index() {
-        return StatusResource::collection(Status::all());
+        return new StatusResource(Status::all());
     }
 }

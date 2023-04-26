@@ -42,7 +42,7 @@ class TaskController extends Controller
         $task->deadline = $postData['deadline'];
         $task->save();
 
-        return TaskResource::make($task); //TODO: Topolsky dorob Task Resource a vratit ho
+        return new TaskResource($task); //TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function updateTask($id, Request $request) {
@@ -84,7 +84,7 @@ class TaskController extends Controller
         $task->deadline = $postData['deadline'];
         $task->save();
 
-        return TaskResource::make($task); //TODO: Topolsky dorob Task Resource a vratit ho
+        return new TaskResource($task); //TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function completeTask(Request $request) {
@@ -104,7 +104,7 @@ class TaskController extends Controller
         $task->status_id = 3;
         $task->save();
 
-        return TaskResource::make($task);//TODO: Topolsky dorob Task Resource a vratit ho
+        return new TaskResource($task);//TODO: Topolsky dorob Task Resource a vratit ho
     }
 
     public function findTask($id, Request $request) {
@@ -116,7 +116,7 @@ class TaskController extends Controller
             ], 404);
         }
 
-        return TaskResource::make($task); // TODO: Topolsky prerob na vracanie resource
+        return new TaskResource($task); // TODO: Topolsky prerob na vracanie resource
     }
 
     public function findTasksByRoom($id, Request $request) {
@@ -128,7 +128,7 @@ class TaskController extends Controller
             ], 404);
         }
 
-        return TaskResource::collection($tasks); // TODO: Topolsky prerob na vracanie resource (collection)
+        return new TaskResource($tasks); // TODO: Topolsky prerob na vracanie resource (collection)
     }
 
     public function findTasksByUser($id, Request $request) {
@@ -141,6 +141,6 @@ class TaskController extends Controller
             ], 404);
         }
 
-        return TaskResource::collection($tasks);// TODO: Topolsky prerob na vracanie resource (collection)
+        return new TaskResource($tasks);// TODO: Topolsky prerob na vracanie resource (collection)
     }
 }
