@@ -37,7 +37,7 @@ class RoomController extends Controller
 
         if (!$room) {
             return response()->json([
-                'error' => 'Room not found'
+                'error' => 'Room not found SUPPLIED ROOM_ID: ' . $room_id
             ], 404);
         }
 
