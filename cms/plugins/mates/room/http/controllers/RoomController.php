@@ -30,14 +30,17 @@ class RoomController extends Controller
         return new RoomResource($room);
     }
 
-    public function createMiniRoom(Request $request) {
+    public function createMiniRoom(Request $request)
+    {
+        $room_id = User::where('id', $request->get('tokenUserID'))->first()->room_id;
         $postData = [
-            'room_id' => post('room_id'),
+
+            //'room_id' => post('room_id'),
             'izba_name' => post('izba_name'),
         ];
         $room = Room::where('id', $postData['room_id'])->first();
 
-        if(!$room) {
+        if (!$room) {
             return response()->json([
                 'error' => 'Room not found'
             ], 404);
@@ -49,28 +52,10 @@ class RoomController extends Controller
 
         foreach (post('izba_name') as $name) {
             $miniRoom = new Miniroom();
-            $miniRoom->room_id = $postData['room_id'];
+            $miniRoom->room_id = $room_id;
             $miniRoom->name = $name;
             $miniRoom->save();
             $miniRooms->push($miniRoom);
         }
-
-<<<<<<< Updated upstream
-        return new MiniRoomResource($miniRooms);
-    }
-
-    public function getAllMiniRooms(Request $request) {
-        return new MiniRoomResource(Miniroom::all());
-    }
-
-    public function getRoom($id) {
-        return new RoomResource(Room::where('id', $id)->firstOrFail());
-    }
-
-    public function getMiniRoom($id) {
-        return new RoomResource(Miniroom::where('id', $id)->firstOrFail());
-=======
-        return new  MiniRoomResource($miniRoom);
->>>>>>> Stashed changes
     }
 }
