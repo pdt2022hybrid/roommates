@@ -65,7 +65,6 @@ export default {
           placeName: '',
           newRoomName: '',
           rooms: [],
-          numberOfRooms: null,
         }
     },
     methods: {
@@ -74,9 +73,10 @@ export default {
         this.newRoomName = ''
       },
       createPlace: async function () {
-        await axios.post('https://roomates.hybridlab.dev/cms/api/v1/room/create', {room_name: this.placeName}, {headers: {
+        const response =  await axios.post('https://roomates.hybridlab.dev/cms/api/v1/room/create', {room_name: this.placeName, izby: this.rooms}, {headers: {
           Authorization: 'Bearer ' +  localStorage.getItem('userToken')
           }})
+        console.log(response)
       },
     }
 };
