@@ -56,9 +56,7 @@
       </div>
       <div class="bottom">
         <ion-button v-on:click="signUp()" fill="outline">
-          <router-link to="/setProfilePicture">
-            Sign Up
-          </router-link>
+          Sign Up
         </ion-button>
       </div>
     </ion-content>
@@ -69,6 +67,7 @@
 
 import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
 import { chevronBackOutline } from 'ionicons/icons';
+import {store} from "@/store";
 import { eyeOutline } from 'ionicons/icons';
 import { eyeOffOutline } from 'ionicons/icons';
 import axios from 'axios';
@@ -94,14 +93,8 @@ export default {
   },
   methods: {
     signUp: async function () {
-      const data = {
-        name: this.firstName,
-        surname: this.lastName,
-        email: this.mail,
-        password: this.password,
-        password_confirmation: this.confirmPassword
-      }
-      await axios.post('https://roomates.hybridlab.dev/cms/api/auth/signup', data)
+      await store.dispatch('signup', {name: this.firstName, surname: this.lastName, email: this.mail, password: this.password, password_confirmation: this.confirmPassword})
+      this.$router.push({path: '/setProfilePicture'})
     },
 
     toggleShowPassword() {
