@@ -16,7 +16,7 @@ class RoomController extends Controller
         return new RoomResource(Room::all());
     }
     public function createRoom(Request $request) {
-        $user = User::where('id', $request->get('tokenUserID'))->first();;
+        $user = User::where('id', $request->get('tokenUserID'))->first();
         $postData = [
             'room_name' => post('room_name'),
             'room_owner_id' => $user->id,
@@ -33,12 +33,7 @@ class RoomController extends Controller
     public function createMiniRoom(Request $request)
     {
         $room_id = User::where('id', $request->get('tokenUserID'))->first()->room_id;
-        $postData = [
-
-            //'room_id' => post('room_id'),
-            'izba_name' => post('izba_name'),
-        ];
-        $room = Room::where('id', $postData['room_id'])->first();
+        $room = Room::where('id', $room_id)->first();
 
         if (!$room) {
             return response()->json([
@@ -57,5 +52,18 @@ class RoomController extends Controller
             $miniRoom->save();
             $miniRooms->push($miniRoom);
         }
+        return MiniRoomResource::collection($miniRooms);
+    }
+
+    public function getAllMiniRooms(Request $request) {
+        return new MiniRoomResource(Miniroom::all());
+    }
+
+    public function getRoom($id) {
+        return new RoomResource(Room::where('id', $id)->firstOrFail());
+    }
+
+    public function getMiniRoom($id) {
+        return new RoomResource(Miniroom::where('id', $id)->firstOrFail());
     }
 }
