@@ -52,7 +52,7 @@ class RoomController extends Controller
             $miniRoom->save();
             $miniRooms->push($miniRoom);
         }
-        return new MiniRoomResource($miniRooms);
+        return MiniRoomResource::collection($miniRooms);
     }
 
     public function getAllMiniRooms(Request $request) {
