@@ -3,7 +3,6 @@
 
         <ion-header class="header ion-text-end">
       <ion-toolbar>
-        <ion-icon :icon="chevronBackOutline"></ion-icon>
         <ion-title>
           Set profile picture
         </ion-title>
