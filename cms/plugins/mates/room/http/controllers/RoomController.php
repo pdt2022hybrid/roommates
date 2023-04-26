@@ -55,6 +55,7 @@ class RoomController extends Controller
             $miniRooms->push($miniRoom);
         }
 
+<<<<<<< Updated upstream
         return new MiniRoomResource($miniRooms);
     }
 
@@ -68,5 +69,8 @@ class RoomController extends Controller
 
     public function getMiniRoom($id) {
         return new RoomResource(Miniroom::where('id', $id)->firstOrFail());
+=======
+        return new  MiniRoomResource($miniRoom);
+>>>>>>> Stashed changes
     }
 }

@@ -84,7 +84,11 @@ class TaskController extends Controller
         $task->deadline = $postData['deadline'];
         $task->save();
 
+<<<<<<< Updated upstream
         return new TaskResource($task); //TODO: Topolsky dorob Task Resource a vratit ho
+=======
+        return newTaskResource($task); //TODO: Topolsky dorob Task Resource a vratit ho
+>>>>>>> Stashed changes
     }
 
     public function completeTask(Request $request) {
