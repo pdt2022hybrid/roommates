@@ -13,9 +13,6 @@
     </ion-header>
 
     <ion-content fullscreen>
-      <h3 class="ion-padding">
-        Creating a place, how exciting...
-      </h3>
       <div class="content">
         <ion-item>
           <ion-label position="stacked">
@@ -27,22 +24,23 @@
           <ion-label position="stacked">
             Add your rooms
           </ion-label>
-          <ion-input class="" v-model="newRoomName" placeholder="Add some rooms">
-            <ion-button slot="end" @click="newRoom" class="small">
-              Add
-            </ion-button>
-          </ion-input>
+          <ion-input class="" v-model="newRoomName" placeholder="Add some rooms"></ion-input>
+          <ion-button slot="end" @click="newRoom" class="small">
+            Add
+          </ion-button>
         </ion-item>
-        <span v-for="room in rooms" v-bind:key="room">
-            <div class="room">
-              {{ room }}
-            </div>
-          </span>
       </div>
       <div class="bottom">
         <ion-button @click="createPlace">
           Create
         </ion-button>
+      </div>
+      <div class="list">
+          <span v-for="room in rooms" v-bind:key="room">
+          <div class="room">
+            {{ room }}
+          </div>
+        </span>
       </div>
     </ion-content>
 
@@ -89,14 +87,14 @@ export default {
 
 .content {
   position: absolute;
-  top: 40%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .bottom {
   position: absolute;
-  top: 70%;
+  top: 85%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -115,6 +113,17 @@ ion-toolbar {
   --background: white;
 }
 
+.list {
+  text-align: start;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
 ion-toolbar > ion-title {
   color: #989AA2;
   font-weight: 600;
@@ -130,7 +139,7 @@ ion-content > ion-title {
 ion-item {
   font-family: 'Roboto', sans-serif;
   --ion-border-color: #C6C6C8;
-  padding: 0 16px;
+  padding-right: 16px;
   width: 100vw;
 }
 
@@ -158,19 +167,12 @@ ion-button {
 
 .small {
   width: 20% !important;
-  height: 95%;
+  height: 80%;
   margin-left: auto;
 }
 
 h3 {
   font-weight: 700;
-}
-
-.room {
-  box-shadow: black;
-  padding-top: 8px;
-  border: 0.5px gray;
-  border-radius: 100%;
 }
 
 ion-label {
