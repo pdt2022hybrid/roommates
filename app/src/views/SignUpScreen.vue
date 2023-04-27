@@ -13,9 +13,6 @@
     </ion-header>
 
     <ion-content fullscreen>
-      <ion-title class="ion-padding">
-        Welcome to app, Sign Up...
-      </ion-title>
       <div class="content">
         <ion-item>
           <ion-label position="stacked">First Name</ion-label>
@@ -55,7 +52,7 @@
         </ion-item>
       </div>
       <div class="bottom">
-        <ion-button v-on:click="signUp()" fill="outline">
+        <ion-button v-on:click="signUp()">
           Sign Up
         </ion-button>
       </div>
@@ -93,8 +90,12 @@ export default {
   },
   methods: {
     signUp: async function () {
-      await store.dispatch('signup', {name: this.firstName, surname: this.lastName, email: this.mail, password: this.password, password_confirmation: this.confirmPassword})
-      this.$router.push({path: '/setProfilePicture'})
+      if (this.password !== this.confirmPassword) {
+        alert("Passwords does not match")
+      } else {
+        await store.dispatch('signup', {name: this.firstName, surname: this.lastName, email: this.mail, password: this.password, password_confirmation: this.confirmPassword})
+        this.$router.push({path: '/setProfilePicture'})
+      }
     },
 
     toggleShowPassword() {
@@ -174,7 +175,7 @@ ion-content > ion-title {
 ion-item {
   font-family: 'Roboto', sans-serif;
   --ion-border-color: #C6C6C8;
-  padding: 0 16px;
+  padding-right: 16px;
   width: 100vw;
 }
 
@@ -182,9 +183,6 @@ ion-icon {
   color: black;
   width: 24px;
   height: 24px;
-}
-
- ion-icon {
   float: left !important;
 }
 
@@ -195,7 +193,7 @@ ion-button {
   --border-color: #262B2C;
   --border-radius: 20px;
   --border-width: 0.5px;
-  color: #262B2C;
+  color: #FFFFFF;
   text-transform: none;
   font-size: 17px;
 }

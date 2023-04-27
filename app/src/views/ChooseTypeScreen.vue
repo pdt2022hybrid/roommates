@@ -28,32 +28,33 @@ export default defineComponent({
         text-align: center;
         letter-spacing: -0.408px;
         color: #262B2C;
+        text-align: center;
     }
 
     .text-title {
         position: relative;
-        top: 21vh;
+        top: 10vh;
         font-size: 24px;
     }
 
     .img-deco {
         position: relative;
-        top: 21vh;
+        top: 13vh;
     }
 
     .btn-new {
         position: relative;
-        top: 26vh;
+        top: 20vh;
     }
 
     .text-or {
         position: relative;
-        top: 24vh;
+        top: 18vh;
         font-size: 14px;
     }
 
     .btn-existing {
         position: relative;
-        top: 22vh;
+        top: 16vh;
     }
 </style>

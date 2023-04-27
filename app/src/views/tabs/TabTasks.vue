@@ -7,13 +7,11 @@
               <ion-title size="large"></ion-title>
             </ion-toolbar>
           </ion-header>
-
         </ion-content>
     </ion-page>
 </template>
 
 <script lang="ts">
-import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopBar from '@/components/TopBar.vue';
 import { defineComponent } from 'vue';
 

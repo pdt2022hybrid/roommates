@@ -1,15 +1,15 @@
 <template>
     <ion-page>
 
-        <ion-header class="header ion-text-end">
+    <ion-header class="header ion-text-end">
       <ion-toolbar>
         <ion-title>
           Set profile picture
         </ion-title>
         <ion-label class="later">
-            <router-link to="/ChooseTypeOfPlace">
-              Later
-            </router-link>
+          <router-link to="/ChooseTypeOfPlace">
+           Later
+          </router-link>
         </ion-label>
       </ion-toolbar>
     </ion-header>
@@ -156,6 +156,11 @@ ion-toolbar {
 
 ion-title {
   color: #989AA2;
+  text-align: center  ;
+}
+
+.header-md::after {
+  display: none;
 }
 
 </style>

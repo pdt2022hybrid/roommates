@@ -27,7 +27,7 @@
             </div>
 
             <div class="bottom">
-              <ion-button @click="login(this.email, this.password)" class="login-btn" fill="outline" color="dark">Log In</ion-button>
+              <ion-button @click="login(this.email, this.password)" class="login-btn">Log In</ion-button>
             </div>
 
             <router-link class="link" to="/signUp">
@@ -151,7 +151,7 @@
     ion-item {
       font-family: 'Roboto', sans-serif;
       --ion-border-color: #C6C6C8;
-      padding: 0 16px;
+      padding-right: 16px;
       width: 100vw;
     }
     ion-icon {
@@ -169,7 +169,7 @@
       --border-color: #262B2C;
       --border-radius: 20px;
       --border-width: 0.5px;
-      color: #262B2C;
+      color: #FFFFFF;
       text-transform: none;
       font-size: 17px;
     }

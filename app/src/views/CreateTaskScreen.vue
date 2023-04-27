@@ -38,7 +38,7 @@ export default {
 <style scoped>
 .header {
   background-color: white;
-  padding: 16px
+  padding-right: 16px;
 }
 
 a {

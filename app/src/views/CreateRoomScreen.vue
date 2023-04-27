@@ -7,14 +7,14 @@
           <ion-icon class="ion-float-left" :icon="chevronBackOutline"></ion-icon>
         </router-link>
         <ion-title>
-          New room
+          New place
         </ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content fullscreen>
       <h3 class="ion-padding">
-        Creating a room, how exciting...
+        Creating a place, how exciting...
       </h3>
       <div class="content">
         <ion-item>
@@ -27,18 +27,17 @@
           <ion-label position="stacked">
             Add your rooms
           </ion-label>
-          <div class="row">
-            <ion-input class="" v-model="newRoomName" placeholder="Click here to write"></ion-input>
-            <ion-button @click="newRoom" class="small">
+          <ion-input class="" v-model="newRoomName" placeholder="Add some rooms">
+            <ion-button slot="end" @click="newRoom" class="small">
               Add
             </ion-button>
-          </div>
-          <span v-for="room in rooms" v-bind:key="room">
+          </ion-input>
+        </ion-item>
+        <span v-for="room in rooms" v-bind:key="room">
             <div class="room">
               {{ room }}
             </div>
           </span>
-        </ion-item>
       </div>
       <div class="bottom">
         <ion-button @click="createPlace">
@@ -102,11 +101,6 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-}
-
 d-none {
   display: none;
 }
@@ -165,6 +159,7 @@ ion-button {
 .small {
   width: 20% !important;
   height: 95%;
+  margin-left: auto;
 }
 
 h3 {

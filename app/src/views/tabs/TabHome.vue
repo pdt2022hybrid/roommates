@@ -3,7 +3,6 @@
     <ion-content :fullscreen="true">
         <top-bar title="Home" :menu="true"/>
         <filter-rooms/>
-        
     </ion-content>
 </ion-page>
 </template>
