@@ -36,10 +36,13 @@
         </ion-button>
       </div>
       <div class="list">
-          <span v-for="room in rooms" v-bind:key="room">
+          <span class="fullRoom" v-for="room in rooms" v-bind:key="room">
           <div class="room">
             {{ room }}
           </div>
+            <button class="delete">
+              X
+            </button>
         </span>
       </div>
     </ion-content>
@@ -80,6 +83,8 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.cdnfonts.com/css/nunito');
+
 .header {
   background-color: white;
   padding: 16px
@@ -107,6 +112,17 @@ d-none {
   display: none;
 }
 
+.fullRoom {
+  display: flex;
+}
+
+.delete {
+  font-size: 300%;
+  background-color: white;
+  color: black;
+  font-family: 'Nunito', sans-serif;
+}
+
 ion-toolbar {
   --border-width: 0px;
   --border-style: none;
@@ -122,6 +138,17 @@ ion-toolbar {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+}
+
+.room {
+  font-size: 20px;
+  border: 0.5px gray solid;
+  width: 50%;
+  padding: 16px;
+  border-radius: 10rem;
+  text-align: center;
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+  margin-right: auto;
 }
 
 ion-toolbar > ion-title {
