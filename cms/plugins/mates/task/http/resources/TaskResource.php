@@ -11,8 +11,8 @@ class TaskResource extends JsonResource
 {
     public function toArray($request) {
         return [
-            'task_name' => $this->resource->name,
-            'task_description' => $this->resource->description,
+            'name' => $this->resource->name,
+            'description' => $this->resource->description,
             'deadline' => $this->resource->deadline,
             'miniroom' => new MiniRoomResource($this->resource->miniroom),
             'status_id' => $this->resource->status_id,

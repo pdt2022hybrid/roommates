@@ -3,6 +3,7 @@
 namespace Mates\Task\Http\Controllers;
 
 use Backend\Classes\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Mates\Room\Models\Miniroom;
 use Mates\Task\Http\Resources\TaskResource;
@@ -20,7 +21,7 @@ class TaskController extends Controller
             'status_id' => post('status_id'),
             'task_name' => post('task_name'),
             'task_description' => post('task_description'),
-            'deadline' => post('deadline'),
+            'deadline' => Carbon::make(post('deadline')),
         ];
 
         $miniRoom = Miniroom::where('id', $postData['miniroom_id'])->first();
@@ -42,7 +43,7 @@ class TaskController extends Controller
         $task->deadline = $postData['deadline'];
         $task->save();
 
-        return new TaskResource($task); //TODO: Topolsky dorob Task Resource a vratit ho
+        return new TaskResource($task);
     }
 
     public function updateTask($id, Request $request) {
@@ -84,4 +85,57 @@ class TaskController extends Controller
         $task->deadline = $postData['deadline'];
         $task->save();
 
+        return new TaskResource($task);
+    }
 
+    public function completeTask($id) {
+        $task = Task::where('id', $id)->first();
+
+        if(!$task) {
+            return response()->json([
+                'error' => 'Task not found'
+            ], 404);
+        }
+
+        $task->status_id = 3;
+        $task->save();
+
+        return new TaskResource($task);
+    }
+
+    public function findTask($id) {
+        $task = Task::where('id', $id)->first();
+
+        if(!$task) {
+            return response()->json([
+                'error' => 'Task not found'
+            ], 404);
+        }
+
+        return new TaskResource($task);
+    }
+
+    public function findTasksByRoom($id) {
+        $tasks = Task::where('room_id', $id)->whereNot('status_id', 3)->get();
+
+        if(!$tasks) {
+            return response()->json([
+                'error' => 'Tasks not found'
+            ], 404);
+        }
+
+        return TaskResource::collection($tasks);
+    }
+
+    public function findTasksByUser($id) {
+        $tasks = Task::where('user_assigned_id', $id)->get();
+
+        if(!$tasks) {
+            return response()->json([
+                'error' => 'Tasks not found'
+            ], 404);
+        }
+
+        return TaskResource::collection($tasks);
+    }
+}
