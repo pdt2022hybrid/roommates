@@ -11,12 +11,12 @@ class UserController extends Controller
 {
     public function getUser(Request $request) {
         $user = User::where('id', $request->get('tokenUserID'))->first();
-        return $user;
+        return new UserResource($user);
     }
 
     public function getRoomUsers($id) {
-        $users = User::where('room_id', $id)->firstOrFail();
+        $users = User::where('room_id', $id)->get();
 
-        return new UserResource($users);
+        return UserResource::collection($users);
     }
 }

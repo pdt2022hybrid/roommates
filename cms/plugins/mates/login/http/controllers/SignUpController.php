@@ -4,7 +4,7 @@ namespace Mates\Login\Http\Controllers;
 
 use Backend\Classes\Controller;
 use RainLab\User\Facades\Auth;
-use Mates\Login\Http\Resources\UserResource;
+use Mates\User\Http\Resources\UserResource;
 use RainLab\User\Models\User;
 use Mates\Login\Models\Token;
 use Carbon\Carbon;
