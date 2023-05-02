@@ -47,7 +47,6 @@ class TaskController extends Controller
     }
 
     public function updateTask($id, Request $request) {
-        $user = User::where('id', $request->get('tokenUserID'))->first();
         $task = Task::where('id', $id)->first();
 
         if(!$task) {
@@ -56,33 +55,14 @@ class TaskController extends Controller
             ], 404);
         }
 
-        $postData = [
-            'user_assigned_id' => post('user_assigned_id'),
-            'user_created_id' => $user->id,
-            'miniroom_id' => post('miniroom_id'),
-            'status_id' => post('status_id'),
-            'task_name' => post('task_name'),
-            'task_description' => post('task_description'),
-            'deadline' => post('deadline'),
-        ];
+        if (post('user_assigned_id')) $task->user_assigned_id = post('user_assigned_id');
+        if (post('user_created_id')) $task->user_created_id = post('user_created_id');
+        if (post('miniroom_id')) $task->miniroom_id = post('miniroom_id');
+        if (post('status_id')) $task->status_id = post('status_id');
+        if (post('task_name')) $task->name = post('task_name');
+        if (post('task_description')) $task->description = post('task_description');
+        if (post('deadline')) $task->deadline = post('deadline');
 
-        $miniRoom = Miniroom::where('id', $postData['miniroom_id'])->first();
-
-        if(!$miniRoom) {
-            return response()->json([
-                'error' => 'Miniroom not found'
-            ], 404);
-        }
-
-
-        $task->user_assigned_id = $postData['user_assigned_id'];
-        $task->user_created_id = $postData['user_created_id'];
-        $task->miniroom_id = $postData['miniroom_id'];
-        $task->room_id = $miniRoom->room_id;
-        $task->status_id = $postData['status_id'];
-        $task->name = $postData['task_name'];
-        $task->description = $postData['task_description'];
-        $task->deadline = $postData['deadline'];
         $task->save();
 
         return new TaskResource($task);

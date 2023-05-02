@@ -6,6 +6,9 @@ columns:
     id:
         label: ID
         searchable: true
+    status[name]:
+        label: Status
+        searchable: true
     name:
         label: Name
         span: auto
