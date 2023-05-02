@@ -74,6 +74,7 @@ export default {
           Authorization: 'Bearer ' +  localStorage.getItem('userToken')
           }})
         console.log(response)
+        this.$router.push({path: '/tabs/home'})
       },
     }
 };
