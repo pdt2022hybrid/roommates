@@ -69,7 +69,6 @@ export default defineComponent({
         }
     },
     methods: {
-<<<<<<< Updated upstream
         addCustomRoom(room: string) {
             room = room.trim().replace(/\s+/g, ' ');
             if(!room) {
@@ -94,19 +93,6 @@ export default defineComponent({
     },
     setup() {
         return { chevronBackOutline, closeOutline };
-=======
-      newRoom() {
-        this.rooms.push(this.newRoomName)
-        this.newRoomName = ''
-      },
-      createPlace: async function () {
-        const response =  await axios.post('https://roomates.hybridlab.dev/cms/api/v1/room/create', {room_name: this.placeName, izby: this.rooms}, {headers: {
-          Authorization: 'Bearer ' +  localStorage.getItem('userToken')
-          }})
-        console.log(response)
-        this.$router.push({path: '/tabs/home'})
-      },
->>>>>>> Stashed changes
     }
 });
 </script>
