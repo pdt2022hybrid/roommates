@@ -10,6 +10,7 @@ class StatusResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
+            'color' => $this->resource->color,
         ];
     }
 }

@@ -8,3 +8,7 @@ fields:
         disabled: true
     name:
         label: Name
+    color:
+        label: Color
+        type: colorpicker
+        default: '#FF4961'

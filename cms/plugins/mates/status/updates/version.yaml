@@ -1,2 +1,5 @@
 1.0.1:
     - create_statuses_table.php
+1.0.2:
+    - added color property
+    - add_color_table.php
