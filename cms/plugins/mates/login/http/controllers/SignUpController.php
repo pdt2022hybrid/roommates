@@ -3,6 +3,7 @@
 namespace Mates\Login\Http\Controllers;
 
 use Backend\Classes\Controller;
+use Mates\Login\Http\resources\UserResourceSignUp;
 use RainLab\User\Facades\Auth;
 use Mates\User\Http\Resources\UserResource;
 use RainLab\User\Models\User;
@@ -53,14 +54,14 @@ class SignUpController extends Controller
             return response()->json([
                 'token' => $generatedToken,
                 'token_type' => 'bearer',
-                'user' => new \Mates\Login\Http\Resources\UserResource($user)
+                'user' => new UserResource($user)
             ]);
         }
 
         return response()->json([
             'token' => $generatedToken,
             'token_type' => 'bearer',
-            'user' => new UserResource($user)
+            'user' => new UserResourceSignUp($user)
         ]);
     }
 }
