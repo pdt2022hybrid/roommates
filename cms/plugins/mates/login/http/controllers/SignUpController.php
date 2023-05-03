@@ -49,6 +49,14 @@ class SignUpController extends Controller
         $token->token_created_at = Carbon::now();
         $token->save();
 
+        if($email == null || $password == null) {
+            return response()->json([
+                'token' => $generatedToken,
+                'token_type' => 'bearer',
+                'user' => new \Mates\Login\Http\Resources\UserResource($user)
+            ]);
+        }
+
         return response()->json([
             'token' => $generatedToken,
             'token_type' => 'bearer',
