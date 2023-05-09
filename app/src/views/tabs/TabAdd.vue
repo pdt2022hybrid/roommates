@@ -67,7 +67,7 @@ export default defineComponent({
       const response = await axios.get('https://roomates.hybridlab.dev/cms/api/v1/user', {headers: {
         Authorization: localStorage.getItem('userToken')
         }})
-      console.log(response)
+      console.log(response);
     }
   },
 });
