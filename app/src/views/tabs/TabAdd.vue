@@ -16,6 +16,27 @@ import TopBar from '@/components/TopBar.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    components: { TopBar },
+    components: {
+      IonPage, IonContent, IonList, IonSelect, IonSelectOption, IonDatetime, TopBar
+    },
+
+    data() {
+      return {
+        chevronBackOutline,
+        taskName: '',
+        assignTo: '',
+        description: '',
+        deadline: '',
+        members: ['jeden', 'dva', 'tri']
+      }
+    },
+  methods: {
+    async createTask() {
+      const response = await axios.get('https://roomates.hybridlab.dev/cms/api/v1/user', {headers: {
+        Authorization: localStorage.getItem('userToken')
+        }})
+      console.log(response);
+    }
+  },
 });
 </script>
