@@ -22,6 +22,7 @@ class SignUpController extends Controller
             "password_confirmation" => post("password_confirmation")
         ];
 
+
         if (request()->hasFile('avatar'))
         {
 

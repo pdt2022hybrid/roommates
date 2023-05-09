@@ -2,8 +2,10 @@
 
 namespace Mates\Login\Http\resources;
 
+
 use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;
+use System\Models\File;
 
 class UserResourceSignUp extends JsonResource
 {
