@@ -9,6 +9,7 @@ use Mates\User\Http\Resources\UserResource;
 use RainLab\User\Models\User;
 use Mates\Login\Models\Token;
 use Carbon\Carbon;
+use System\Models\File;
 
 class SignUpController extends Controller
 {
@@ -44,6 +45,15 @@ class SignUpController extends Controller
 
         Token::where('user_id', $user->id)->delete();
 
+        if (request()->hasFile('avatar'))
+        {
+
+            $file = new File();
+            $file->fromPost(request()->file("avatar"));
+            $file->save();
+            $user->avatar = $file;
+        }
+
         $token = new Token();
         $token->token = $generatedToken;
         $token->user_id = $user->id;
@@ -62,6 +72,8 @@ class SignUpController extends Controller
             'token' => $generatedToken,
             'token_type' => 'bearer',
             'user' => new UserResourceSignUp($user)
+
+
         ]);
     }
 }
