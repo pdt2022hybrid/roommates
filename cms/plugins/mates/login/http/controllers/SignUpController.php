@@ -76,8 +76,6 @@ class SignUpController extends Controller
             'token' => $generatedToken,
             'token_type' => 'bearer',
             'user' => new UserResourceSignUp($user)
-
-
         ]);
     }
 }
