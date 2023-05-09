@@ -1,28 +1,8 @@
 <template>
     <ion-page>
-<<<<<<< Updated upstream
+
         <top-bar title="Creating a task" :menu="false"></top-bar>
         <ion-content :fullscreen="true">
-          <ion-header collapse="condense">
-            <ion-toolbar>
-              <ion-title size="large">Add Task</ion-title>
-            </ion-toolbar>
-          </ion-header>
-
-          <ExploreContainer name="Tab 3 page" />
-=======
-      <ion-header class="header">
-        <ion-toolbar>
-          <router-link to="/login">
-            <ion-icon :icon="chevronBackOutline"></ion-icon>
-          </router-link>
-          <ion-title>
-            Creating a task
-          </ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-        <ion-content fullscreen>
           <div class="content">
             <ion-item>
               <ion-label position="stacked">Name of the task</ion-label>
@@ -30,44 +10,46 @@
             </ion-item>
             <ion-list>
               <ion-item>
-                <ion-select aria-label="fruit" placeholder="Select fruit">
-                  <ion-select-option value="apples">Apples</ion-select-option>
-                  <ion-select-option value="oranges">Oranges</ion-select-option>
-                  <ion-select-option value="bananas">Bananas</ion-select-option>
+                <ion-select aria-label="fruit" placeholder="Assign to a roomate">
+                  <div class="options" v-for="member in members" v-bind:key="member">
+                    <ion-select-option value="member">{{ member }}</ion-select-option>
+                  </div>
                 </ion-select>
               </ion-item>
             </ion-list>
+            <ion-list>
+              <ion-item>
+                <ion-select aria-label="fruit" placeholder="Pre defined tasks">
+                  <ion-select-option value="apples">Cleaning</ion-select-option>
+                  <ion-select-option value="oranges">Take out the rubish</ion-select-option>
+                  <ion-select-option value="bananas">Buy groceries</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+            <div class="calendar">
+              <ion-datetime class="date-time"></ion-datetime>
+            </div>
           </div>
           <div class="bottom">
             <ion-button v-on:click="createTask()">
               Create a task
             </ion-button>
           </div>
->>>>>>> Stashed changes
         </ion-content>
-
     </ion-page>
 </template>
 
-<<<<<<< Updated upstream
-<script lang="ts">
-import ExploreContainer from '@/components/ExploreContainer.vue';
-import TopBar from '@/components/TopBar.vue';
-=======
 <script>
-import { IonPage, IonContent, IonItem, IonList, IonSelect, IonSelectOption, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
+import { IonPage, IonContent, IonList, IonSelect, IonSelectOption, IonDatetime } from '@ionic/vue';
 import { chevronBackOutline } from 'ionicons/icons';
+import TopBar from "@/components/TopBar.vue";
 
->>>>>>> Stashed changes
 import { defineComponent } from 'vue';
 import axios from "axios";
 
 export default defineComponent({
-<<<<<<< Updated upstream
-    components: { ExploreContainer, TopBar },
-=======
     components: {
-      IonPage, IonContent, IonIcon, IonToolbar, IonTitle, IonHeader, IonList, IonSelect, IonSelectOption
+      IonPage, IonContent, IonList, IonSelect, IonSelectOption, IonDatetime, TopBar
     },
 
     data() {
@@ -77,6 +59,7 @@ export default defineComponent({
         assignTo: '',
         description: '',
         deadline: '',
+        members: ['jeden', 'dva', 'tri']
       }
     },
   methods: {
@@ -87,34 +70,14 @@ export default defineComponent({
       console.log(response)
     }
   },
->>>>>>> Stashed changes
 });
 </script>
 
 <style scoped>
 
-.header {
-  background-color: white;
-  padding: 16px
-}
-
 a {
   color: #262B2C !important;
   text-decoration: none;
-}
-
-.content {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.bottom {
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 d-none {
@@ -124,6 +87,11 @@ d-none {
 .row {
   display: flex;
   width: 100%;
+}
+
+.calendar {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .header-md::after {

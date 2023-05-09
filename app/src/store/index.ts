@@ -1,60 +1,85 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import { presetRooms, PresetRoom, createCustomRoom, Room, Task, Priority } from '@/types';
+import axios from "axios";
 
 export interface State {
     token: string,
-    room: Room
+    userName: string,
+    userSureName: string,
+    userEmail: string,
+    userId: string,
 }
 
 export const store = createStore<State>({
     state: {
-        token: '',
-        room: {
-            name: '',
-            members: [
-                "Marek Topolsky",
-                "Richard Egyed",
-                "Sloboda",
-                "Luptacik"
-            ],
-            presetRooms: [
-                presetRooms[0],
-                presetRooms[1],
-                presetRooms[4]
-            ],
-            customRooms: [
-                createCustomRoom("Roooom"),
-                createCustomRoom("Room 7"),
-                createCustomRoom("CustomRoom22"),
-            ],
-            tasks: [
-                new Task("UPRAC KUCHYNU", "RICHARD EGYED", '2023-1-12', Priority.HIGH, 'kitchen'),
-                new Task("ALE NO UZ", "LUPTACIK", '2023-1-12', Priority.MEDIUM, 'bath'),
-                new Task("CHOD DOMOV", "SLOBODA", '2023-1-12', Priority.LOW, 'living'),
-                new Task("UPRAC SVOJU IZBU", "MAREK TOPOLSKY", '2023-1-12', Priority.LOW, 'work')
-            ]
-        }
+        token: localStorage.getItem('userToken')  || '',
+        userName: localStorage.getItem('UserName') || '',
+        userSureName: localStorage.getItem('UserSureName') || '',
+        userEmail: localStorage.getItem('UserEmail') || '',
+        userId: localStorage.getItem('UserId') || '',
+
     },
     getters: {
-    
+
     },
     mutations: {
-        setRoomName: (state, name: string) => state.room.name = name,
-        setRoomMembers: (state, members: string[]) => state.room.members = members,
-        setPresetRooms: (state, rooms: PresetRoom[]) => state.room.presetRooms = rooms,
-        setCustomRooms: (state, rooms: PresetRoom[]) => state.room.customRooms = rooms,
-        setTasks: (state, tasks: Task[]) => state.room.tasks = tasks,
-        addTask: (state, task: Task) => state.room.tasks.push(task),
-        removeTask: (state, task: Task) => {
-            const i = state.room.tasks.findIndex(o => o === task);
-            if(i > -1) state.room.tasks.splice(i,1);
+        login(state, userData) {
+            state.token = userData.token
+            state.userName = userData.userName
+            state.userSureName = userData.userSureName
+            state.userEmail = userData.userEmail
+            console.log(userData.token)
+        },
+        signup(state, userData) {
+            state.token = userData.token
+            state.userName = userData.userName
+            state.userSureName = userData.userSureName
+            state.userEmail = userData.userEmail
+            state.userId = userData.userId
+            console.log(userData.token)
         }
 
     },
     actions: {
-    
-    }
+        login:  async function ({ commit }, credentials) {
+            await axios.post('https://roomates.hybridlab.dev/cms/api/auth/login', credentials)
+                .then(function (response) {
+                    console.log(response)
+                    const userToken = response.data.token
+                    const userName = response.data.user.name
+                    const userSureName = response.data.user.surname
+                    const userEmail = response.data.user.email
+                    store.commit('login', {token: userToken, userName: userName, userSurname: userSureName, userEmail: userEmail})
+                    console.log(userToken)
+                    localStorage.setItem('userToken', userToken)
+                    localStorage.setItem('userName', userName)
+                    localStorage.setItem('userSureName', userSureName)
+                    localStorage.setItem('userEmail', userEmail)
+                }).catch(function (error) {
+                    console.error(error);
+                })
+        },
+        signup: async function ({commit}, credentials) {
+            await axios.post('https://roomates.hybridlab.dev/cms/api/auth/signup', credentials)
+                .then(function (response) {
+                    console.log(response)
+                    const userToken = response.data.token
+                    const userName = response.data.user.name
+                    const userSureName = response.data.user.surname
+                    const userEmail = response.data.user.email
+                    const userId = response.data.id
+                    store.commit('signup', {token: userToken, userName: userName, userSurname: userSureName, userEmail: userEmail, userId: userId})
+                    localStorage.setItem('userToken', userToken)
+                    localStorage.setItem('userName', userName)
+                    localStorage.setItem('userSureName', userSureName)
+                    localStorage.setItem('userEmail', userEmail)
+                    localStorage.setItem('userId', userId)
+                }).catch(function (error) {
+                    console.error(error)
+                })
+        }
+    },
 })
 
 export const key: InjectionKey<Store<State>> = Symbol()

@@ -99,7 +99,7 @@ export default {
         surname: this.lastName,
         email: this.mail,
         password: this.password,
-        password_confirmation: this.confirmPassword
+        password_confirmation: this.confirmPassword,
       }
       await axios.post('https://roomates.hybridlab.dev/cms/api/auth/signup', data)
     },
