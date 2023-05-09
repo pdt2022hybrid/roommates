@@ -9,6 +9,7 @@ export interface State {
     userSureName: string,
     userEmail: string,
     userId: string,
+    roomId: string,
 }
 
 export const store = createStore<State>({
@@ -18,6 +19,7 @@ export const store = createStore<State>({
         userSureName: localStorage.getItem('UserSureName') || '',
         userEmail: localStorage.getItem('UserEmail') || '',
         userId: localStorage.getItem('userId') || '',
+        roomId: localStorage.getItem('roomId') || '',
     },
     getters: {
 
@@ -37,6 +39,9 @@ export const store = createStore<State>({
             state.userEmail = userData.userEmail
             state.userId = userData.userId
             console.log(userData.token)
+        },
+        createroom(state, roomData) {
+            console.log('test')
         }
 
     },
@@ -77,7 +82,16 @@ export const store = createStore<State>({
                 }).catch(function (error) {
                     console.error(error)
                 })
-        }
+        },
+        createroom: async function ({commit}, data) {
+            const response =  await axios.post('https://roomates.hybridlab.dev/cms/api/v1/room/create', data, {headers: {
+                    Authorization: 'Bearer ' +  localStorage.getItem('userToken')
+                }})
+            const roomId = response.data.data.id
+            store.commit('createroom', {roomId: roomId})
+            localStorage.setItem('roomId', roomId)
+            console.log(response)
+        },
     },
 })
 

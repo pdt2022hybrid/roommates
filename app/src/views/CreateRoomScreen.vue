@@ -50,7 +50,7 @@
 <script>
 import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
 import { chevronBackOutline } from 'ionicons/icons';
-import axios from "axios";
+import {store} from "@/store";
 export default {
     name: 'ChooseTypeScreen',
     components: {
@@ -70,10 +70,7 @@ export default {
         this.newRoomName = ''
       },
       createPlace: async function () {
-        const response =  await axios.post('https://roomates.hybridlab.dev/cms/api/v1/room/create', {room_name: this.placeName, izby: this.rooms}, {headers: {
-          Authorization: 'Bearer ' +  localStorage.getItem('userToken')
-          }})
-        console.log(response)
+        await store.dispatch('createroom', {room_name: this.placeName, izby: this.rooms})
         this.$router.push({path: '/tabs/home'})
       },
     }
