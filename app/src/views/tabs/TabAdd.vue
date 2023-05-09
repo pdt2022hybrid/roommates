@@ -41,10 +41,12 @@
 <script lang="ts">
 import TopBar from '@/components/TopBar.vue';
 import { defineComponent } from 'vue';
+import {chevronBackOutline} from "ionicons/icons";
+import axios from "axios";
 
 export default defineComponent({
     components: {
-      IonPage, IonContent, IonList, IonSelect, IonSelectOption, IonDatetime, TopBar
+      TopBar
     },
 
     data() {

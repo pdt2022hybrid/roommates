@@ -63,6 +63,8 @@ export function getPresetRoom(id: roomType) {
     return presetRoomsWithCustom.find(room => room.id === id);
 }
 
+
+
 export const placeholderTasks: Task[] = [
     new Task("UPRAC KUCHYNU", "Richard Egyed", '2023-1-12', Priority.HIGH, 'kitchen'),
     new Task("ALE NO UZ", "Luptacik", '2023-1-12', Priority.MEDIUM, 'bath'),

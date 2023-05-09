@@ -4,23 +4,30 @@
     </div>
 </template>
 
-<script>
-import TaskCard from "@/components/TaskCard";
-import { Task } from '@/types'
+<script lang="ts">
+import { Task } from "@/types";
+import TaskCard from "@/components/TaskCard.vue";
 
 export default {
     name: "TaskList",
     components: {TaskCard},
     props: {
-        tasks: [],
+        tasklist: [] as Task[],
         filter: []
+    },
+    data() {
+        return {
+            tasks: this.tasklist
+        }
     },
     methods: {
         check(task) {
-            const authorCheck = this.filter.members.find(obj => {
+            return this.filter.members.find(obj => {
                 return obj.name === task.author;
-            }).value
-            return authorCheck;
+            }).value;
+        },
+        sort() {
+            this.tasks.sort((a, b) => (a.priority.priority > b.priority.priority) ? 1 : -1)
         }
     }
 }

@@ -2,22 +2,24 @@
 <ion-page>
     <ion-content :fullscreen="true">
         <top-bar title="Home" :menu="true"/>
-        <task-card v-for="task in placeholderTasks" :key="task" :task="task"/>
+        <task-list :tasklist="placeholderTasks"></task-list>
+        <!--<task-card v-for="task in placeholderTasks" :key="task" :task="task"/>-->
     </ion-content>
 </ion-page>
 </template>
 
 <script>
   import TopBar from '@/components/TopBar.vue';
-  import TaskCard from '@/components/TaskCard.vue';
+  import TaskList from '@/components/TaskList.vue';
   import { placeholderTasks } from "@/types";
   import { defineComponent } from 'vue';
 
   export default defineComponent({
-      components: { TaskCard, TopBar },
+      components: { TaskList, TopBar },
       data() {
           return {
-              placeholderTasks
+              placeholderTasks,
+              filter: []
           }
       }
   });
