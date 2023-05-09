@@ -34,6 +34,10 @@ class SignUpController extends Controller
                 'password' => post('password')
             ];
         }
+
+        // todo: prerob
+
+
         $user = Auth::authenticate($creds);
 
         $generatedToken = bin2hex(random_bytes(64));
