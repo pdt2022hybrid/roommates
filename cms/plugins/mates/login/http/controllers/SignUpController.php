@@ -22,6 +22,7 @@ class SignUpController extends Controller
             "password_confirmation" => post("password_confirmation")
         ];
 
+        $user = Auth::register($creds);
 
         if (request()->hasFile('avatar')){
             $file = new File();
@@ -31,7 +32,6 @@ class SignUpController extends Controller
             $user->avatar = $file;
         }
 
-        $user = Auth::register($creds);
         return $this->login($creds['email'], $creds['password']);
     }
     public function login($email = null, $password = null) {
