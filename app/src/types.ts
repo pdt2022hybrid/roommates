@@ -62,3 +62,16 @@ export type roomType = 'kitchen' | 'living' | 'bath' | 'work' | 'dining' | 'cust
 export function getPresetRoom(id: roomType) {
     return presetRoomsWithCustom.find(room => room.id === id);
 }
+
+export const placeholderTasks: Task[] = [
+    new Task("UPRAC KUCHYNU", "Richard Egyed", '2023-1-12', Priority.HIGH, 'kitchen'),
+    new Task("ALE NO UZ", "Luptacik", '2023-1-12', Priority.MEDIUM, 'bath'),
+    new Task("CHOD DOMOV", "Sloboda", '2023-1-12', Priority.LOW, 'living'),
+    new Task("UPRAC SVOJU IZBU", "Marek Topolsky", '2023-1-12', Priority.LOW, 'work')
+]
+export const placeholderMembers: string[] = [
+    "Marek Topolsky",
+    "Richard Egyed",
+    "Sloboda",
+    "Luptacik"
+]

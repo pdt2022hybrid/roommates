@@ -18,19 +18,19 @@
             </ion-card-header>
         </ion-card>
         <p class="subtitle">Date</p>
-        <ion-item v-for="sel in optionsDate" :key="sel">
+        <ion-item v-for="sel in labelsDate" :key="sel">
             <ion-label label-placement="fixed">{{ sel.label }}</ion-label>
-            <ion-select interface="popover" justify="space-between" :placeholder="sel.options[0].text">
-                <ion-select-option v-for="o in sel.options" :key="o" :value="o.id">{{ o.text }}</ion-select-option>
+            <ion-select v-model="sel.value" interface="popover" justify="space-between" :placeholder="optionsDate[0].text">
+                <ion-select-option v-for="o in optionsDate" :key="o" :value="o.id">{{ o.text }}</ion-select-option>
             </ion-select>
         </ion-item>
         <p class="subtitle">Roommate</p>
-        <ion-item v-for="roommate in $store.state.room.members" :key="roommate">
-            <ion-label>{{ roommate }}</ion-label>
-            <ion-checkbox justify="space-between"></ion-checkbox>
+        <ion-item v-for="roommate in members" :key="roommate">
+            <ion-label>{{ roommate.name }}</ion-label>
+            <ion-checkbox v-model="roommate.value" justify="space-between"></ion-checkbox>
         </ion-item>
         <p class="subtitle">Importance</p>
-        <ion-radio-group value="most">
+        <ion-radio-group v-model="this.importanceSort">
             <ion-item>
                 <ion-label>Most Important</ion-label>
                 <ion-radio value="most" justify="space-between"/>
@@ -45,44 +45,42 @@
     <ion-icon @click="this.show = true" class="menu-icon" :icon="require(`@/../resources/icon_filter.svg`)"/>
 </template>
 
-<script>
+<script lang="ts">
 import { close } from 'ionicons/icons';
+import { placeholderMembers } from "@/types";
 import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "TaskFilter",
     data() {
+        const members: {name: string, value: boolean}[] = [];
+        for (const o of placeholderMembers) {
+            members.push({name: o, value: true});
+        }
         return {
             close,
+            members,
             show: false,
             optionsDate: [
-                {
-                    label: "Task created",
-                    options: [
-                        { id: "any", text: "Any" },
-                        { id: "newest", text: "Newest" },
-                        { id: "oldest", text: "Oldest" },
-                    ]
-                },
-                {
-                    label: "Promise date",
-                    options: [
-                        { id: "any", text: "Any" },
-                        { id: "newest", text: "Newest" },
-                        { id: "oldest", text: "Oldest" },
-                    ]
-                },
-                {
-                    label: "Auto cancel date",
-                    options: [
-                        { id: "any", text: "Any" },
-                        { id: "newest", text: "Newest" },
-                        { id: "oldest", text: "Oldest" },
-                    ]
-                },
-            ]
+                { id: "any", text: "Any" },
+                { id: "newest", text: "Newest" },
+                { id: "oldest", text: "Oldest" },
+            ],
+            labelsDate: [
+                { label: "Task created", value: "any" },
+                { label: "Promise date", value: "any" },
+                { label: "Auto cancel date", value: "any" },
+            ],
+            importanceSort: "most"
         }
-    }
+    },
+    methods: {
+        submit() {
+            this.show = false;
+            this.$emit('update', {dateOptions: this.labelsDate, members: this.members, importance: this.importanceSort});
+        }
+    },
+    emits: ['update']
 })
 </script>
 

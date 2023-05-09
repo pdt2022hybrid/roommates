@@ -20,7 +20,7 @@
         </ion-card-header>
 
         <ion-card-content>
-            <span style="color: #2FDF75">BY: </span>{{ task.author }}
+            <span style="color: #2FDF75">BY: </span>{{ task.author.toUpperCase() }}
         </ion-card-content>
     </ion-card>
 </template>
