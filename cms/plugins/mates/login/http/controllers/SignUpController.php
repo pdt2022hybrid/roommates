@@ -21,6 +21,16 @@ class SignUpController extends Controller
             "password" => post("password"),
             "password_confirmation" => post("password_confirmation")
         ];
+        if (request()->hasFile('avatar'))
+        {
+
+            $file = new File();
+            $file->fromPost(request()->file("avatar"));
+            $file->save();
+            $user->avatar = $file;
+        }
+
+        $user->avatar = $file;
         $user = Auth::register($creds);
         return $this->login($creds['email'], $creds['password']);
     }
@@ -49,14 +59,7 @@ class SignUpController extends Controller
 
         Token::where('user_id', $user->id)->delete();
 
-        if (request()->hasFile('avatar'))
-        {
 
-            $file = new File();
-            $file->fromPost(request()->file("avatar"));
-            $file->save();
-            $user->avatar = $file;
-        }
 
         $token = new Token();
         $token->token = $generatedToken;
