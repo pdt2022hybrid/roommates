@@ -22,6 +22,15 @@ class SignUpController extends Controller
             "password_confirmation" => post("password_confirmation")
         ];
         $user = Auth::register($creds);
+
+        if (request()->hasFile('avatar'))
+        {
+            $file = new File();
+            $file->fromPost(request()->file("avatar"));
+            $file->save();
+            $user->avatar()->add($file);
+        }
+
         return $this->login($creds['email'], $creds['password']);
     }
     public function login($email = null, $password = null) {
@@ -38,7 +47,6 @@ class SignUpController extends Controller
 
         // todo: prerob
 
-
         $user = Auth::authenticate($creds);
 
         $generatedToken = bin2hex(random_bytes(64));
@@ -48,15 +56,6 @@ class SignUpController extends Controller
         }
 
         Token::where('user_id', $user->id)->delete();
-
-        if (request()->hasFile('avatar'))
-        {
-
-            $file = new File();
-            $file->fromPost(request()->file("avatar"));
-            $file->save();
-            $user->avatar = $file;
-        }
 
         $token = new Token();
         $token->token = $generatedToken;
