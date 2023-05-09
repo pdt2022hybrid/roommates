@@ -28,7 +28,7 @@ class SignUpController extends Controller
 
             $user->avatar = $file;
         }
-        
+
         return UserResource::make($user);
     }
     public function login() {
