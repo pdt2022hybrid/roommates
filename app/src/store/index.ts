@@ -19,7 +19,7 @@ export const store = createStore<State>({
 
     },
     getters: {
-    
+
     },
     mutations: {
         login(state, userData) {
