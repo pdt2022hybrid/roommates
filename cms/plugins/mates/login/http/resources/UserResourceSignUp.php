@@ -17,7 +17,6 @@ class UserResourceSignUp extends JsonResource
             "email" => $this->email,
             "registered_at" => Carbon::parse($this->created_at)->format('d.m.Y'),
             "avatar" => optional($this->resource->avatar)->path,
-
         ];
     }
 }
