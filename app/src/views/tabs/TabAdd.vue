@@ -15,6 +15,7 @@
                     <ion-select-option value="member">{{ member }}</ion-select-option>
                   </div>
                 </ion-select>
+                jiohio
               </ion-item>
             </ion-list>
             <ion-list>
