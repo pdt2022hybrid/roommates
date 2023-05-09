@@ -8,6 +8,7 @@ export interface State {
     userName: string,
     userSureName: string,
     userEmail: string,
+    userId: string,
 }
 
 export const store = createStore<State>({
@@ -16,7 +17,7 @@ export const store = createStore<State>({
         userName: localStorage.getItem('UserName') || '',
         userSureName: localStorage.getItem('UserSureName') || '',
         userEmail: localStorage.getItem('UserEmail') || '',
-
+        userId: localStorage.getItem('userId') || '',
     },
     getters: {
 
@@ -34,6 +35,7 @@ export const store = createStore<State>({
             state.userName = userData.userName
             state.userSureName = userData.userSureName
             state.userEmail = userData.userEmail
+            state.userId = userData.userId
             console.log(userData.token)
         }
 
@@ -65,11 +67,13 @@ export const store = createStore<State>({
                     const userName = response.data.user.name
                     const userSureName = response.data.user.surname
                     const userEmail = response.data.user.email
-                    store.commit('signup', {token: userToken, userName: userName, userSurname: userSureName, userEmail: userEmail})
+                    const userId = response.data.user.id
+                    store.commit('signup', {token: userToken, userName: userName, userSurname: userSureName, userEmail: userEmail, userId: userId})
                     localStorage.setItem('userToken', userToken)
                     localStorage.setItem('userName', userName)
                     localStorage.setItem('userSureName', userSureName)
                     localStorage.setItem('userEmail', userEmail)
+                    localStorage.setItem('userId', userId)
                 }).catch(function (error) {
                     console.error(error)
                 })
