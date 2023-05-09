@@ -5,6 +5,7 @@ namespace Mates\Room\Http\Controllers;
 use Backend\Classes\Controller;
 use Mates\Room\Http\resources\MiniRoomResource;
 use Mates\Room\Models\Miniroom;
+use Mates\User\Http\Resources\UserResource;
 use RainLab\User\Models\User;
 use Mates\Room\Models\Room;
 use Illuminate\Http\Request;
@@ -32,8 +33,6 @@ class RoomController extends Controller
 
         $miniRooms = collect();
 
-
-
         if (post('izby')) {
             foreach (post('izby') as $name) {
                 $room->room_count++;
@@ -47,6 +46,24 @@ class RoomController extends Controller
         }
 
         return new RoomResource($room);
+    }
+
+    public function joinRoom(Request $request, $roomIdentifier) {
+        $user = User::find($request->tokenUserID);
+        $room = Room::where('room_identifier', $roomIdentifier)->first();
+
+        if(!$room) {
+            return response()->json([
+                'error' => 'Room not found SUPPLIED ROOM_IDENTIFIER: ' . $roomIdentifier
+            ], 404);
+        }
+
+        $user->room_id = $room->id;
+        $user->save();
+
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 
 //    public function createMiniRoom(Request $request)

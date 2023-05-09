@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->integer('room_count');
-            $table->string('room_url')->nullable()->default("null");
+            $table->string('room_identifier');
             $table->integer('room_owner_id');
 
             $table->timestamps();

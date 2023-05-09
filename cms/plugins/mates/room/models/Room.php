@@ -56,4 +56,10 @@ class Room extends Model
             'key' => 'code_id'
         ]
     ]; // todo: add code_id to room table
+
+    public function beforeCreate() {
+        do {
+            $this->room_identifier = bin2hex(random_bytes(6));
+        } while(Room::where('room_identifier', $this->room_identifier)->exists());
+    }
 }

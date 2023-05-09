@@ -28,7 +28,11 @@ class TokenMiddleware
 //            ], 401); //TODO: throwni nejaky exception, nie takto
 //        }
 
-        $request->attributes->add(['tokenUserID' => $tokenUser->user_id]);
+        //$request->attributes->add(['tokenUserID' => $tokenUser->user_id]);
+
+        $request->merge([
+            'tokenUserID' => $tokenUser->user_id
+        ]);
 
         return $next($request);
     }
