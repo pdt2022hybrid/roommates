@@ -23,16 +23,14 @@ class SignUpController extends Controller
         ];
 
 
-        if (request()->hasFile('avatar'))
-        {
-
+        if (request()->hasFile('avatar')){
             $file = new File();
             $file->fromPost(request()->file("avatar"));
             $file->save();
+
             $user->avatar = $file;
         }
 
-        $user->avatar = $file;
         $user = Auth::register($creds);
         return $this->login($creds['email'], $creds['password']);
     }
