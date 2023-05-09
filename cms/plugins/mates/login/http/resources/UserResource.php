@@ -13,7 +13,7 @@ class UserResource extends JsonResource
             "email" => $this->resource->email,
             "is_activated" => $this->resource->is_activated,
             "registered_at" => date($this->resource->created_at),
-            "avatar" => $this->resource->avatar,
+            "avatar" => optional($this->resource->avatar)->path,
         ];
     }
 }
