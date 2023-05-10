@@ -2,6 +2,8 @@ import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import { presetRooms, PresetRoom, createCustomRoom, Room, Task, Priority } from '@/types';
 import axios from "axios";
+import {minimatch} from "cypress/types/cy-minimatch";
+import {resize} from "ionicons/icons";
 
 export interface State {
     token: string,
@@ -10,6 +12,8 @@ export interface State {
     userEmail: string,
     userId: string,
     roomId: string,
+    miniRooms: string,
+    roomUsers: string,
 }
 
 export const store = createStore<State>({
@@ -20,6 +24,8 @@ export const store = createStore<State>({
         userEmail: localStorage.getItem('UserEmail') || '',
         userId: localStorage.getItem('userId') || '',
         roomId: localStorage.getItem('roomId') || '',
+        miniRooms: localStorage.getItem('miniRooms') || '',
+        roomUsers: localStorage.getItem('roomUsers') || '',
     },
     getters: {
 
@@ -40,14 +46,22 @@ export const store = createStore<State>({
             state.userId = userData.userId
             console.log(userData.token)
         },
-        createroom(state, roomData) {
-            console.log('test')
+        createRoom(state, roomData) {
+            state.roomId = roomData
+        },
+        storeMinirooms(state, roomData) {
+            state.miniRooms = roomData.data.data
+            localStorage.setItem('miniRooms', JSON.stringify(state.miniRooms))
+        },
+        storeUsers(state, roomUsers) {
+            state.roomUsers = roomUsers.data.data
+            localStorage.setItem('roomUsers', JSON.stringify(state.roomUsers))
         }
 
     },
     actions: {
         login:  async function ({ commit }, credentials) {
-            await axios.post('https://roomates.hybridlab.dev/cms/api/auth/login', credentials)
+            await axios.post('/auth/login', credentials)
                 .then(function (response) {
                     console.log(response)
                     const userToken = response.data.token
@@ -65,7 +79,7 @@ export const store = createStore<State>({
             })
         },
         signup: async function ({commit}, credentials) {
-            await axios.post('https://roomates.hybridlab.dev/cms/api/auth/signup', credentials)
+            await axios.post('/auth/signup', credentials)
                 .then(function (response) {
                     console.log(response)
                     const userToken = response.data.token
@@ -83,15 +97,31 @@ export const store = createStore<State>({
                     console.error(error)
                 })
         },
-        createroom: async function ({commit}, data) {
-            const response =  await axios.post('https://roomates.hybridlab.dev/cms/api/v1/room/create', data, {headers: {
+        createRoom: async function ({commit}, data) {
+            const response =  await axios.post('v1/room/create', data, {headers: {
                     Authorization: 'Bearer ' +  localStorage.getItem('userToken')
                 }})
             const roomId = response.data.data.id
-            store.commit('createroom', {roomId: roomId})
+            store.commit('createRoom', roomId)
             localStorage.setItem('roomId', roomId)
             console.log(response)
         },
+        storeMinirooms: async function ({commit}, data) {
+            await axios.get('/v1/room/minirooms', {headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('userToken')
+                }})
+                .then((response) => {
+                    store.commit('storeMinirooms', response)
+                })
+        },
+        storeUsers: async function ({commit}, data) {
+            await axios.get('/v1/room/' + localStorage.getItem('roomId') + '/users', {headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('userToken')
+                }})
+                .then((response) => {
+                    store.commit('storeUsers', response)
+                })
+        }
     },
 })
 
