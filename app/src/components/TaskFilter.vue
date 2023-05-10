@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import { close } from 'ionicons/icons';
-import { placeholderMembers, taskFilterDateOptions, taskFilterMember, taskFilterImportance, TaskFilter } from "@/types";
+import { placeholderMembers, taskFilterDateOptions, taskFilterMember, taskFilterImportance, TaskFilter, dateOptionsValue } from "@/types";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -62,22 +62,27 @@ export default defineComponent({
             members,
             show: false,
             optionsDate: [
-                { id: "any", text: "Any" },
-                { id: "newest", text: "Newest" },
-                { id: "oldest", text: "Oldest" },
+                { id: 'any', text: "Any" },
+                { id: 'newest', text: "Newest" },
+                { id: 'oldest', text: "Oldest" },
             ],
             labelsDate: [
-                { label: "Task created", value: "any" },
-                { label: "Promise date", value: "any" },
-                { label: "Auto cancel date", value: "any" },
-            ] as taskFilterDateOptions,
+                { id: 'createdDate', label: "Task created", value: 'any' as dateOptionsValue },
+                { id: 'promiseDate', label: "Promise date", value: 'any' as dateOptionsValue },
+                { id: 'cancelDate', label: "Auto cancel date", value: 'any' as dateOptionsValue },
+            ],
             importanceSort: "most" as taskFilterImportance
         }
     },
     methods: {
         submit() {
             this.show = false;
-            this.$emit('updateFilter', new TaskFilter(this.labelsDate, this.members, this.importanceSort));
+            const dateOptions: taskFilterDateOptions = {
+                createdDate: this.labelsDate.find(obj => {return obj.id === 'createdDate'}).value,
+                promiseDate: this.labelsDate.find(obj => {return obj.id === 'promiseDate'}).value,
+                cancelDate: this.labelsDate.find(obj => {return obj.id === 'cancelDate'}).value,
+            };
+            this.$emit('updateFilter', new TaskFilter(dateOptions, this.members, this.importanceSort));
         }
     },
     emits: ['updateFilter']

@@ -76,20 +76,19 @@ export class TaskFilter {
 }
 
 export type dateOptionsValue = 'any' | 'newest' | 'oldest';
-export type taskFilterDateOptions = [
-    { label: "Task created", value: dateOptionsValue },
-    { label: "Promise date", value: dateOptionsValue },
-    { label: "Auto cancel date", value: dateOptionsValue },
-];
+export type taskFilterDateOptions = { createdDate: dateOptionsValue, promiseDate: dateOptionsValue, cancelDate: dateOptionsValue };
 export type taskFilterMember = { name: string, value: boolean };
 export type taskFilterImportance = 'most' | 'least';
+export function getDateOptionsValueSort(a: dateOptionsValue): 1 | -1 | 0 {
+    return a === 'newest' ? -1 : (a === 'oldest' ? 1 : 0);
+}
 
 export const DefaultTaskFilter: TaskFilter = {
-    dateOptions: [
-        { label: "Task created", value: 'any' },
-        { label: "Promise date", value: 'any' },
-        { label: "Auto cancel date", value: 'any' },
-    ],
+    dateOptions: {
+        createdDate: 'any',
+        promiseDate: 'any',
+        cancelDate: 'any'
+    },
     members: [
         {name: "Marek Topolsky", value: true},
         {name: "Richard Egyed", value: true},
@@ -100,8 +99,8 @@ export const DefaultTaskFilter: TaskFilter = {
 }
 
 export const placeholderTasks: Task[] = [
-    new Task("UPRAC KUCHYNU", "Richard Egyed", '2023-1-12', Priority.HIGH, 'kitchen'),
-    new Task("ALE NO UZ", "Luptacik", '2023-1-15', Priority.MEDIUM, 'bath'),
+    new Task("UPRAC KUCHYNU", "Richard Egyed", '2023-1-12', Priority.MEDIUM, 'kitchen'),
+    new Task("ALE NO UZ", "Luptacik", '2023-1-15', Priority.HIGH, 'bath'),
     new Task("CHOD DOMOV", "Sloboda", '2023-1-12', Priority.LOW, 'living'),
     new Task("UPRAC SVOJU IZBU", "Marek Topolsky", '2023-1-24', Priority.LOW, 'work')
 ]
