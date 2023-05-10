@@ -13,7 +13,7 @@ fields:
         label: Room Count
         span: auto
         type: number
-    room_url:
+    room_identifier:
         label: Room URL
         span: auto
         type: text

@@ -9,6 +9,7 @@ use Mates\User\Http\Resources\UserResource;
 use RainLab\User\Models\User;
 use Mates\Login\Models\Token;
 use Carbon\Carbon;
+use System\Models\File;
 
 class SignUpController extends Controller
 {
@@ -21,6 +22,15 @@ class SignUpController extends Controller
             "password_confirmation" => post("password_confirmation")
         ];
         $user = Auth::register($creds);
+
+        if (request()->hasFile('avatar'))
+        {
+            $file = new File();
+            $file->fromPost(request()->file("avatar"));
+            $file->save();
+            $user->avatar()->add($file);
+        }
+
         return $this->login($creds['email'], $creds['password']);
     }
     public function login($email = null, $password = null) {
@@ -34,6 +44,9 @@ class SignUpController extends Controller
                 'password' => post('password')
             ];
         }
+
+        // todo: prerob
+
         $user = Auth::authenticate($creds);
 
         $generatedToken = bin2hex(random_bytes(64));

@@ -9,8 +9,7 @@ class MiniRoomResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'name' => $this->resource->name,
-            'room' => RoomResource::make($this->room)
+            'name' => $this->resource->name
         ];
     }
 }
