@@ -113,7 +113,7 @@ body {
     color: #222428;
 }
 .title-card {
-    margin-top: 5.5vh;
+    margin-top: 3.5vh;
 }
 
 .subtitle {
