@@ -12,8 +12,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::post('room/join/{roomIdentifier}', [RoomController::class, 'joinRoom']);
         Route::post('room/miniroom/create', [RoomController::class, 'createMiniRoom']); //TODO: naozaj by si mohol pouzit tie api standarty
         Route::get('rooms/all', [RoomController::class, 'getAllRooms']);
-        Route::get('minirooms/all', [RoomController::class, 'getAllMiniRooms']);
-        Route::get('rooms/{id}', [RoomController::class, 'getRoom']);
-        Route::get('minirooms/{id}', [RoomController::class, 'getMiniRoom']);
+        Route::get('room/minirooms', [RoomController::class, 'getMiniRoomsInRoom']);
+        Route::get('room/{id}', [RoomController::class, 'getRoom']);
     });
 });
