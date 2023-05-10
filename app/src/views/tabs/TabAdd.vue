@@ -32,6 +32,7 @@
           <div class="bottom">
             <ion-button v-on:click="createTask()">
               Create a task
+              apwjd
             </ion-button>
           </div>
         </ion-content>
