@@ -18,7 +18,7 @@
           <ion-label position="stacked">
             Name of place
           </ion-label>
-          <ion-input v-model="placeName" placeholder="What should we call your place ?"></ion-input>
+          <ion-input v-model="placeName" placeholder="What should we call your accomodation ?"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">
@@ -36,11 +36,12 @@
         </ion-button>
       </div>
       <div class="list">
-          <span v-for="room in rooms" v-bind:key="room">
-          <div class="room">
-            {{ room }}
-          </div>
-        </span>
+          <ion-chip color="tertiary" v-for="room in rooms" v-bind:key="room">
+            <ion-label color="dark" class="room">
+              {{ room }}
+            </ion-label>
+            <ion-icon @click="remove(room)" :icon="close"></ion-icon>
+        </ion-chip>
       </div>
     </ion-content>
 
@@ -48,23 +49,28 @@
 </template>
 
 <script>
-import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
+import { IonPage, IonChip, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
 import { chevronBackOutline } from 'ionicons/icons';
+import { close } from 'ionicons/icons';
 import {store} from "@/store";
 export default {
     name: 'ChooseTypeScreen',
     components: {
-      IonPage, IonIcon, IonToolbar, IonTitle, IonInput, IonHeader, IonContent, IonItem, IonButton, IonLabel
+      IonPage, IonIcon, IonToolbar, IonChip, IonTitle, IonInput, IonHeader, IonContent, IonItem, IonButton, IonLabel
     },
     data() {
         return {
           chevronBackOutline,
+          close,
           placeName: '',
           newRoomName: '',
           rooms: [],
         }
     },
     methods: {
+      remove(room) {
+        this.rooms = this.rooms.filter(item => item !== room)
+      },
       newRoom() {
         this.rooms.push(this.newRoomName)
         this.newRoomName = ''

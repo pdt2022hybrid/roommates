@@ -69,8 +69,16 @@
                 console.log(error)
               }
             },
-
         },
+      mounted() {
+        if(localStorage.userToken && localStorage.roomId) {
+          this.$router.push({path: '/tabs/home'})
+        } else if(localStorage.userToken) {
+          this.$router.push({path: '/chooseTypeOfPlace'})
+        } else {
+          this.$router.push({path: '/'})
+        }
+      },
     })
 </script>
 
