@@ -1,17 +1,17 @@
 <template>
 <ion-page>
     <ion-content :fullscreen="true">
-        <top-bar title="Home" :menu="true"/>
-        <task-list :tasklist="placeholderTasks"></task-list>
+        <top-bar title="Home" :menu="true" @update-filter="(updateFilter)"/>
+        <task-list :tasklist="placeholderTasks" :filter="filter" :key="filter"></task-list>
         <!--<task-card v-for="task in placeholderTasks" :key="task" :task="task"/>-->
     </ion-content>
 </ion-page>
 </template>
 
-<script>
+<script lang="ts">
   import TopBar from '@/components/TopBar.vue';
   import TaskList from '@/components/TaskList.vue';
-  import { placeholderTasks } from "@/types";
+  import { placeholderTasks, TaskFilter, DefaultTaskFilter } from "@/types";
   import { defineComponent } from 'vue';
 
   export default defineComponent({
@@ -19,7 +19,12 @@
       data() {
           return {
               placeholderTasks,
-              filter: []
+              filter: DefaultTaskFilter
+          }
+      },
+      methods: {
+          updateFilter(e: TaskFilter) {
+              this.filter = e;
           }
       }
   });

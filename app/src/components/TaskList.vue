@@ -1,19 +1,19 @@
 <template>
     <div v-for="task in tasks" :key="task">
-        <task-card v-if="check(task)" />
+        <task-card v-if="check(task)" :task="task" />
     </div>
 </template>
 
 <script lang="ts">
-import { Task } from "@/types";
+import { Task, TaskFilter } from "@/types";
 import TaskCard from "@/components/TaskCard.vue";
 
 export default {
     name: "TaskList",
-    components: {TaskCard},
+    components: { TaskCard },
     props: {
         tasklist: [] as Task[],
-        filter: []
+        filter: TaskFilter
     },
     data() {
         return {
@@ -27,10 +27,14 @@ export default {
             }).value;
         },
         sort() {
-            this.tasks.sort((a, b) => (a.priority.priority > b.priority.priority) ? 1 : -1)
+            const i = this.filter.importance === 'least' ? 1 : -1;
+            this.tasks.sort((a, b) => (a.priority.priority > b.priority.priority) ? i : -i);
         }
+    },
+    mounted() {
+        this.sort();
     }
-}
+};
 </script>
 
 <style scoped>

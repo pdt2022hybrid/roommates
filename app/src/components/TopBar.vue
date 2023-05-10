@@ -3,7 +3,7 @@
         <ion-grid>
             <ion-row size="auto">
                 <ion-col size="auto">
-                    <task-filter v-if="menu"/>
+                    <task-filter v-if="menu" @update-filter="(e) => $emit('updateFilter', e)"/>
                     <!--<ion-icon v-if="menu" @click="this.$router.back()" :icon="require(`@/../resources/icon_filter.svg`)"/>-->
                     <ion-icon v-else @click="this.$router.back()" :icon="chevronBackOutline"/>
                 </ion-col>
@@ -29,6 +29,8 @@ export default defineComponent( {
         title: String,
         menu: Boolean
     },
+
+    emits: ['updateFilter'],
     setup() {
         return { chevronBackOutline };
     }

@@ -63,13 +63,47 @@ export function getPresetRoom(id: roomType) {
     return presetRoomsWithCustom.find(room => room.id === id);
 }
 
+export class TaskFilter {
+    dateOptions: taskFilterDateOptions;
+    members: taskFilterMember[];
+    importance: taskFilterImportance;
 
+    constructor(dateOptions: taskFilterDateOptions, members: taskFilterMember[], importance: taskFilterImportance) {
+        this.dateOptions = dateOptions;
+        this.members = members;
+        this.importance = importance;
+    }
+}
+
+export type dateOptionsValue = 'any' | 'newest' | 'oldest';
+export type taskFilterDateOptions = [
+    { label: "Task created", value: dateOptionsValue },
+    { label: "Promise date", value: dateOptionsValue },
+    { label: "Auto cancel date", value: dateOptionsValue },
+];
+export type taskFilterMember = { name: string, value: boolean };
+export type taskFilterImportance = 'most' | 'least';
+
+export const DefaultTaskFilter: TaskFilter = {
+    dateOptions: [
+        { label: "Task created", value: 'any' },
+        { label: "Promise date", value: 'any' },
+        { label: "Auto cancel date", value: 'any' },
+    ],
+    members: [
+        {name: "Marek Topolsky", value: true},
+        {name: "Richard Egyed", value: true},
+        {name: "Sloboda", value: true},
+        {name: "Luptacik", value: true}
+    ],
+    importance: 'most'
+}
 
 export const placeholderTasks: Task[] = [
     new Task("UPRAC KUCHYNU", "Richard Egyed", '2023-1-12', Priority.HIGH, 'kitchen'),
-    new Task("ALE NO UZ", "Luptacik", '2023-1-12', Priority.MEDIUM, 'bath'),
+    new Task("ALE NO UZ", "Luptacik", '2023-1-15', Priority.MEDIUM, 'bath'),
     new Task("CHOD DOMOV", "Sloboda", '2023-1-12', Priority.LOW, 'living'),
-    new Task("UPRAC SVOJU IZBU", "Marek Topolsky", '2023-1-12', Priority.LOW, 'work')
+    new Task("UPRAC SVOJU IZBU", "Marek Topolsky", '2023-1-24', Priority.LOW, 'work')
 ]
 export const placeholderMembers: string[] = [
     "Marek Topolsky",

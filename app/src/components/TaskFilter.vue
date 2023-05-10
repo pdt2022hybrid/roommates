@@ -7,7 +7,7 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col size="auto">
-                                <ion-icon @click="this.show = false" :icon="close" style="font-size: 24px;"></ion-icon>
+                                <ion-icon @click="this.submit()" :icon="close" style="font-size: 24px;"></ion-icon>
                             </ion-col>
                             <ion-col class="title">
                                 Filters
@@ -47,13 +47,13 @@
 
 <script lang="ts">
 import { close } from 'ionicons/icons';
-import { placeholderMembers } from "@/types";
+import { placeholderMembers, taskFilterDateOptions, taskFilterMember, taskFilterImportance, TaskFilter } from "@/types";
 import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "TaskFilter",
     data() {
-        const members: {name: string, value: boolean}[] = [];
+        const members: taskFilterMember[] = [];
         for (const o of placeholderMembers) {
             members.push({name: o, value: true});
         }
@@ -70,17 +70,17 @@ export default defineComponent({
                 { label: "Task created", value: "any" },
                 { label: "Promise date", value: "any" },
                 { label: "Auto cancel date", value: "any" },
-            ],
-            importanceSort: "most"
+            ] as taskFilterDateOptions,
+            importanceSort: "most" as taskFilterImportance
         }
     },
     methods: {
         submit() {
             this.show = false;
-            this.$emit('update', {dateOptions: this.labelsDate, members: this.members, importance: this.importanceSort});
+            this.$emit('updateFilter', new TaskFilter(this.labelsDate, this.members, this.importanceSort));
         }
     },
-    emits: ['update']
+    emits: ['updateFilter']
 })
 </script>
 
