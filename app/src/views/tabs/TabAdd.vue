@@ -39,7 +39,7 @@
               <ion-input v-model="description" placeholder="Add description"></ion-input>
             </ion-item>
             <div class="calendar">
-              <ion-datetime v-model="deadline" class="date-time"></ion-datetime>
+              <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="deadline" class="date-time"></ion-datetime>
             </div>
             <div class="row">
               <ion-chip @click="() => this.statusId = 3" :color="this.statusId == 3 ? 'success' : 'dark'">Completed</ion-chip>
@@ -113,7 +113,7 @@ export default defineComponent({
           Authorization: 'Bearer ' + localStorage.getItem('userToken')
           }})
             .then((response) => {
-              console.log(response)
+              this.$router.push({path: '/tabs/home'})
             })
     }
   },
@@ -138,6 +138,8 @@ d-none {
 .calendar {
   margin-top: 2rem;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
 }
 .header-md::after {
   display: none;

@@ -16,20 +16,20 @@
       <div class="content">
         <ion-item>
           <ion-label position="stacked">First Name</ion-label>
-          <ion-input v-model="firstName" placeholder="Write your first name here..."></ion-input>
+          <ion-input v-model="firstName" placeholder="Type your first name here..."></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Last Name</ion-label>
-          <ion-input v-model="lastName" placeholder="Write your last name here..."></ion-input>
+          <ion-input v-model="lastName" placeholder="Type your last name here..."></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Email</ion-label>
-          <ion-input v-model="mail" placeholder="Write your email here..."></ion-input>
+          <ion-input v-model="mail" placeholder="Type your email here..."></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Password</ion-label>
           <div class="row">
-            <ion-input v-model="password" :type="inputTypePassword" placeholder="Write your password here..."></ion-input>
+            <ion-input v-model="password" :type="inputTypePassword" placeholder="Type your password here..."></ion-input>
             <span v-if="inputTypePassword == 'password'">
               <ion-icon @click="toggleShowPassword" :icon="eyeOutline" class="show"></ion-icon>
             </span>

@@ -18,7 +18,7 @@
           <ion-label position="stacked">
             Name of place
           </ion-label>
-          <ion-input v-model="placeName" placeholder="What should we call your place ?"></ion-input>
+          <ion-input v-model="placeName" placeholder="What should we call your accomodation ?"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">

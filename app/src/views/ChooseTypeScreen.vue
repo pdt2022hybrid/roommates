@@ -1,7 +1,7 @@
 <template>
     <ion-page>
         <ion-content>
-            <p class="text-title">What type of place do you have?</p>
+            <p class="text-title">What type of <accomodation></accomodation> do you have?</p>
             <img class="img-deco" src="@/../resources/img_typeofplace.png" alt="">
             <ion-button @click="this.$router.push({path: '/createRoom'})" class="custom-btn btn-new" fill="outline" color="dark">New</ion-button>
             <p class="text-or">or...</p>
@@ -30,6 +30,7 @@ export default defineComponent({
         letter-spacing: -0.408px;
         color: #262B2C;
         text-align: center;
+        margin-bottom: 8vw;
     }
 
     .text-title {
@@ -52,6 +53,11 @@ export default defineComponent({
         position: relative;
         top: 18vh;
         font-size: 14px;
+    }
+
+    ion-button {
+      --border-width: 0.5px;
+      margin-bottom: 5vw;
     }
 
     .btn-existing {
