@@ -19,6 +19,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
     p {
         font-family: 'Noto Sans', sans-serif;
         font-style: normal;
