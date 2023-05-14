@@ -52,4 +52,8 @@ ion-icon {
     height: 24px;
     float: left !important;
 }
+
+.header-md::after {
+  display: none;
+}
 </style>

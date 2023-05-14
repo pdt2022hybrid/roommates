@@ -19,7 +19,7 @@
 
         <button>
           <label for="files" @change="onFileSelected">
-            <img class="rounded" id="picture" :src="picture ? picture : avatar" alt="">
+            <img :class="picture ? 'rounded' : '' " id="picture" :src="picture ? picture : avatar" alt="">
           </label>
             <input @change="onFileSelected" id="files" type="file">
         </button>

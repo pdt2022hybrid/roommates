@@ -1,14 +1,7 @@
 <template>
     <ion-page>
 
-        <ion-header class="header">
-            <ion-toolbar>
-            <ion-icon :icon="chevronBackOutline"></ion-icon>
-            <ion-title>
-               Share Room
-            </ion-title>
-        </ion-toolbar>
-    </ion-header>
+    <top-bar title="Share screen"></top-bar>
 
     <ion-content>
         <h1>
@@ -34,7 +27,7 @@
         </ion-item>
 
         <ion-button shape="round">
-            Create
+            Share
         </ion-button>
 
     </ion-content>
@@ -45,11 +38,14 @@
 <script>
 
 import { chevronBackOutline } from 'ionicons/icons';
+import topBar from "@/components/TopBar.vue";
 import { IonHeader, IonItem, IonTitle, IonToolbar, IonContent, IonInput, IonButton } from '@ionic/vue';
+import TopBar from "@/components/TopBar.vue";
 
 export default {
+  components: {TopBar},
     componets: {
-        IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton
+        IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, TopBar
     },
 
     data() {
@@ -87,6 +83,7 @@ ion-button {
     width: 200px;
     font-family: 'Noto Sans', sans-serif;
     font-weight: 600;
+    margin-top: 20vh;
 }
 
 </style>
