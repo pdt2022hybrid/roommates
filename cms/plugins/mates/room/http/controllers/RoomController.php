@@ -100,4 +100,9 @@ class RoomController extends Controller
         $miniRooms = Miniroom::where('room_id', $user->room_id)->get();
         return MiniRoomResource::collection($miniRooms);
     }
+    public function getUsersRoom(Request $request) {
+        $user = User::find($request->tokenUserID);
+        $miniRooms = Room::where('id', $user->room_id)->first();
+        return new RoomResource($miniRooms);
+    }
 }

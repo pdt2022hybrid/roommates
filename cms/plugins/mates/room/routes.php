@@ -13,6 +13,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::post('room/miniroom/create', [RoomController::class, 'createMiniRoom']); //TODO: naozaj by si mohol pouzit tie api standarty
         Route::get('rooms/all', [RoomController::class, 'getAllRooms']);
         Route::get('room/minirooms', [RoomController::class, 'getMiniRoomsInRoom']);
+        Route::get('user/room', [RoomController::class, 'getUsersRoom']);
         Route::get('room/{id}', [RoomController::class, 'getRoom']);
 
     });
