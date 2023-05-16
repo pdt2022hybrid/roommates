@@ -19,7 +19,7 @@
       data() {
           return {
               placeholderTasks,
-              filter: DefaultTaskFilter
+              filter: DefaultTaskFilter as TaskFilter
           }
       },
       methods: {

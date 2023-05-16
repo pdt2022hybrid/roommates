@@ -1,7 +1,7 @@
 <template>
     <ion-card>
-        <ion-card-header>
-            <ion-card-title>
+        <ion-card-header style="padding-top: 5px; padding-bottom: 10px;">
+            <ion-card-title style="padding-top: 5px;">
                 <ion-grid>
                     <ion-row class="ion-justify-content-between">
                         <ion-col size="auto">
@@ -19,7 +19,7 @@
             </ion-card-subtitle>
         </ion-card-header>
 
-        <ion-card-content>
+        <ion-card-content style="padding-bottom: 2px">
             <span style="color: #2FDF75">BY: </span>{{ task.author.toUpperCase() }}
         </ion-card-content>
     </ion-card>
