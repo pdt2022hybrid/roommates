@@ -9,11 +9,11 @@ class RoomResource extends JsonResource
 {
     public function toArray($request) {
         return [
-            'id' => $this->resource->id,
-            'name' => $this->resource->name,
-            'room_count' => $this->resource->room_count,
-            'room_identifier' => $this->resource->room_identifier,
-            'room_owner' => UserResource::make($this->resource->room_owner),
+            'id' => $this->id,
+            'name' => $this->name,
+            'room_count' => $this->room_count,
+            'room_identifier' => $this->room_identifier,
+            'room_owner' => UserResource::make($this->room_owner),
         ];
     }
 }
