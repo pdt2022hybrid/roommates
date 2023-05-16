@@ -5,7 +5,7 @@
             <img class="img-deco" src="@/../resources/img_typeofplace.png" alt="">
             <ion-button @click="this.$router.push({path: '/createRoom'})" class="custom-btn btn-new" fill="outline" color="dark">New</ion-button>
             <p class="text-or">or...</p>
-            <ion-button class="custom-btn btn-existing" fill="outline" color="dark">Existing</ion-button>
+            <ion-button @click="this.$router.push({path: '/joinRoom'})" class="custom-btn btn-existing" fill="outline" color="dark">Existing</ion-button>
         </ion-content>
     </ion-page>
 </template>
