@@ -2,15 +2,15 @@ export class Task {
     title: string;
     author: string;
     date: Date;
-    priority: Priority;
+    status: TaskStatus;
     room?: roomType;
 
-    constructor(title: string, author: string, date: Date | string, priority?: Priority, room?: roomType) {
+    constructor(title: string, author: string, date: Date | string, status?: TaskStatus, room?: roomType) {
         if(typeof date === 'string') date = new Date(Date.parse(date));
         this.title = title;
         this.author = author;
         this.date = date;
-        this.priority = priority || Priority.LOW;
+        this.status = status || TaskStatus.NOT_STARTED;
         this.room = room;
     }
 }
@@ -23,13 +23,14 @@ export interface Room {
     tasks: Task[],
 }
 
-export class Priority {
-    static readonly LOW = new Priority(0, "DECENT", "#2FDF75");
-    static readonly MEDIUM = new Priority(1, "IMPORTANT", "#FF8A1F");
-    static readonly HIGH = new Priority(2, "VERY IMPORTANT", "#FF4961");
+export class TaskStatus {
+    static readonly COMPLETED = new TaskStatus(0, "Completed", "#2FDF75");
+    static readonly IN_PROGRESS = new TaskStatus(2, "In Progress", "#FF8A1F");
+    static readonly NOT_STARTED = new TaskStatus(1, "Not Started", "#FF4961");
     private constructor(public readonly priority: number, public readonly text: string, public readonly color: string) {}
     toString() { return this.text; }
 }
+export const TaskStatuses: TaskStatus[] = [TaskStatus.NOT_STARTED, TaskStatus.IN_PROGRESS, TaskStatus.COMPLETED];
 
 export class PresetRoom {
     id: roomType;
@@ -66,11 +67,13 @@ export function getPresetRoom(id: roomType) {
 export class TaskFilter {
     dateOptions: taskFilterDateOptions;
     members: taskFilterMember[];
+    status: taskFilterStatus[];
     importance: taskFilterImportance;
 
-    constructor(dateOptions: taskFilterDateOptions, members: taskFilterMember[], importance: taskFilterImportance) {
+    constructor(dateOptions: taskFilterDateOptions, members: taskFilterMember[], status: taskFilterStatus[], importance: taskFilterImportance) {
         this.dateOptions = dateOptions;
         this.members = members;
+        this.status = status;
         this.importance = importance;
     }
 }
@@ -78,6 +81,7 @@ export class TaskFilter {
 export type dateOptionsValue = 'any' | 'newest' | 'oldest';
 export type taskFilterDateOptions = { createdDate: dateOptionsValue, promiseDate: dateOptionsValue, cancelDate: dateOptionsValue };
 export type taskFilterMember = { name: string, value: boolean };
+export type taskFilterStatus = { status: TaskStatus, value: boolean };
 export type taskFilterImportance = 'most' | 'least';
 export function getDateOptionsValueSort(a: dateOptionsValue): 1 | -1 | 0 {
     return a === 'newest' ? -1 : (a === 'oldest' ? 1 : 0);
@@ -95,14 +99,19 @@ export const DefaultTaskFilter: TaskFilter = {
         {name: "Sloboda", value: true},
         {name: "Luptacik", value: true}
     ],
+    status: [
+        {status: TaskStatus.COMPLETED, value: true},
+        {status: TaskStatus.IN_PROGRESS, value: true},
+        {status: TaskStatus.NOT_STARTED, value: true}
+    ],
     importance: 'most'
 }
 
 export const placeholderTasks: Task[] = [
-    new Task("UPRAC KUCHYNU", "Richard Egyed", '2023-1-12', Priority.MEDIUM, 'kitchen'),
-    new Task("ALE NO UZ", "Luptacik", '2023-1-15', Priority.HIGH, 'bath'),
-    new Task("CHOD DOMOV", "Sloboda", '2023-1-12', Priority.LOW, 'living'),
-    new Task("UPRAC SVOJU IZBU", "Marek Topolsky", '2023-1-24', Priority.LOW, 'work')
+    new Task("UPRAC KUCHYNU", "Richard Egyed", '2023-1-12', TaskStatus.IN_PROGRESS, 'kitchen'),
+    new Task("ALE NO UZ", "Luptacik", '2023-1-15', TaskStatus.NOT_STARTED, 'bath'),
+    new Task("CHOD DOMOV", "Sloboda", '2023-1-12', TaskStatus.COMPLETED, 'living'),
+    new Task("UPRAC SVOJU IZBU", "Marek Topolsky", '2023-1-24', TaskStatus.COMPLETED, 'work')
 ]
 export const placeholderMembers: string[] = [
     "Marek Topolsky",

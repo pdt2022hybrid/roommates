@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { getDateOptionsValueSort, Task, TaskFilter} from "@/types";
+import {getDateOptionsValueSort, Task, TaskFilter, taskFilterMember, taskFilterStatus} from "@/types";
 import TaskCard from "@/components/TaskCard.vue";
 
 export default {
@@ -22,18 +22,24 @@ export default {
     },
     methods: {
         check(task) {
-            return this.filter.members.find(obj => {
-                return obj.name === task.author;
-            }).value;
+            return (
+                this.filter.members.find((o: taskFilterMember) => {
+                    return o.name === task.author;
+                }).value
+                &&
+                this.filter.status.find((o: taskFilterStatus) => {
+                    return o.status === task.status;
+                }).value
+            );
         },
         sort() {
             const i = this.filter.importance === 'least' ? 1 : -1;
             //this.tasks.sort((a, b) => (a.priority.priority < b.priority.priority) ? i : -i);
             const j = getDateOptionsValueSort(this.filter.dateOptions.createdDate);
             console.log(`i: ${i}, j: ${j}`);
-            this.tasks.sort((a, b) =>
+            this.tasks.sort((a: Task, b: Task) =>
                 Math.sign(a.date.getTime() - b.date.getTime()) * j ||
-                Math.sign(a.priority.priority - b.priority.priority) * i
+                Math.sign(a.status.priority - b.status.priority) * i
 
             );
         }
