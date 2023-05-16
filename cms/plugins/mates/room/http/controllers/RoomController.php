@@ -52,8 +52,6 @@ class RoomController extends Controller
         $user = User::find($request->tokenUserID);
         $room = Room::where('room_identifier', $roomIdentifier)->first();
 
-        return $room;
-
         if(!$room) {
             return response()->json([
                 'error' => 'Room not found SUPPLIED ROOM_IDENTIFIER: ' . $roomIdentifier
