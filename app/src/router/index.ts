@@ -11,7 +11,6 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/createRoom', component: () => import('@/views/CreateRoomScreen.vue') },
   { path: '/shareRoom', component: () => import('@/views/ShareRoomScreen.vue') },
   { path: '/setProfilePicture', component: () => import('@/views/SetProfilePictureScreen.vue') },
-  { path: '/test', component: () => import('@/components/TaskFilter.vue') },
   { path: '/joinRoom', component: () => import('@/views/joinRoomScreen.vue') },
   {
     path: '/tabs/',

@@ -86,9 +86,6 @@ export default defineComponent({
         }
     },
     methods: {
-        TaskStatuses() {
-            return TaskStatuses
-        },
         submit() {
             this.show = false;
             const dateOptions: taskFilterDateOptions = {

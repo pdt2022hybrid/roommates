@@ -12,7 +12,7 @@ export default {
     name: "TaskList",
     components: { TaskCard },
     props: {
-        tasklist: [] as Task[],
+        tasklist: Array<Task>,
         filter: TaskFilter
     },
     data() {
