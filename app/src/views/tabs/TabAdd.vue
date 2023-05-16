@@ -121,6 +121,9 @@ export default defineComponent({
   async mounted() {
     await store.dispatch('storeMinirooms')
     await store.dispatch('storeUsers')
+
+    this.minirooms = JSON.parse(localStorage.getItem('miniRooms'))
+    this.members = JSON.parse(localStorage.getItem('roomUsers'))
   },
 });
 </script>
