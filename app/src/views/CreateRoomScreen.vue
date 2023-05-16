@@ -20,11 +20,12 @@
           </ion-label>
           <ion-input v-model="placeName" placeholder="What should we call your accomodation ?"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item class="ion-invalid">
           <ion-label position="stacked">
             Add your rooms
           </ion-label>
           <ion-input class="" v-model="newRoomName" placeholder="Add some rooms"></ion-input>
+            <ion-note position="" slot="error">{{ this.error }}</ion-note>
           <ion-button slot="end" @click="newRoom" class="small">
             Add
           </ion-button>
@@ -60,11 +61,12 @@ export default {
     },
     data() {
         return {
-          chevronBackOutline,
-          close,
-          placeName: '',
-          newRoomName: '',
-          rooms: [],
+            chevronBackOutline,
+            close,
+            placeName: '',
+            newRoomName: '',
+            error: '',
+            rooms: [],
         }
     },
     methods: {
@@ -72,8 +74,16 @@ export default {
         this.rooms = this.rooms.filter(item => item !== room)
       },
       newRoom() {
-        this.rooms.push(this.newRoomName)
-        this.newRoomName = ''
+          const room = this.newRoomName.trim().replace(/\s+/g, ' ');
+          if(!room) this.error = 'Name must not be empty';
+          else if(this.rooms.find(o => o === room)) this.error = 'Room already exists';
+          else {
+              this.error = '';
+              this.rooms.push(room);
+              this.newRoomName = '';
+              return;
+          }
+          this.newRoomName = room;
       },
       createPlace: async function () {
         await store.dispatch('createRoom', {room_name: this.placeName, izby: this.rooms})
