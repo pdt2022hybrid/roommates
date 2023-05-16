@@ -41,7 +41,7 @@
         </h1>
         <ion-item>
           <p>
-            reaktivne heslo placu
+            {{ this.roomToken }}
           </p>
         </ion-item>
       </div>
@@ -54,6 +54,7 @@
 import { IonPage, IonContent, IonHeader,IonTitle, IonToolbar, IonChip, IonLabel, IonItem } from '@ionic/vue';
 import {defineComponent, ref} from 'vue';
 import avatar from '../../../resources/Avatar.svg'
+import axios from "axios";
 
 
 export default defineComponent({
@@ -66,12 +67,20 @@ export default defineComponent({
       avatar,
       selectedFile: null,
       fileContents: null,
+      roomToken: localStorage.getItem('roomToken'),
       userName: localStorage.getItem('userName'),
       userEmail: localStorage.getItem('userEmail'),
     }
   },
-  mounted() {
+  async mounted() {
     this.picture = ref(localStorage.getItem('picture') || null)
+    await axios.get('https://roomates.hybridlab.dev/cms/api/v1/user/room', {headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('userToken')
+      }})
+        .then(function (response) {
+          console.log(response)
+          localStorage.setItem('roomToken', response.data.data.room_identifier)
+        })
   },
   methods: {
     onFileSelected(e) {
@@ -162,7 +171,7 @@ label {
 
 ion-chip {
   width: 100% !important;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 20px;
   border-color: #262B2C;
   margin-left: 0;
