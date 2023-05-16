@@ -11,7 +11,7 @@ use System\Models\File;
 class UserController extends Controller
 {
     public function getUser(Request $request) {
-        $user = User::where('id', $request->get('tokenUserID'))->first();
+        $user = User::find($request->tokenUserID);
         return new UserResource($user);
     }
 
