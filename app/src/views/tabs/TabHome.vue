@@ -2,8 +2,7 @@
 <ion-page>
     <ion-content :fullscreen="true">
         <top-bar title="Home" :menu="true" @update-filter="(updateFilter)"/>
-        <task-list :tasklist="placeholderTasks" :filter="filter" :key="filter"></task-list>
-        <!--<task-card v-for="task in placeholderTasks" :key="task" :task="task"/>-->
+        <task-list :tasklist="placeholderTasks" :filter="filter" :key="filter"/>
     </ion-content>
 </ion-page>
 </template>
