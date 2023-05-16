@@ -61,9 +61,11 @@ class RoomController extends Controller
         $user->room_id = $room->id;
         $user->save();
 
-        return response()->json([
-            'status' => 'success'
-        ]);
+//        return response()->json([
+//            'status' => 'success'
+//        ]);
+
+        return new RoomResource($room);
     }
 
 //    public function createMiniRoom(Request $request)
