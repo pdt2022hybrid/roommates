@@ -57,7 +57,7 @@ ion-item {
   transform: translate(-50%, -50%);
 }
 .content {
-  position: fixed;
+  position: absolute;
   top: 40%;
   width: 100%;
 }
