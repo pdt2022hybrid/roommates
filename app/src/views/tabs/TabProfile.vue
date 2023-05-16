@@ -162,7 +162,7 @@ label {
 
 ion-chip {
   width: 100% !important;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 20px;
   border-color: #262B2C;
   margin-left: 0;
