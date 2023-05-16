@@ -3,6 +3,7 @@
 namespace Mates\User\Http\Controllers;
 
 use Backend\Classes\Controller;
+use Illuminate\Support\Facades\Log;
 use RainLab\User\Models\User;
 use Mates\User\Http\Resources\UserResource;
 use Illuminate\Http\Request;
