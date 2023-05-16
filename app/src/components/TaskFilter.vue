@@ -15,17 +15,7 @@ import AFilterModal from '@/components/a-filter-modal.vue'
 export default defineComponent({
   name: "TaskFilter",
   data() {
-    const members: taskFilterMember[] = [];
-    for (const o of placeholderMembers) {
-      members.push({name: o, value: true});
-    }
-    const statuses: taskFilterStatus[] = [];
-    for (const o of TaskStatuses) {
-      statuses.push({status: o, value: true});
-    }
     return {
-      members,
-      statuses,
       filter: {
         name: null
       }
@@ -55,7 +45,7 @@ export default defineComponent({
       const modal = await modalController.create({
         component: AFilterModal,
         componentProps: {
-          filter: this.filer
+          filter: this.filter
         }
 
       })
