@@ -19,12 +19,12 @@
 
 <script>
 import TopBar from "@/components/TopBar.vue";
-import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel, IonHeader,IonTitle, IonIcon, IonToolbar } from '@ionic/vue';
+import { IonPage, IonContent, IonItem, IonButton, IonInput, IonLabel } from '@ionic/vue';
 import axios from "axios";
 export default {
   name: "joinRoomScreen",
   components: {
-    IonPage, IonContent, TopBar
+    IonPage, IonContent, TopBar, IonItem, IonButton, IonInput, IonLabel
   },
   data() {
     return {
