@@ -80,6 +80,7 @@ export default defineComponent({
         .then(function (response) {
           console.log(response)
           localStorage.setItem('roomToken', response.data.data.room_identifier)
+          this.roomToken = localStorage.getItem('roomToken')
         })
   },
   methods: {
