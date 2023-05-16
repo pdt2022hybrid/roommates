@@ -1,6 +1,6 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import { presetRooms, PresetRoom, createCustomRoom, Room, Task, Priority } from '@/types';
+import { presetRooms, PresetRoom, createCustomRoom, Room, Task, TaskStatus } from '@/types';
 import axios from "axios";
 import {minimatch} from "cypress/types/cy-minimatch";
 import {resize} from "ionicons/icons";

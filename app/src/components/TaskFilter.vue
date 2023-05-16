@@ -29,6 +29,11 @@
             <ion-label>{{ roommate.name }}</ion-label>
             <ion-checkbox v-model="roommate.value" justify="space-between"></ion-checkbox>
         </ion-item>
+        <p class="subtitle">Status</p>
+        <ion-item v-for="status in statuses" :key="status">
+            <ion-label>{{ status.status }}</ion-label>
+            <ion-checkbox v-model="status.value" justify="space-between"></ion-checkbox>
+        </ion-item>
         <p class="subtitle">Importance</p>
         <ion-radio-group v-model="this.importanceSort">
             <ion-item>
@@ -47,7 +52,8 @@
 
 <script lang="ts">
 import { close } from 'ionicons/icons';
-import { placeholderMembers, taskFilterDateOptions, taskFilterMember, taskFilterImportance, TaskFilter, dateOptionsValue } from "@/types";
+import { placeholderMembers, taskFilterDateOptions, taskFilterMember, taskFilterImportance, TaskFilter,
+    dateOptionsValue, TaskStatuses, taskFilterStatus } from "@/types";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -57,9 +63,14 @@ export default defineComponent({
         for (const o of placeholderMembers) {
             members.push({name: o, value: true});
         }
+        const statuses: taskFilterStatus[] = [];
+        for (const o of TaskStatuses) {
+            statuses.push({status: o, value: true});
+        }
         return {
             close,
             members,
+            statuses,
             show: false,
             optionsDate: [
                 { id: 'any', text: "Any" },
@@ -75,6 +86,9 @@ export default defineComponent({
         }
     },
     methods: {
+        TaskStatuses() {
+            return TaskStatuses
+        },
         submit() {
             this.show = false;
             const dateOptions: taskFilterDateOptions = {
@@ -82,7 +96,7 @@ export default defineComponent({
                 promiseDate: this.labelsDate.find(obj => {return obj.id === 'promiseDate'}).value,
                 cancelDate: this.labelsDate.find(obj => {return obj.id === 'cancelDate'}).value,
             };
-            this.$emit('updateFilter', new TaskFilter(dateOptions, this.members, this.importanceSort));
+            this.$emit('updateFilter', new TaskFilter(dateOptions, this.members, this.statuses, this.importanceSort));
         }
     },
     emits: ['updateFilter']

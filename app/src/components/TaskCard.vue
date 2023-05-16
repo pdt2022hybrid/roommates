@@ -7,8 +7,8 @@
                         <ion-col size="auto">
                             {{ task.title }}
                         </ion-col>
-                        <ion-col size="auto" class="priority" :style="{ background: task.priority.color }">
-                            {{ task.priority }}
+                        <ion-col size="auto" class="status" :style="{ background: task.status.color }">
+                            {{ task.status.toString().toUpperCase() }}
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -58,7 +58,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.priority {
+.status {
     padding: 0 7px;
     border-radius: 5px;
     font-family: 'Noto Sans', sans-serif;
