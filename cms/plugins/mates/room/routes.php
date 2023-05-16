@@ -15,6 +15,5 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::get('room/minirooms', [RoomController::class, 'getMiniRoomsInRoom']);
         Route::get('user/room', [RoomController::class, 'getUsersRoom']);
         Route::get('room/{id}', [RoomController::class, 'getRoom']);
-
     });
 });

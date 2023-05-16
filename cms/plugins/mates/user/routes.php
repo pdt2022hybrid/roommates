@@ -9,4 +9,5 @@ use Mates\Login\Http\Middlewares\TokenMiddleware;
 Route::group(['prefix' => 'api/v1', 'middleware' => [TokenMiddleware::class]], function () {
     Route::get('user', [UserController::class, 'getUser']);
     Route::get('room/{id}/users', [UserController::class, 'getRoomUsers']);
+    Route::post('user/avatar/set', [UserController::class, 'uploadAvatar']);
 });

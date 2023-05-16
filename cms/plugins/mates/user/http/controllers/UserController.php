@@ -6,6 +6,7 @@ use Backend\Classes\Controller;
 use RainLab\User\Models\User;
 use Mates\User\Http\Resources\UserResource;
 use Illuminate\Http\Request;
+use System\Models\File;
 
 class UserController extends Controller
 {
@@ -18,5 +19,17 @@ class UserController extends Controller
         $users = User::where('room_id', $id)->get();
 
         return UserResource::collection($users);
+    }
+
+    public function uploadAvatar(Request $request) {
+        $user = User::find($request->tokenUserID);
+        if (request()->hasFile('avatar'))
+        {
+            $file = new File();
+            $file->fromPost(request()->file("avatar"));
+            $file->save();
+            $user->avatar()->add($file);
+        }
+        return new UserResource($user);
     }
 }
