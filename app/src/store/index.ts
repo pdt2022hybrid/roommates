@@ -121,7 +121,15 @@ export const store = createStore<State>({
                 .then((response) => {
                     store.commit('storeUsers', response)
                 })
-        }
+        },
+        getTasksRoom: async function ({commit}, data) {
+            await axios.get('/v1/tasks/room/' + localStorage.getItem('roomId'), {headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('userToken')
+                }})
+                  .then((response) => {
+                    console.log(response);
+                  })
+          }
     },
 })
 
