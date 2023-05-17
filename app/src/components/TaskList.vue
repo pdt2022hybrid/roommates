@@ -5,46 +5,51 @@
 </template>
 
 <script lang="ts">
-import {getDateOptionsValueSort, Task, TaskFilter, taskFilterMember, taskFilterStatus} from "@/types";
+import {DefaultTaskFilter, getDateOptionsValueSort, Task, TaskFilter, taskFilterMember, taskFilterStatus} from "@/types";
 import TaskCard from "@/components/TaskCard.vue";
+import {store} from "@/store";
 
 export default {
     name: "TaskList",
     components: { TaskCard },
     props: {
-        tasklist: Array<Task>,
-        filter: TaskFilter
+        filter: DefaultTaskFilter as TaskFilter
     },
     data() {
         return {
-            tasks: this.tasklist
+            tasks: JSON.parse(localStorage.getItem('roomTasks')),
         }
     },
     methods: {
         check(task) {
+            //console.log(task);
             return (
-                this.filter.members.find((o: taskFilterMember) => {
-                    return o.name === task.author;
-                }).value
+                /*(this.filter.members.find((o: taskFilterMember) => {
+                    return o.name === task.user_created.name;
+                }).value || true)
                 &&
                 this.filter.status.find((o: taskFilterStatus) => {
                     return o.status === task.status;
-                }).value
+                }).value*/
+                true
             );
         },
         sort() {
             const i = this.filter.importance === 'least' ? 1 : -1;
             //this.tasks.sort((a, b) => (a.priority.priority < b.priority.priority) ? i : -i);
             const j = getDateOptionsValueSort(this.filter.dateOptions.createdDate);
-            console.log(`i: ${i}, j: ${j}`);
-            this.tasks.sort((a: Task, b: Task) =>
-                Math.sign(a.date.getTime() - b.date.getTime()) * j ||
+            //console.log(`i: ${i}, j: ${j}`);
+            /*this.tasks.sort((a: Task, b: Task) =>
+                Math.sign(a.deadline.getTime() - b.deadline.getTime()) * j ||
                 Math.sign(a.status.priority - b.status.priority) * i
 
-            );
+            );*/
         }
     },
-    mounted() {
+    async mounted() {
+        await store.dispatch('storeTasks');
+        //console.log(JSON.parse(localStorage.getItem('roomTasks')));
+        this.tasks = JSON.parse(localStorage.getItem('roomTasks'));
         this.sort();
     }
 };

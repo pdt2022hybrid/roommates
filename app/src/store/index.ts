@@ -1,6 +1,5 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import { presetRooms, PresetRoom, createCustomRoom, Room, Task, TaskStatus } from '@/types';
 import axios from "axios";
 import {minimatch} from "cypress/types/cy-minimatch";
 import {resize} from "ionicons/icons";
@@ -14,6 +13,7 @@ export interface State {
     roomId: string,
     miniRooms: string,
     roomUsers: string,
+    roomTasks: string,
 }
 
 export const store = createStore<State>({
@@ -26,6 +26,7 @@ export const store = createStore<State>({
         roomId: localStorage.getItem('roomId') || '',
         miniRooms: localStorage.getItem('miniRooms') || '',
         roomUsers: localStorage.getItem('roomUsers') || '',
+        roomTasks: localStorage.getItem('roomTasks') || '',
     },
     getters: {
 
@@ -56,7 +57,16 @@ export const store = createStore<State>({
         storeUsers(state, roomUsers) {
             state.roomUsers = roomUsers.data.data
             localStorage.setItem('roomUsers', JSON.stringify(state.roomUsers))
-        }
+        },
+        storeTasks(state, roomTasks) {
+            const tasks = [];
+            for(const task of roomTasks.data.data) {
+                task.deadline = new Date(Date.parse(task.deadline));
+                tasks.push(task);
+            }
+            state.roomTasks = roomTasks.data.data
+            localStorage.setItem('roomTasks', JSON.stringify(state.roomTasks))
+        },
 
     },
     actions: {
@@ -122,14 +132,14 @@ export const store = createStore<State>({
                     store.commit('storeUsers', response)
                 })
         },
-        getTasksRoom: async function ({commit}, data) {
+        storeTasks: async function ({commit}, data) {
             await axios.get('/v1/tasks/room/' + localStorage.getItem('roomId'), {headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('userToken')
-                }})
-                  .then((response) => {
-                    console.log(response);
-                  })
-          }
+            }})
+            .then((response) => {
+                store.commit('storeTasks', response)
+            })
+        },
     },
 })
 

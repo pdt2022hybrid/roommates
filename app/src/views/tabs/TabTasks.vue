@@ -4,15 +4,15 @@
         <top-bar title="Place Tasks" :menu="true"></top-bar>
         <ion-grid>
             <ion-row>
-                <ion-col class="member-col" size="auto" v-for="member in placeholderMembers" :key="member">
+                <ion-col class="member-col" size="auto" v-for="member in members" :key="member">
                     <div class="member-bg">
                         <img :src="this.getIcon('icon_user.svg')" alt="">
-                        <p class="member-text">{{ member }}</p>
+                        <p class="member-text">{{ member.name }}</p>
                     </div>
                 </ion-col>
             </ion-row>
         </ion-grid>
-        <task-list :tasklist="placeholderTasks" :filter="filter" :key="filter"/>
+        <task-list :filter="filter" :key="filter"/>
     </ion-content>
 </ion-page>
 </template>
@@ -20,14 +20,16 @@
 <script lang="ts">
 import TopBar from '@/components/TopBar.vue';
 import { defineComponent } from 'vue';
-import {DefaultTaskFilter, placeholderMembers, placeholderTasks, TaskFilter} from "@/types";
+import {DefaultTaskFilter, placeholderMembers, TaskFilter} from "@/types";
 import TaskList from "@/components/TaskList.vue";
+import {store} from "@/store";
 
 export default defineComponent({
+    components: { TaskList, TopBar },
     data() {
         return {
             placeholderMembers,
-            placeholderTasks,
+            members: [],
             filter: DefaultTaskFilter as TaskFilter
         }
     },
@@ -39,7 +41,11 @@ export default defineComponent({
             return require(`@/../resources/${icon}`)
         }
     },
-    components: {TaskList, TopBar },
+    async mounted() {
+        await store.dispatch('storeUsers');
+        this.members = JSON.parse(localStorage.getItem('roomUsers'));
+
+    }
 });
 </script>
 

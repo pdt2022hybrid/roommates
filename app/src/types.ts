@@ -1,15 +1,43 @@
+export class User {
+    id: number;
+    room_id: number;
+    email: string;
+    name: string;
+    surname: string;
+    registered_at: string;
+    avatar?: string;
+    constructor(id: number, room_id: number, email: string, name: string, surname: string, registered_at: string, avatar?: string) {
+        this.id = id;
+        this.room_id = room_id;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.registered_at = registered_at;
+        this.avatar = avatar;
+    }
+}
+
+export type miniRoom = {id: number, name: string};
+
 export class Task {
-    title: string;
-    author: string;
-    date: Date;
+    id: number;
+    miniroom: miniRoom;
+    name: string;
+    description: string;
+    user_created: string;
+    user_assigned: string;
+    deadline: Date;
     status: TaskStatus;
     room?: roomType;
 
-    constructor(title: string, author: string, date: Date | string, status?: TaskStatus, room?: roomType) {
-        if(typeof date === 'string') date = new Date(Date.parse(date));
-        this.title = title;
-        this.author = author;
-        this.date = date;
+    constructor(id: number, name: string, description: string, user_created: string, user_assigned: string, deadline: Date | string, status?: TaskStatus, room?: roomType) {
+        if(typeof deadline === 'string') deadline = new Date(Date.parse(deadline));
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.user_created = user_created;
+        this.user_assigned = user_assigned;
+        this.deadline = deadline;
         this.status = status || TaskStatus.NOT_STARTED;
         this.room = room;
     }
@@ -108,10 +136,10 @@ export const DefaultTaskFilter: TaskFilter = {
 }
 
 export const placeholderTasks: Task[] = [
-    new Task("UPRAC KUCHYNU", "Richard Egyed", '2023-1-12', TaskStatus.IN_PROGRESS, 'kitchen'),
-    new Task("ALE NO UZ", "Luptacik", '2023-1-15', TaskStatus.NOT_STARTED, 'bath'),
-    new Task("CHOD DOMOV", "Sloboda", '2023-1-12', TaskStatus.COMPLETED, 'living'),
-    new Task("UPRAC SVOJU IZBU", "Marek Topolsky", '2023-1-24', TaskStatus.COMPLETED, 'work')
+    new Task(0, "UPRAC KUCHYNU", "",  "Richard Egyed", "a", '2023-1-12', TaskStatus.IN_PROGRESS, 'kitchen'),
+    new Task(1, "ALE NO UZ", "", "Luptacik", "a", '2023-1-15', TaskStatus.NOT_STARTED, 'bath'),
+    new Task(2, "CHOD DOMOV", "", "Sloboda", "a", '2023-1-12', TaskStatus.COMPLETED, 'living'),
+    new Task(3, "UPRAC SVOJU IZBU", "", "Marek Topolsky", "a", '2023-1-24', TaskStatus.COMPLETED, 'work')
 ]
 export const placeholderMembers: string[] = [
     "Marek Topolsky",

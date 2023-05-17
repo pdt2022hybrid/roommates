@@ -9,7 +9,7 @@
             </ion-item>
             <ion-list>
               <ion-item>
-                <ion-select v-model="this.assignTo" aria-label="fruit" placeholder="Assign to a roomate">
+                <ion-select v-model="this.assignTo" aria-label="fruit" placeholder="Assign to a roommate">
                   <div class="options" v-for="member in members" v-bind:key="member">
                     <ion-select-option :value="member.name">{{ member.name }}</ion-select-option>
                   </div>
@@ -65,7 +65,7 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     components: {
-      IonPage, IonContent, IonList, IonSelect, IonSelectOption, IonDatetime, TopBar
+      IonPage, IonContent, IonList, IonSelect, IonSelectOption, IonDatetime, TopBar, IonChip
     },
 
     data() {
@@ -95,7 +95,8 @@ export default defineComponent({
           }
         }
         if(this.taskName == null || this.deadline == null || this.miniroomId == null || this.assignTo == null || this.statusId == null) {
-          alert('Please fill all fields, the description is optional....')
+          alert('Please fill all fields, the description is optional....');
+          return;
         }
         if(this.description == null) {
           this.description == 'There is no descripton'
