@@ -1,13 +1,15 @@
 <template>
     <div v-for="task in tasks" :key="task">
-        <task-card v-if="check(task)" :task="task" />
+        <task-card @click="openModal(task)" v-if="check(task)" :task="task" />
     </div>
 </template>
 
 <script lang="ts">
 import {DefaultTaskFilter, getDateOptionsValueSort, Task, TaskFilter, taskFilterMember, taskFilterStatus} from "@/types";
 import TaskCard from "@/components/TaskCard.vue";
+import TaskDetailModal from "@/components/TaskDetailModal.vue";
 import {store} from "@/store";
+import {modalController} from "@ionic/vue";
 
 export default {
     name: "TaskList",
@@ -44,7 +46,20 @@ export default {
                 Math.sign(a.status.priority - b.status.priority) * i
 
             );*/
-        }
+        },
+       async openModal(task: {
+          name: string,
+       }) {
+          console.log(task)
+         const modal = await modalController.create({
+           component: TaskDetailModal,
+           componentProps: {
+             task: task,
+           }
+         })
+         await modal.present()
+         const { data } = await modal.onDidDismiss()
+      },
     },
     async mounted() {
         await store.dispatch('storeTasks');

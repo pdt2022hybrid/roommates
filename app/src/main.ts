@@ -32,7 +32,9 @@ import './theme/variables.css';
 import './theme/global.css';
 
 const app = createApp(App)
-    .use(IonicVue)
+    .use(IonicVue, {
+        mode: 'ios'
+    })
     .use(store, key)
     .use(router)
     .component("ion-page", IonPage)
