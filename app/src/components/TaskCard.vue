@@ -5,22 +5,22 @@
                 <ion-grid>
                     <ion-row class="ion-justify-content-between">
                         <ion-col size="auto">
-                            {{ task.title }}
+                            {{ task.name }}
                         </ion-col>
                         <ion-col size="auto" class="status" :style="{ background: task.status.color }">
-                            {{ task.status.toString().toUpperCase() }}
+                            {{ task.status.name.toUpperCase() }}
                         </ion-col>
                     </ion-row>
                 </ion-grid>
             </ion-card-title>
             <ion-card-subtitle>
                 <img v-if="this.hasIcon" :src="this.icon" alt="">
-                {{ task.date.toLocaleDateString("sk-SK") }}
+                {{ new Date(Date.parse(task.deadline)).toLocaleDateString("sk-SK") }}
             </ion-card-subtitle>
         </ion-card-header>
 
         <ion-card-content style="padding-bottom: 2px">
-            <span style="color: #2FDF75">BY: </span>{{ task.author.toUpperCase() }}
+            <span style="color: #2FDF75">BY: </span>{{ task.user_created.name.toUpperCase() }}
         </ion-card-content>
     </ion-card>
 </template>
@@ -31,7 +31,7 @@ import { Task, getPresetRoom } from '@/types'
 export default defineComponent({
     name: "TaskCard",
     props: {
-        task: Task,
+        task: Object,
     },
     data() {
         return {
@@ -48,6 +48,9 @@ export default defineComponent({
                     this.icon = require(`@/../resources/${room.icon}`);
                     this.hasIcon = true;
                 }
+            } else {
+                this.icon = require(`@/../resources/room_custom.svg`);
+                this.hasIcon = true;
             }
         }
     },

@@ -11,7 +11,7 @@
                     <ion-title color="#989AA2">{{ title }}</ion-title>
                 </ion-col>
                 <ion-col size="auto">
-                    <ion-icon v-if="menu" :icon="require(`@/../resources/icon_notifications.svg`)"/>
+                    <ion-icon v-if="menu" @click="test()" :icon="require(`@/../resources/icon_notifications.svg`)"/>
                 </ion-col>
             </ion-row>
         </ion-grid>
@@ -29,7 +29,11 @@ export default defineComponent( {
         title: String,
         menu: Boolean
     },
-
+    methods: {
+        test: () => {
+            console.log(localStorage.getItem('userId'));
+        }
+    },
     emits: ['updateFilter'],
     setup() {
         return { chevronBackOutline };
