@@ -6,6 +6,7 @@ use Backend\Classes\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Mates\Room\Models\Miniroom;
+use Mates\Status\Models\Status;
 use Mates\Task\Http\Resources\TaskResource;
 use Mates\Task\Models\Task;
 use RainLab\User\Models\User;
@@ -46,13 +47,20 @@ class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    public function updateTask($id, Request $request) {
-        $task = Task::where('id', $id)->first();
+    public function updateTask(Request $request) {
+        $task = Task::where('id', post('task_id'))->first();
+        $user = User::where('id', $request->get('tokenUserID'))->first();
 
         if(!$task) {
             return response()->json([
                 'error' => 'Task not found'
             ], 404);
+        }
+
+        if($task->room_id != $user->room_id) {
+            return response()->json([
+                'error' => 'You are not allowed to edit this task'
+            ], 403);
         }
 
         if (post('user_assigned_id')) $task->user_assigned_id = post('user_assigned_id');
@@ -68,8 +76,9 @@ class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    public function completeTask($id) {
-        $task = Task::where('id', $id)->first();
+    public function setStatus() {
+        $task = Task::where('id', post('task_id'))->first();
+        $status = Status::where('id', post('status_id'))->first();
 
         if(!$task) {
             return response()->json([
@@ -77,7 +86,13 @@ class TaskController extends Controller
             ], 404);
         }
 
-        $task->status_id = 3;
+        if(!$status) {
+            return response()->json([
+                'error' => 'Status not found'
+            ], 404);
+        }
+
+        $task->status_id = $status->id;
         $task->save();
 
         return new TaskResource($task);
