@@ -37,7 +37,7 @@ class TaskController extends Controller
         $task->user_assigned_id = $postData['user_assigned_id'];
         $task->user_created_id = $postData['user_created_id'];
         $task->miniroom_id = $postData['miniroom_id'];
-        $task->room_id = $miniRoom->room_id;
+        $task->room_id = $miniRoom->room->id;
         $task->status_id = $postData['status_id'];
         $task->name = $postData['task_name'];
         $task->description = $postData['task_description'];
