@@ -24,14 +24,7 @@ export default {
     },
     methods: {
         check(task) {
-            return (
-                !this.filter.members.find((o: taskFilterMember) => o.id === task.user_created.id)
-                &&
-                this.filter.status.find((o: taskFilterStatus) => o.status.id === task.status_id).value
-                &&
-                ((this.filter.assignedTo && this.filter.assignedTo.length > 0)
-                    ? this.filter.assignedTo.includes(task.user_assigned.id) : true)
-            );
+          return true
         },
         sort() {
             const j = getDateOptionsValueSort(this.filter.dateOptions.createdDate);
