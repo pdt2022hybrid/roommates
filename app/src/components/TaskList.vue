@@ -43,22 +43,33 @@ export default {
        async openModal(task: {
           name: string,
        }) {
-          console.log(task)
+
          const modal = await modalController.create({
            component: TaskDetailModal,
            componentProps: {
              task: task,
-           }
+             vm: this
+           },
+
          })
          await modal.present()
          const { data } = await modal.onDidDismiss()
       },
-    },
-    async mounted() {
+      async reloadTask() {
         await store.dispatch('storeTasks');
         this.tasks = JSON.parse(localStorage.getItem('roomTasks'));
         console.log(this.filter);
         this.sort();
+        await store.dispatch('loaded')
+      },
+    },
+    mounted() {
+      store.dispatch('storeMinirooms')
+      store.dispatch('storeUsers')
+      this.reloadTask()
+      this.$events.on('reloadTasks', () => {
+        this.reloadTask()
+      })
     }
 };
 </script>

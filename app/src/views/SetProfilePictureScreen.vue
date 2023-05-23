@@ -38,6 +38,8 @@
 import { IonPage, IonContent, IonHeader,IonTitle, IonLabel, IonToolbar } from '@ionic/vue';
 import avatar from '../../resources/SetProfilePicture.svg'
 import {ref} from 'vue'
+import {store} from "@/store";
+import axios from "axios";
 
 export default {
     components: {
@@ -57,7 +59,7 @@ export default {
     this.picture = ref(localStorage.getItem('picture') || null)
   },
   methods: {
-    onFileSelected(e) {
+    async onFileSelected(e) {
       const file = e.target.files[0]
       const fr = new FileReader();
 
@@ -71,6 +73,17 @@ export default {
 
       fr.readAsDataURL(file);
       this.$router.push({path: '/chooseTypeOfPlace'})
+
+      const formData = new FormData();
+      formData.append('avatar', e.target.files[0]);
+      store.commit('loading', true)
+      await axios.post('v1/user/avatar/set', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization:  'Bearer ' + localStorage.getItem('userToken')
+        }
+      })
+      store.commit('loading', true)
     },
   },
 }

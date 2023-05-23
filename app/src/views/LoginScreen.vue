@@ -63,11 +63,11 @@
                   return;
                 } else this.errorMsg = '';
                 await store.dispatch('login', {email: this.email, password: this.password})
-                this.$router.push({path: '/tabs/home'})
               }catch (error) {
                 this.errorMsg = error
                 console.log(error)
               }
+              this.$router.push({path: '/tabs/home'})
             },
         },
       mounted() {
