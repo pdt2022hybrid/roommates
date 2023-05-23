@@ -48,6 +48,7 @@ class TaskController extends Controller
     }
 
     public function updateTask(Request $request) {
+        dd('wieufbdiuewqgdiu');
         $task = Task::where('id', post('task_id'))->first();
         $user = User::where('id', $request->get('tokenUserID'))->first();
 
