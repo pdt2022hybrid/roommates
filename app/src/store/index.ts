@@ -14,6 +14,7 @@ export interface State {
     miniRooms: string,
     roomUsers: string,
     roomTasks: string,
+    isLoading: boolean,
 }
 
 export const store = createStore<State>({
@@ -27,9 +28,7 @@ export const store = createStore<State>({
         miniRooms: localStorage.getItem('miniRooms') || '',
         roomUsers: localStorage.getItem('roomUsers') || '',
         roomTasks: localStorage.getItem('roomTasks') || '',
-    },
-    getters: {
-
+        isLoading: false,
     },
     mutations: {
         login(state, userData) {
@@ -64,22 +63,34 @@ export const store = createStore<State>({
                 task.deadline = new Date(Date.parse(task.deadline));
                 tasks.push(task);
             }
+            // state.roomTasks.forEach(task => {
+            //     console.log(task)
+            //     if(task.id == roomTasks.data.data.id) {
+            //
+            //     }
+            // })
+
             state.roomTasks = roomTasks.data.data
             localStorage.setItem('roomTasks', JSON.stringify(state.roomTasks))
         },
+        loading(state, isLoading) {
+            state.isLoading = isLoading
+        }
 
     },
     actions: {
+        async loaded({commit}) {
+            commit('loading', false)
+        },
         login:  async function ({ commit }, credentials) {
+            commit('loading', true)
             await axios.post('/auth/login', credentials)
                 .then(function (response) {
-                    console.log(response)
                     const userToken = response.data.token
                     const userName = response.data.user.name
                     const userSureName = response.data.user.surname
                     const userEmail = response.data.user.email
                     store.commit('login', {token: userToken, userName: userName, userSurname: userSureName, userEmail: userEmail})
-                    console.log(userToken)
                     localStorage.setItem('userToken', userToken)
                     localStorage.setItem('userName', userName)
                     localStorage.setItem('userSureName', userSureName)
@@ -87,8 +98,16 @@ export const store = createStore<State>({
             }).catch(function (error) {
                 console.error(error);
             })
+            await axios.get('/v1/user/room', { headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('userToken')
+                }})
+                .then(function (response) {
+                    localStorage.setItem('roomId', response.data.data.id)
+                })
+            commit('loading', false)
         },
         signup: async function ({commit}, credentials) {
+            commit('loading', true)
             await axios.post('/auth/signup', credentials)
                 .then(function (response) {
                     console.log(response)
@@ -106,38 +125,45 @@ export const store = createStore<State>({
                 }).catch(function (error) {
                     console.error(error)
                 })
+            commit('loading', false)
         },
         createRoom: async function ({commit}, data) {
+            commit('loading', true)
             const response =  await axios.post('v1/room/create', data, {headers: {
                     Authorization: 'Bearer ' +  localStorage.getItem('userToken')
                 }})
             const roomId = response.data.data.id
             store.commit('createRoom', roomId)
             localStorage.setItem('roomId', roomId)
-            console.log(response)
+            commit('loading', false)
         },
         storeMinirooms: async function ({commit}, data) {
+            commit('loading', true)
             await axios.get('/v1/room/minirooms', {headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('userToken')
                 }})
                 .then((response) => {
                     store.commit('storeMinirooms', response)
                 })
+            commit('loading', false)
         },
         storeUsers: async function ({commit}, data) {
+            commit('loading', true)
             await axios.get('/v1/room/' + localStorage.getItem('roomId') + '/users', {headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('userToken')
                 }})
                 .then((response) => {
                     store.commit('storeUsers', response)
                 })
+            commit('loading', false)
         },
         storeTasks: async function ({commit}, data) {
+            commit('loading', true)
             await axios.get('/v1/tasks/room/' + localStorage.getItem('roomId'), {headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('userToken')
             }})
             .then((response) => {
-                store.commit('storeTasks', response)
+                commit('storeTasks', response)
             })
         },
     },

@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import mitt from 'mitt'
 import router from './router';
 import { store, key } from './store';
 import axios from "axios";
@@ -66,5 +67,6 @@ const app = createApp(App)
 
 router.isReady().then(() => app.mount('#app'));
 
+app.config.globalProperties.$events = mitt()
 axios.defaults.baseURL = process.env.VUE_APP_AXIOS_URL;
 app.config.globalProperties.$axios = axios;

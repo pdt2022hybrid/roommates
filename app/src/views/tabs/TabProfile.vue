@@ -45,21 +45,27 @@
           </p>
         </ion-item>
       </div>
+      <ion-button shape="round" @click="logOut">
+        <p>
+          LOG OUT
+        </p>
+      </ion-button>
 
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonContent, IonHeader,IonTitle, IonToolbar, IonChip, IonLabel, IonItem } from '@ionic/vue';
+import { IonPage, IonContent, IonHeader,IonTitle, IonToolbar, IonChip, IonLabel, IonButton, IonItem } from '@ionic/vue';
 import {defineComponent, ref} from 'vue';
+import {store} from "@/store";
 import avatar from '../../../resources/Avatar.svg'
 import axios from "axios";
 
 
 export default defineComponent({
   components: {
-    IonPage, IonContent, IonToolbar, IonTitle, IonHeader, IonChip, IonLabel, IonItem
+    IonPage, IonContent, IonToolbar, IonTitle, IonHeader, IonChip, IonLabel, IonItem, IonButton
   },
   data() {
     return {
@@ -67,7 +73,7 @@ export default defineComponent({
       avatar,
       selectedFile: null,
       fileContents: null,
-      roomToken: localStorage.getItem('roomToken'),
+      roomToken: '',
       userName: localStorage.getItem('userName'),
       userEmail: localStorage.getItem('userEmail'),
     }
@@ -80,11 +86,12 @@ export default defineComponent({
         .then(function (response) {
           console.log(response)
           localStorage.setItem('roomToken', response.data.data.room_identifier)
-          this.roomToken = localStorage.getItem('roomToken')
         })
+    this.roomToken = localStorage.getItem('roomToken')
+    console.log(localStorage.getItem('roomToken'))
   },
   methods: {
-    onFileSelected(e) {
+    async onFileSelected(e) {
       const file = e.target.files[0]
       const fr = new FileReader();
 
@@ -97,7 +104,22 @@ export default defineComponent({
       }.bind(vm)
 
       fr.readAsDataURL(file);
+
+      const formData = new FormData();
+      formData.append('avatar', e.target.files[0]);
+      store.commit('loading', true)
+      await axios.post('v1/user/avatar/set', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization:  'Bearer ' + localStorage.getItem('userToken')
+        }
+      })
+      store.commit('loading', true)
     },
+    logOut() {
+      localStorage.clear()
+      this.$router.push({path: '/'})
+    }
   },
 
 });

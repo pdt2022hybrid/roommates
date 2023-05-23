@@ -14,25 +14,33 @@
           <ion-label position="stacked">
             Name
           </ion-label>
-          <ion-input v-model="inputName" :readonly="inputsDisabled" :value="task.name"></ion-input>
+          <ion-input v-model="inputs.name" :readonly="inputsDisabled" :value="task.name"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">
             Assigned to
           </ion-label>
-          <ion-input :readonly="inputsDisabled" :value="task.user_assigned.name"></ion-input>
+          <ion-select v-model="inputs.assignedToName" :value="inputs.assignedToName" placeholder="Assign to a roommate">
+            <div class="options" v-for="user in users" v-bind:key="user">
+              <ion-select-option :value="user.name">{{ user.name }}</ion-select-option>
+            </div>
+          </ion-select>
         </ion-item>
-        <ion-item>
+      <ion-item>
           <ion-label position="stacked">
             Description
           </ion-label>
-          <ion-input v-model="inputDescription" :readonly="inputsDisabled" :value="task.description == null ? 'No description was added' : task.description"></ion-input>
+          <ion-input v-model="inputs.description" :readonly="inputsDisabled" :value="inputs.description"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">
             Room
           </ion-label>
-          <ion-input :readonly="inputsDisabled" :value="task.miniroom.name"></ion-input>
+          <ion-select :value="inputs.miniRoomName" v-model="inputs.miniRoomName" aria-label="fruit" placeholder="Room">
+            <div class="options" v-for="miniroom in minirooms" v-bind:key="miniroom">
+              <ion-select-option :value="miniroom.name">{{ miniroom.name }}</ion-select-option>
+            </div>
+          </ion-select>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">
@@ -40,14 +48,17 @@
           </ion-label>
           <ion-input :readonly="true" :value="task.user_created.name"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item :class="displayDeadline">
           <ion-label position="stacked">
             Deadline
           </ion-label>
           <ion-input>
-            {{ formatDate(this.task.deadline) }}
+            {{ formatDate(this.inputs.deadline) }}
           </ion-input>
         </ion-item>
+        <div :class="displayCal">
+          <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="updatedTask.deadline" class="date-time"></ion-datetime>
+        </div>
         <div class="row">
           <ion-chip disabled :class="this.statusId == 3 ? 'completed' : 'dark'">Completed</ion-chip>
           <ion-chip disabled :class="this.statusId == 2 ? 'inProgress' : 'dark'">In progress</ion-chip>
@@ -63,61 +74,104 @@
 
 <script>
 import {modalController} from "@ionic/vue";
-import { IonPage, IonContent, IonHeader,IonTitle, IonList, IonLabel, IonItem, IonToolbar } from '@ionic/vue';
+import { IonPage, IonContent, IonChip, IonHeader,IonTitle, IonList, IonLabel, IonItem, IonToolbar, IonDatetime } from '@ionic/vue';
 import axios from "axios";
+import {store} from "@/store";
 export default {
   name: "TaskDetailModal",
   props: {
     task: {
       required: true,
       type: Object,
+    },
+    vm: {
+      required: true,
+      type: Object,
     }
   },
   data() {
     return {
-      inputName: this.task.name,
-      inputDescription: this.task.description,
-      userAsigned: this.task.user_assigned.id,
-      miniRoom: this.task.miniroom.id,
-      inputDeadline: this.task.deadline,
+      inputs: {
+        name: this.task.name,
+        description: this.task.description,
+        assignedToName: this.task.user_assigned.name,
+        assignedToId: this.task.user_assigned.id,
+        miniRoomId: this.task.miniroom.id,
+        miniRoomName: this.task.miniroom.name,
+        deadline: this.task.deadline,
+      },
+      updatedTask: {},
 
+      displayDeadline: 'd-block',
+      displayCal: 'd-none',
+      minirooms: JSON.parse(localStorage.getItem('miniRooms')),
+      users: JSON.parse(localStorage.getItem('roomUsers')),
       inputsDisabled: true,
       statusId: this.task.status_id,
       statusColor: this.task.status.color
     }
   },
   components: {
-    IonPage, IonContent, IonToolbar, IonTitle, IonHeader, IonList, IonLabel, IonItem
+    IonPage, IonContent, IonToolbar, IonTitle, IonHeader, IonList, IonLabel, IonItem, IonDatetime, IonChip
   },
   mounted() {
     if(this.task.user_created.name == localStorage.getItem('userName')) {
       this.inputsDisabled = false
-      console.log(this.inputsDisabled)
+      this.displayCal = 'd-block calendar'
+      this.displayDeadline = 'd-none'
+    }
+    if(this.inputs.description == null || this.inputs.description == '') {
+      this.inputs.description = 'No description was added'
     }
   },
   methods: {
     click(name) {
       name  == localStorage.getItem('userName') ? this.updateTask() && this.closeModal() : this.closeModal()
-      console.log(name)
     },
     closeModal() {
-      console.log(this.task)
       modalController.dismiss({
         task: this.task
       })
     },
     async updateTask() {
-      await axios.post('/v1/task/' + this.task.id + '/update', {
-        user_assigned_id: this.userAsigned,
-        miniroom_id: this.miniRoom,
-        task_name: this.inputName,
-        task_description: this.inputDescription,
-        deadline: this.inputDeadline,
-      }, {
-        headers: {
-          Authorization: localStorage.getItem('userToken')
+      for (let i = 0; i <  this.minirooms.length; i++) {
+        if(this.inputs.miniRoomName == this.minirooms[i].name) {
+          this.inputs.miniRoomId = this.minirooms[i].id
         }
-      })
+      }
+      for (let i = 0; i < this.users.length; i++) {
+        if(this.inputs.assignedToName == this.users[i].name) {
+          this.inputs.assignedToName = this.users[i].id
+        }
+      }
+      if(this.inputs.name !== this.task.name) {
+        this.updatedTask.task_name = this.inputs.name
+      }
+      if(this.inputs.assignedToName !== this.task.user_assigned.name && this.inputs.assignedToId !== this.task.user_assigned.id) {
+        this.updatedTask.user_assigned_id = this.inputs.assignedToId
+      }
+      if(this.inputs.description !== this.task.description && this.inputs.description !== 'No description was added') {
+        this.updatedTask.task_description = this.inputs.description
+      }
+      if(this.inputs.miniRoomName !== this.task.miniroom.id && this.inputs.miniRoomId !== this.task.miniroom.id) {
+        this.updatedTask.miniroom_id = this.inputs.miniRoomId
+      }
+      if(this.inputs.deadline !== this.task.deadline) {
+        this.updatedTask.deadline = this.inputs.deadline
+      }
+      console.log(this.updatedTask)
+      if(Object.keys(this.updatedTask).length !== 0) {
+        await axios.post('/v1/task/update/' + this.task.id, this.updatedTask, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('userToken')
+          }
+        })
+            .then(function (response) {
+              console.log(response)
+            })
+        await store.dispatch('storeTasks', this.updatedTask)
+        this.vm.reloadTask()
+      }
     }
   },
   computed: {
@@ -147,6 +201,21 @@ export default {
   --background: #e94b4b;
   --color: #FFFFFF;
   opacity: 1;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.calendar {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .inProgress {
