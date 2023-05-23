@@ -28,7 +28,6 @@ export default defineComponent({
     components: { TaskList, TopBar },
     data() {
         return {
-            placeholderMembers,
             members: [],
             filter: DefaultTaskFilter as TaskFilter
         }

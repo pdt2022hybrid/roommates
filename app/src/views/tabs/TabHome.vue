@@ -8,20 +8,23 @@
 </template>
 
 <script lang="ts">
-  import TopBar from '@/components/TopBar.vue';
-  import TaskList from '@/components/TaskList.vue';
-  import { TaskFilter, DefaultTaskFilter } from "@/types";
-  import { defineComponent } from 'vue';
+import TopBar from '@/components/TopBar.vue';
+import TaskList from '@/components/TaskList.vue';
+import {DefaultTaskFilter, TaskFilter} from "@/types";
+import {defineComponent} from 'vue';
 
-  export default defineComponent({
+export default defineComponent({
       components: { TaskList, TopBar },
       data() {
+          DefaultTaskFilter.assignedTo = [JSON.parse(localStorage.getItem('userId'))];
+          console.log(DefaultTaskFilter);
           return {
               filter: DefaultTaskFilter as TaskFilter,
           }
       },
       methods: {
-          updateFilter(e: TaskFilter) {
+          updateFilter(e) {
+              e.assignedTo = [JSON.parse(localStorage.getItem('roomTasks'))]
               this.filter = e;
           }
       }

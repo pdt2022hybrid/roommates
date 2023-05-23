@@ -96,11 +96,15 @@ export class TaskFilter {
     dateOptions: taskFilterDateOptions;
     members: taskFilterMember[];
     status: taskFilterStatus[];
+    assignedTo?: number[];
+    minirooms?: number[];
 
-    constructor(dateOptions: taskFilterDateOptions, members: taskFilterMember[], status: taskFilterStatus[]) {
+    constructor(dateOptions: taskFilterDateOptions, members: taskFilterMember[], status: taskFilterStatus[], assignedTo?: number[], minirooms?: number[]) {
         this.dateOptions = dateOptions;
         this.members = members;
         this.status = status;
+        this.assignedTo = assignedTo;
+        this.minirooms = minirooms;
     }
 }
 

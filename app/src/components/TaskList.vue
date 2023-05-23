@@ -28,13 +28,15 @@ export default {
                 !this.filter.members.find((o: taskFilterMember) => o.id === task.user_created.id)
                 &&
                 this.filter.status.find((o: taskFilterStatus) => o.status.id === task.status_id).value
+                &&
+                ((this.filter.assignedTo && this.filter.assignedTo.length > 0)
+                    ? this.filter.assignedTo.includes(task.user_assigned.id) : true)
             );
         },
         sort() {
             const j = getDateOptionsValueSort(this.filter.dateOptions.createdDate);
             //console.log(`i: ${i}, j: ${j}`);
             this.tasks.sort((a, b) => {
-                console.log(a);
                 Math.sign(Date.parse(a.deadline)/1000 - Date.parse(b.deadline)/1000 * j) }
             );
         },
@@ -54,7 +56,6 @@ export default {
     },
     async mounted() {
         await store.dispatch('storeTasks');
-        //console.log(JSON.parse(localStorage.getItem('roomTasks')));
         this.tasks = JSON.parse(localStorage.getItem('roomTasks'));
         console.log(this.filter);
         this.sort();
