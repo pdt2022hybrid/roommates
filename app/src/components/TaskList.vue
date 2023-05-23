@@ -24,28 +24,19 @@ export default {
     },
     methods: {
         check(task) {
-            //console.log(task);
             return (
-                /*(this.filter.members.find((o: taskFilterMember) => {
-                    return o.name === task.user_created.name;
-                }).value || true)
+                !this.filter.members.find((o: taskFilterMember) => o.id === task.user_created.id)
                 &&
-                this.filter.status.find((o: taskFilterStatus) => {
-                    return o.status === task.status;
-                }).value*/
-                true
+                this.filter.status.find((o: taskFilterStatus) => o.status.id === task.status_id).value
             );
         },
         sort() {
-            const i = this.filter.importance === 'least' ? 1 : -1;
-            //this.tasks.sort((a, b) => (a.priority.priority < b.priority.priority) ? i : -i);
             const j = getDateOptionsValueSort(this.filter.dateOptions.createdDate);
             //console.log(`i: ${i}, j: ${j}`);
-            /*this.tasks.sort((a: Task, b: Task) =>
-                Math.sign(a.deadline.getTime() - b.deadline.getTime()) * j ||
-                Math.sign(a.status.priority - b.status.priority) * i
-
-            );*/
+            this.tasks.sort((a, b) => {
+                console.log(a);
+                Math.sign(Date.parse(a.deadline)/1000 - Date.parse(b.deadline)/1000 * j) }
+            );
         },
        async openModal(task: {
           name: string,
@@ -65,6 +56,7 @@ export default {
         await store.dispatch('storeTasks');
         //console.log(JSON.parse(localStorage.getItem('roomTasks')));
         this.tasks = JSON.parse(localStorage.getItem('roomTasks'));
+        console.log(this.filter);
         this.sort();
     }
 };

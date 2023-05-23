@@ -52,10 +52,10 @@ export interface Room {
 }
 
 export class TaskStatus {
-    static readonly COMPLETED = new TaskStatus(0, "Completed", "#2FDF75");
+    static readonly COMPLETED = new TaskStatus(3, "Completed", "#2FDF75");
     static readonly IN_PROGRESS = new TaskStatus(2, "In Progress", "#FF8A1F");
     static readonly NOT_STARTED = new TaskStatus(1, "Not Started", "#FF4961");
-    private constructor(public readonly priority: number, public readonly text: string, public readonly color: string) {}
+    private constructor(public readonly id: number, public readonly text: string, public readonly color: string) {}
     toString() { return this.text; }
 }
 export const TaskStatuses: TaskStatus[] = [TaskStatus.NOT_STARTED, TaskStatus.IN_PROGRESS, TaskStatus.COMPLETED];
@@ -96,24 +96,28 @@ export class TaskFilter {
     dateOptions: taskFilterDateOptions;
     members: taskFilterMember[];
     status: taskFilterStatus[];
-    importance: taskFilterImportance;
 
-    constructor(dateOptions: taskFilterDateOptions, members: taskFilterMember[], status: taskFilterStatus[], importance: taskFilterImportance) {
+    constructor(dateOptions: taskFilterDateOptions, members: taskFilterMember[], status: taskFilterStatus[]) {
         this.dateOptions = dateOptions;
         this.members = members;
         this.status = status;
-        this.importance = importance;
     }
 }
 
 export type dateOptionsValue = 'any' | 'newest' | 'oldest';
 export type taskFilterDateOptions = { createdDate: dateOptionsValue, promiseDate: dateOptionsValue, cancelDate: dateOptionsValue };
-export type taskFilterMember = { name: string, value: boolean };
+export type taskFilterMember = { name: string, id: number };
 export type taskFilterStatus = { status: TaskStatus, value: boolean };
 export type taskFilterImportance = 'most' | 'least';
 export function getDateOptionsValueSort(a: dateOptionsValue): 1 | -1 | 0 {
     return a === 'newest' ? -1 : (a === 'oldest' ? 1 : 0);
 }
+
+export const DefaultTaskFilterStatuses: taskFilterStatus[] = [
+    {status: TaskStatus.COMPLETED, value: false},
+    {status: TaskStatus.IN_PROGRESS, value: true},
+    {status: TaskStatus.NOT_STARTED, value: true}
+]
 
 export const DefaultTaskFilter: TaskFilter = {
     dateOptions: {
@@ -121,18 +125,8 @@ export const DefaultTaskFilter: TaskFilter = {
         promiseDate: 'any',
         cancelDate: 'any'
     },
-    members: [
-        {name: "Marek Topolsky", value: true},
-        {name: "Richard Egyed", value: true},
-        {name: "Sloboda", value: true},
-        {name: "Luptacik", value: true}
-    ],
-    status: [
-        {status: TaskStatus.COMPLETED, value: true},
-        {status: TaskStatus.IN_PROGRESS, value: true},
-        {status: TaskStatus.NOT_STARTED, value: true}
-    ],
-    importance: 'most'
+    members: [],
+    status: DefaultTaskFilterStatuses,
 }
 
 export const placeholderTasks: Task[] = [

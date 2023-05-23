@@ -33,7 +33,7 @@ import './theme/global.css';
 
 const app = createApp(App)
     .use(IonicVue, {
-        mode: 'ios'
+        mode: 'md'
     })
     .use(store, key)
     .use(router)

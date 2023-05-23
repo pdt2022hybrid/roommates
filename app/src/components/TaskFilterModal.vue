@@ -1,5 +1,4 @@
 <template>
-  <ion-page class="overlay">
     <ion-content :fullscreen="true">
       <ion-card class="title-card">
         <ion-card-header>
@@ -25,7 +24,7 @@
         </ion-select>
       </ion-item>
       <p class="subtitle">Roommate</p>
-      <ion-item v-for="roommate in members" :key="roommate">
+      <ion-item v-for="roommate in membersFilter" :key="roommate">
         <ion-label>{{ roommate.name }}</ion-label>
         <ion-checkbox v-model="roommate.value" justify="space-between"></ion-checkbox>
       </ion-item>
@@ -34,29 +33,18 @@
         <ion-label>{{ status.status }}</ion-label>
         <ion-checkbox v-model="status.value" justify="space-between"></ion-checkbox>
       </ion-item>
-      <p class="subtitle">Importance</p>
-      <ion-radio-group v-model="this.importanceSort">
-        <ion-item>
-          <ion-label>Most Important</ion-label>
-          <ion-radio value="most" justify="space-between"/>
-        </ion-item>
-        <ion-item>
-          <ion-label>Least Important</ion-label>
-          <ion-radio value="least" justify="space-between"/>
-        </ion-item>
-      </ion-radio-group>
     </ion-content>
-  </ion-page>
 </template>
 
 <script lang="ts">
 import {
   placeholderMembers, taskFilterDateOptions, taskFilterMember, taskFilterImportance, TaskFilter,
-  dateOptionsValue, TaskStatuses, taskFilterStatus
+  dateOptionsValue, DefaultTaskFilterStatuses, taskFilterStatus
 } from "@/types";
 import {close} from 'ionicons/icons';
 import {defineComponent} from "vue";
 import {modalController} from "@ionic/vue";
+import {store} from "@/store";
 
 export default defineComponent({
   props: {
@@ -69,6 +57,9 @@ export default defineComponent({
   data() {
     return {
       modalFilter: {},
+      members: [],
+      membersFilter: [],
+      statuses: DefaultTaskFilterStatuses,
       close,
       optionsDate: [
         {id: 'any', text: "Any"},
@@ -79,21 +70,96 @@ export default defineComponent({
         {id: 'createdDate', label: "Task created", value: 'any' as dateOptionsValue},
         {id: 'promiseDate', label: "Promise date", value: 'any' as dateOptionsValue},
         {id: 'cancelDate', label: "Auto cancel date", value: 'any' as dateOptionsValue},
-      ],
-      importanceSort: "most" as taskFilterImportance
+      ]
     }
   },
 
-  mounted() {
-    this.modalFilter = this.filter
+  async mounted() {
+    this.modalFilter = this.filter;
+    await store.dispatch('storeUsers');
+    this.members = JSON.parse(localStorage.getItem('roomUsers'));
+    for (const member of this.members) {
+      const val = !this.modalFilter.members.find(o => o.id === member.id)
+      this.membersFilter.push({id: member.id, name: member.name, value: val});
+    }
+    this.labelsDate[this.labelsDate.findIndex(o => o.id === 'createdDate')].value =
+        this.modalFilter.dateOptions.createdDate;
+    this.statuses = this.modalFilter.status;
   },
 
   methods: {
     closeModal() {
+      const dateOptions: taskFilterDateOptions = {
+        createdDate: this.labelsDate.find(obj => {return obj.id === 'createdDate'}).value,
+        promiseDate: this.labelsDate.find(obj => {return obj.id === 'promiseDate'}).value,
+        cancelDate: this.labelsDate.find(obj => {return obj.id === 'cancelDate'}).value,
+      };
+      const memberFilterIds: taskFilterMember[] = [];
+      for(const o of this.membersFilter) {
+        if(o.value === false) memberFilterIds.push({name: o.name, id: o.id});
+      }
       modalController.dismiss({
-        filter: this.modalFilter
+        filter: new TaskFilter(dateOptions, memberFilterIds, this.statuses)
       })
     }
   }
 })
 </script>
+
+<style scoped>
+body {
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+}
+
+.overlay {
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    -webkit-overflow-scrolling: touch;
+}
+
+.title {
+    margin-left: 6.4vw;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    color: #222428;
+}
+
+.title-card {
+    margin-top: 3.5vh;
+}
+
+.subtitle {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 7.6vw;
+}
+
+ion-select {
+    max-width: 100% !important;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+ion-card-title {
+    margin: 0 auto;
+    text-align: left;
+}
+
+ion-grid, ion-col {
+    padding: 0;
+}
+</style>
