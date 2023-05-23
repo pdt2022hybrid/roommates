@@ -24,7 +24,7 @@ export default defineComponent({
       },
       methods: {
           updateFilter(e) {
-              e.assignedTo = [JSON.parse(localStorage.getItem('roomTasks'))]
+              e.assignedTo = [JSON.parse(localStorage.getItem('userId'))]
               this.filter = e;
           }
       }
