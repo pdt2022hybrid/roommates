@@ -54,7 +54,7 @@ class TaskController extends Controller
         if(!$task) {
             return response()->json([
                 'error' => 'Task not found'
-            ], 404);
+            ]);
         }
 
         if($task->room_id != $user->room_id) {
