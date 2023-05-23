@@ -80,6 +80,7 @@ export default defineComponent({
   },
   async mounted() {
     this.picture = ref(localStorage.getItem('picture') || null)
+    store.commit('loading', true)
     await axios.get('https://roomates.hybridlab.dev/cms/api/v1/user/room', {headers: {
       Authorization: 'Bearer ' + localStorage.getItem('userToken')
       }})
@@ -89,6 +90,7 @@ export default defineComponent({
         })
     this.roomToken = localStorage.getItem('roomToken')
     console.log(localStorage.getItem('roomToken'))
+    store.commit('loading', false)
   },
   methods: {
     async onFileSelected(e) {
