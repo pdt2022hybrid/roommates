@@ -47,8 +47,8 @@ class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    public function updateTask(Request $request) {
-        $task = Task::where('id', post('task_id'))->first();
+    public function updateTask($id, Request $request) {
+        $task = Task::where('id', $id)->first();
         $user = User::where('id', $request->get('tokenUserID'))->first();
 
         if(!$task) {
@@ -76,8 +76,8 @@ class TaskController extends Controller
         return new TaskResource($task);
     }
 
-    public function setStatus() {
-        $task = Task::where('id', post('task_id'))->first();
+    public function setStatus($id) {
+        $task = Task::where('id', $id)->first();
         $status = Status::where('id', post('status_id'))->first();
 
         if(!$task) {
