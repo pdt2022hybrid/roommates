@@ -25,14 +25,6 @@ class UserController extends Controller
     public function uploadAvatar(Request $request) {
         $user = User::find($request->tokenUserID);
 
-//        if (request()->hasFile('avatar'))
-//        {
-//            $file = new File();
-//            $file->fromPost(request()->file("avatar"));
-//            $file->save();
-//            $user->avatar()->add($file);
-//        }
-
         if(!request()->hasFile('avatar')) {
             return response()->json([
                 'error' => 'Missing image file'
