@@ -13,15 +13,11 @@
 
             <div class="content">
                 <ion-item>
-                    <ion-label position="stacked">Email</ion-label>
-                    <ion-input v-model="this.email" placeholder="Write your email here..."></ion-input>
+                    <ion-input v-model="this.email" placeholder="Email"></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label position="stacked">Password</ion-label>
-                    <div class="row">
-                        <ion-input :type="showPass ? 'text' : 'password'" v-model="this.password" placeholder="Write your password here..."/>
-                        <ion-icon @click="showPass = !showPass" :icon="showPass ? eyeOffOutline : eyeOutline" class="show"></ion-icon>
-                    </div>
+                    <ion-input :type="showPass ? 'text' : 'password'" v-model="this.password" placeholder="Password"/>
+                    <ion-icon @click="showPass = !showPass" :icon="showPass ? eyeOffOutline : eyeOutline" class="show"></ion-icon>
                 </ion-item>
                 <p style="color: #EC445A;">{{ this.errorMsg }}</p>
             </div>
@@ -31,7 +27,7 @@
             </div>
 
             <router-link class="link" to="/signUp">
-              Or if you are a new user, Sign Up
+              New to Roommates? Sign Up!
             </router-link>
 
         </ion-content>

@@ -4,7 +4,7 @@
         <ion-content :fullscreen="true">
           <div class="content">
             <ion-item>
-              <ion-select aria-label="name" v-model="taskName" placeholder="Name">
+              <ion-select aria-label="name" v-model="taskName" placeholder="Title">
                 <div v-for="predefinedName in predefinedNames" v-bind:key="predefinedName" class="options">
                   <ion-select-option :value="predefinedName">{{ predefinedName }}</ion-select-option>
                 </div>
@@ -21,7 +21,7 @@
             </ion-list>
             <ion-list>
               <ion-item>
-                <ion-select v-model="miniRoom" aria-label="fruit" placeholder="Which room">
+                <ion-select v-model="miniRoom" aria-label="fruit" placeholder="Choose room">
                   <div class="options" v-for="miniroom in minirooms" v-bind:key="miniroom">
                     <ion-select-option v-model="miniRoom" :value="miniroom.name">{{ miniroom.name }}</ion-select-option>
                   </div>
@@ -32,7 +32,7 @@
             </ion-list>
             <ion-item>
               <ion-label position="stacked">Description of the task</ion-label>
-              <ion-input v-model="description" placeholder="Add description"></ion-input>
+              <ion-input v-model="description" placeholder="Description"></ion-input>
             </ion-item>
             <div class="calendar">
               <ion-datetime :value="new Date()" mode="ios" displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="deadline" class="date-time"></ion-datetime>

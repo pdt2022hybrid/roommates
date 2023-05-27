@@ -25,9 +25,6 @@
         </button>
 
       </div>
-      <span class="bottom">
-        By clicking on profile icon you can change your profile picture or by clicking on the button.
-      </span>
     </ion-content>
 
     </ion-page>

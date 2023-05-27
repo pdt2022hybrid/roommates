@@ -16,15 +16,15 @@
       <div class="content">
         <ion-item>
           <ion-label position="stacked">
-            Name of place
+            Place name
           </ion-label>
-          <ion-input v-model="placeName" placeholder="What should we call your accomodation ?"></ion-input>
+          <ion-input v-model="placeName" placeholder="Give your place a unique name"></ion-input>
         </ion-item>
         <ion-item class="ion-invalid">
           <ion-label position="stacked">
-            Add your rooms
+            Add some rooms to your place
           </ion-label>
-          <ion-input class="" v-model="newRoomName" placeholder="Add some rooms"></ion-input>
+          <ion-input class="" v-model="newRoomName" placeholder="e.g. Bathroom, Kitchen, Bedroom..."></ion-input>
             <ion-note position="" slot="error">{{ this.error }}</ion-note>
           <ion-button slot="end" @click="newRoom" class="small">
             Add

@@ -16,20 +16,20 @@
       <div class="content">
         <ion-item>
           <ion-label position="stacked">First Name</ion-label>
-          <ion-input v-model="firstName" placeholder="Type your first name here..."></ion-input>
+          <ion-input v-model="firstName" placeholder="John"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Last Name</ion-label>
-          <ion-input v-model="lastName" placeholder="Type your last name here..."></ion-input>
+          <ion-input v-model="lastName" placeholder="Smith"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Email</ion-label>
-          <ion-input v-model="mail" placeholder="Type your email here..."></ion-input>
+          <ion-input v-model="mail" placeholder="john.smith@example.com"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Password</ion-label>
           <div class="row">
-            <ion-input v-model="password" :type="inputTypePassword" placeholder="Type your password here..."></ion-input>
+            <ion-input v-model="password" :type="inputTypePassword" placeholder="johnSmith5319"></ion-input>
             <span v-if="inputTypePassword == 'password'">
               <ion-icon @click="toggleShowPassword" :icon="eyeOutline" class="show"></ion-icon>
             </span>
@@ -41,7 +41,7 @@
         <ion-item>
           <ion-label position="stacked">Confirm password</ion-label>
           <div class="row">
-            <ion-input :type="inputTypeConfirmed" v-model="confirmPassword" placeholder="Repeat password"></ion-input>
+            <ion-input :type="inputTypeConfirmed" v-model="confirmPassword" placeholder="johnSmith5319"></ion-input>
             <span v-if="inputTypeConfirmed == 'password'">
               <ion-icon @click="toggleShowConfirmed" :icon="eyeOutline" class="show"></ion-icon>
             </span>

@@ -1,11 +1,11 @@
 <template>
     <ion-page>
         <ion-content>
-            <p class="text-title">What type of <accomodation></accomodation> do you have?</p>
+            <p class="text-title">Welcome, {{ this.name }}</p>
             <img class="img-deco" src="@/../resources/img_typeofplace.png" alt="">
-            <ion-button @click="this.$router.push({path: '/createRoom'})" class="custom-btn btn-new" fill="outline" color="dark">New</ion-button>
+            <ion-button @click="this.$router.push({path: '/createRoom'})" class="custom-btn btn-new" fill="outline" color="dark">Create a new place</ion-button>
             <p class="text-or">or...</p>
-            <ion-button @click="this.$router.push({path: '/joinRoom'})" class="custom-btn btn-existing" fill="outline" color="dark">Existing</ion-button>
+            <ion-button @click="this.$router.push({path: '/joinRoom'})" class="custom-btn btn-existing" fill="outline" color="dark">Join an existing place</ion-button>
         </ion-content>
     </ion-page>
 </template>
@@ -14,7 +14,12 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'ChooseTypeScreen'
+    name: 'ChooseTypeScreen',
+    data() {
+      return {
+        name: localStorage.getItem('userName')
+      }
+    }
 });
 </script>
 
