@@ -82,14 +82,13 @@ export default defineComponent({
     this.picture = ref(localStorage.getItem('picture') || null)
     store.commit('loading', true)
     await axios.get('https://roomates.hybridlab.dev/cms/api/v1/user/room', {headers: {
-      Authorization: 'Bearer ' + localStorage.getItem('userToken')
+        Authorization: 'Bearer ' + localStorage.getItem('userToken')
       }})
         .then(function (response) {
           console.log(response)
           localStorage.setItem('roomToken', response.data.data.room_identifier)
         })
     this.roomToken = localStorage.getItem('roomToken')
-    console.log(localStorage.getItem('roomToken'))
     store.commit('loading', false)
   },
   methods: {
@@ -116,7 +115,12 @@ export default defineComponent({
           Authorization:  'Bearer ' + localStorage.getItem('userToken')
         }
       })
-      store.commit('loading', true)
+          .then(function (response) {
+            console.log(response)
+            setTimeout(() => {
+              store.commit('loading', false)
+            }, 1000)
+          })
     },
     logOut() {
       localStorage.clear()
