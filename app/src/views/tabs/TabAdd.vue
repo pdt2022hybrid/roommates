@@ -4,8 +4,11 @@
         <ion-content :fullscreen="true">
           <div class="content">
             <ion-item>
-              <ion-label position="stacked">Name of the task</ion-label>
-              <ion-input v-model="taskName" placeholder="Write here a name of the task..."></ion-input>
+              <ion-select aria-label="name" v-model="taskName" placeholder="Name">
+                <div v-for="predefinedName in predefinedNames" v-bind:key="predefinedName" class="options">
+                  <ion-select-option :value="predefinedName">{{ predefinedName }}</ion-select-option>
+                </div>
+              </ion-select>
             </ion-item>
             <ion-list>
               <ion-item>
@@ -26,13 +29,6 @@
               </ion-item>
             </ion-list>
             <ion-list>
-              <ion-item>
-                <ion-select aria-label="fruit" placeholder="Pre defined tasks">
-                  <ion-select-option value="Cleaning">Cleaning</ion-select-option>
-                  <ion-select-option value="Rubish">Take out the rubish</ion-select-option>
-                  <ion-select-option value="Buy Groceries">Buy groceries</ion-select-option>
-                </ion-select>
-              </ion-item>
             </ion-list>
             <ion-item>
               <ion-label position="stacked">Description of the task</ion-label>
@@ -40,11 +36,6 @@
             </ion-item>
             <div class="calendar">
               <ion-datetime :value="new Date()" mode="ios" displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="deadline" class="date-time"></ion-datetime>
-            </div>
-            <div class="row">
-              <ion-chip @click="() => this.statusId = 3" :color="statusId == 3 ? 'success' : 'dark'">Completed</ion-chip>
-              <ion-chip @click="this.statusId = 2" :color="statusId == 2 ? 'warning' : 'dark'">In progress</ion-chip>
-              <ion-chip @click="this.statusId = 1" :color="statusId == 1 ? 'medium' : 'dark'">Not started</ion-chip>
             </div>
           </div>
           <div class="bottom">
@@ -60,26 +51,37 @@
 import TopBar from '@/components/TopBar.vue';
 import {store} from "@/store";
 import axios from "axios";
-import { IonPage, IonContent, IonList, IonChip, IonSelect, IonSelectOption, IonDatetime } from '@ionic/vue';
+import { IonPage, IonContent, IonList, IonSelect, IonSelectOption, IonDatetime } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
     components: {
-      IonPage, IonContent, IonList, IonSelect, IonSelectOption, IonDatetime, TopBar, IonChip
+      IonPage, IonContent, IonList, IonSelect, IonSelectOption, IonDatetime, TopBar
     },
 
     data() {
       return {
+        newName: null,
         taskName: null,
         assignTo: null,
         userAssignedId: null,
         description: null,
-        statusId: null,
+        statusId: 1,
         deadline: null,
         miniRoom: null,
           minirooms: JSON.parse(localStorage.getItem('miniRooms')),
         members: JSON.parse(localStorage.getItem('roomUsers')),
         miniroomId: null,
+        predefinedNames: [
+            'Cleaning',
+            'Take out rubish',
+            'Buy groceries',
+            'Unload the dishwasher',
+            'Vakuum up',
+            'Make dinner',
+            'Make lunch',
+            'Make breakfeast',
+        ]
       }
     },
   methods: {
@@ -133,6 +135,10 @@ export default defineComponent({
 a {
   color: #262B2C !important;
   text-decoration: none;
+}
+
+.custom-select-option::before {
+  content: none;
 }
 
 d-none {

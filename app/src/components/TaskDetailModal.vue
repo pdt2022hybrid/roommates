@@ -20,7 +20,7 @@
           <ion-label position="stacked">
             Assigned to
           </ion-label>
-          <ion-select v-model="inputs.assignedToName" :value="inputs.assignedToName" placeholder="Assign to a roommate">
+          <ion-select :disabled="inputsDisabled" v-model="inputs.assignedToName" :value="inputs.assignedToName" placeholder="Assign to a roommate">
             <div class="options" v-for="user in users" v-bind:key="user">
               <ion-select-option :value="user.name">{{ user.name }}</ion-select-option>
             </div>
@@ -36,7 +36,7 @@
           <ion-label position="stacked">
             Room
           </ion-label>
-          <ion-select :value="inputs.miniRoomName" v-model="inputs.miniRoomName" aria-label="fruit" placeholder="Room">
+          <ion-select :disabled="inputsDisabled" :value="inputs.miniRoomName" v-model="inputs.miniRoomName" aria-label="fruit" placeholder="Room">
             <div class="options" v-for="miniroom in minirooms" v-bind:key="miniroom">
               <ion-select-option :value="miniroom.name">{{ miniroom.name }}</ion-select-option>
             </div>
@@ -60,9 +60,9 @@
           <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="updatedTask.deadline" class="date-time"></ion-datetime>
         </div>
         <div class="row">
-          <ion-chip disabled :class="this.statusId == 3 ? 'completed' : 'dark'">Completed</ion-chip>
-          <ion-chip disabled :class="this.statusId == 2 ? 'inProgress' : 'dark'">In progress</ion-chip>
-          <ion-chip disabled :class="this.statusId == 1 ? 'notStarted' : 'dark'">Not started</ion-chip>
+          <ion-chip :disabled="chipsDisabled" @click="this.statusId = 3" :class="this.statusId == 3 ? 'completed' : 'dark'">Completed</ion-chip>
+          <ion-chip :disabled="chipsDisabled" @click="this.statusId = 2" :class="this.statusId == 2 ? 'inProgress' : 'dark'">In progress</ion-chip>
+          <ion-chip :disabled="chipsDisabled" @click="this.statusId = 1" :class="this.statusId == 1 ? 'notStarted' : 'dark'">Not started</ion-chip>
         </div>
       </ion-list>
       <ion-button @click="click(task.user_assigned.name)" class="bottom" shape="round">
@@ -107,6 +107,7 @@ export default {
       minirooms: JSON.parse(localStorage.getItem('miniRooms')),
       users: JSON.parse(localStorage.getItem('roomUsers')),
       inputsDisabled: true,
+      chipsDisabled: true,
       statusId: this.task.status_id,
       statusColor: this.task.status.color
     }
@@ -119,6 +120,9 @@ export default {
       this.inputsDisabled = false
       this.displayCal = 'd-block calendar'
       this.displayDeadline = 'd-none'
+    }
+    if(this.task.user_assigned.name == localStorage.getItem('userName')) {
+      this.chipsDisabled = false
     }
     if(this.inputs.description == null || this.inputs.description == '') {
       this.inputs.description = 'No description was added'
@@ -158,6 +162,9 @@ export default {
       }
       if(this.inputs.deadline !== this.task.deadline) {
         this.updatedTask.deadline = this.inputs.deadline
+      }
+      if(this.statusId !== this.task.status.id) {
+        this.updatedTask.status_id = this.statusId
       }
       console.log(this.updatedTask)
       if(Object.keys(this.updatedTask).length !== 0) {
@@ -207,6 +214,12 @@ export default {
   display: none;
 }
 
+.completed {
+  --background: #1abc9c;
+  --color: #FFFFFF;
+  opacity: 1;
+}
+
 .d-block {
   display: block;
 }
@@ -248,5 +261,54 @@ ion-toolbar > ion-title {
 
 ion-item {
   padding-right: 2rem;
+}
+
+:root {
+  --ion-color-rose: #3171e0;
+  --ion-color-rose-rgb: 131, 24, 67;
+  --ion-color-rose-contrast: #ffffff;
+  --ion-color-rose-contrast-rgb: 255, 255, 255;
+  --ion-color-rose-shade: #73153b;
+  --ion-color-rose-tint: #8f2f56;
+
+  --ion-text-color: #881337;
+  --ion-text-color-rgb: 136, 19, 55;
+
+  --ion-color-step-50: #f9e6e9;
+  --ion-color-step-100: #f3dbdf;
+  --ion-color-step-150: #edd0d6;
+  --ion-color-step-200: #e7c5cd;
+  --ion-color-step-250: #e1bac3;
+  --ion-color-step-300: #dbaeba;
+  --ion-color-step-350: #d5a3b1;
+  --ion-color-step-400: #cf98a7;
+  --ion-color-step-450: #c98d9e;
+  --ion-color-step-500: #c48295;
+  --ion-color-step-550: #be778b;
+  --ion-color-step-600: #b86c82;
+  --ion-color-step-650: #b26178;
+  --ion-color-step-700: #ac566f;
+  --ion-color-step-750: #a64b66;
+  --ion-color-step-800: #a03f5c;
+  --ion-color-step-850: #9a3453;
+  --ion-color-step-900: #94294a;
+  --ion-color-step-950: #8e1e40;
+}
+
+.ion-color-rose {
+  --ion-color-base: var(--ion-color-rose);
+  --ion-color-base-rgb: var(--ion-color-rose-rgb);
+  --ion-color-contrast: var(--ion-color-rose-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-rose-contrast-rgb);
+  --ion-color-shade: var(--ion-color-rose-shade);
+  --ion-color-tint: var(--ion-color-rose-tint);
+}
+
+ion-datetime {
+  --background: #fff1f2;
+  --background-rgb: 255, 241, 242;
+
+  border-radius: 16px;
+  box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
 }
 </style>

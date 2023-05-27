@@ -83,7 +83,7 @@ export default {
           Authorization:  'Bearer ' + localStorage.getItem('userToken')
         }
       })
-      store.commit('loading', true)
+      store.commit('loading', false)
     },
   },
 }
