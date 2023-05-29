@@ -44,11 +44,9 @@ export default defineComponent({
         await store.dispatch('storeUsers');
         const m = JSON.parse(localStorage.getItem('roomUsers'));
         this.members = [];
-        console.log(m);
         for(let i=0; i < m.length; i++) {
             this.members[i] = {member: m[i], select: false};
         }
-        console.log(this.members);
     }
 });
 </script>
@@ -71,7 +69,5 @@ img {
     margin: 0 2px;
     user-select: none;
 }
-
-
 
 </style>
