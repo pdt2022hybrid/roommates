@@ -79,16 +79,17 @@ export default defineComponent({
     }
   },
   async mounted() {
-    this.picture = ref(localStorage.getItem('picture') || null)
     store.commit('loading', true)
     await axios.get('https://roomates.hybridlab.dev/cms/api/v1/user/room', {headers: {
         Authorization: 'Bearer ' + localStorage.getItem('userToken')
       }})
         .then(function (response) {
-          console.log(response)
-          localStorage.setItem('roomToken', response.data.data.room_identifier)
+          console.log(response);
+          localStorage.setItem('roomToken', response.data.data.room_identifier);
+          localStorage.setItem('picture', response.data.data.room_owner.avatar);
         })
     this.roomToken = localStorage.getItem('roomToken')
+    this.picture = ref(localStorage.getItem('picture') || null)
     store.commit('loading', false)
   },
   methods: {
