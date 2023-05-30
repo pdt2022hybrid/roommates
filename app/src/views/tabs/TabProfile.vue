@@ -127,6 +127,9 @@ export default defineComponent({
     },
     logOut() {
       localStorage.clear()
+      this.roomToken = null
+      this.userName = null
+      this.userEmail = null
       this.$router.push({path: '/'})
     }
   },

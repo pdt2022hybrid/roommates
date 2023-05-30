@@ -94,6 +94,11 @@ export default {
         alert("Passwords does not match")
       } else {
         await store.dispatch('signup', {name: this.firstName, surname: this.lastName, email: this.mail, password: this.password, password_confirmation: this.confirmPassword})
+        this.firstName  = null
+        this.lastName = null
+        this.mail = null
+        this.password = null
+        this.confirmPassword = null
         this.$router.push({path: '/setProfilePicture'})
       }
     },

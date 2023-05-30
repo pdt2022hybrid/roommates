@@ -59,6 +59,8 @@
                   return;
                 } else this.errorMsg = '';
                 await store.dispatch('login', {email: this.email, password: this.password})
+                this.email = null
+                this.password = null
               }catch (error) {
                 this.errorMsg = error
                 console.log(error)
