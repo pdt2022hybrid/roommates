@@ -41,7 +41,6 @@ export default defineComponent({
             await store.dispatch('storeTasks');
             const tasks = JSON.parse(localStorage.getItem('roomTasks'));
             for(let i=0; i < tasks.length; i++) {
-                const date = tasks[i].deadline.split('T')[0];
                 this.highlightedDates[i] = this.getHighlightColor(tasks[i].deadline.split('T')[0], tasks[i].status.id);
             }
             await store.dispatch('loaded');
