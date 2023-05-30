@@ -113,13 +113,14 @@ export default defineComponent({
         }
         await axios.post('/v1/task/create', data, {headers: {
           Authorization: 'Bearer ' + localStorage.getItem('userToken')
-          }})
-        const oldTasks = JSON.parse(localStorage.getItem('roomTasks'))
-        oldTasks.push(data)
-        localStorage.setItem('roomTasks', oldTasks)
-        await store.dispatch('storeTasks')
-        this.$events.emit('reloadTasks')
-        this.$router.push({path: '/tabs/home'})
+          }});
+        const oldTasks = JSON.parse(localStorage.getItem('roomTasks'));
+        oldTasks.push(data);
+        localStorage.setItem('roomTasks', oldTasks);
+        this.taskName = this.assignTo = this.miniRoom = this.description = this.deadline = this.miniroomId = this.userAssignedId = null; //clear
+        await store.dispatch('storeTasks');
+        this.$events.emit('reloadTasks');
+        this.$router.push({path: '/tabs/home'});
     }
   },
 
