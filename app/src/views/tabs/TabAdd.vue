@@ -10,6 +10,10 @@
                 </div>
               </ion-select>
             </ion-item>
+            <ion-item :class="taskName == 'Other' ? 'd-block' : 'd-none'">
+              <ion-label position="floating">Name of the task</ion-label>
+              <ion-input v-model="otherName"></ion-input>
+            </ion-item>
             <ion-list>
               <ion-item>
                 <ion-select v-model="this.assignTo" aria-label="fruit" placeholder="Assign to a roommate">
@@ -27,8 +31,6 @@
                   </div>
                 </ion-select>
               </ion-item>
-            </ion-list>
-            <ion-list>
             </ion-list>
             <ion-item>
               <ion-label position="stacked">Description of the task</ion-label>
@@ -61,8 +63,7 @@ export default defineComponent({
 
     data() {
       return {
-        testText:'',
-        newName: null,
+        otherName: null,
         taskName: null,
         assignTo: null,
         userAssignedId: null,
@@ -74,6 +75,7 @@ export default defineComponent({
         members: JSON.parse(localStorage.getItem('roomUsers')),
         miniroomId: null,
         predefinedNames: [
+            'Other',
             'Cleaning',
             'Take out rubbish',
             'Buy groceries',
@@ -112,13 +114,17 @@ export default defineComponent({
           user_assigned_id: this.userAssignedId,
           status_id: this.statusId,
         }
+
+        if(this.taskName == 'Other') {
+          data.task_name = this.otherName
+        }
         await axios.post('/v1/task/create', data, {headers: {
           Authorization: 'Bearer ' + localStorage.getItem('userToken')
           }});
         const oldTasks = JSON.parse(localStorage.getItem('roomTasks'));
         oldTasks.push(data);
         localStorage.setItem('roomTasks', oldTasks);
-        this.taskName = this.assignTo = this.miniRoom = this.description = this.deadline = this.miniroomId = this.userAssignedId = null; //clear
+        this.taskName = this.assignTo = this.miniRoom = this.description = this.deadline = this.miniroomId = this.otherName = this.userAssignedId = null; //clear
         await store.dispatch('storeTasks');
         this.$events.emit('reloadTasks');
         this.$router.push({path: '/tabs/home'});
@@ -126,7 +132,6 @@ export default defineComponent({
   },
 
   async mounted() {
-
     this.minirooms = JSON.parse(localStorage.getItem('miniRooms'))
     this.members = JSON.parse(localStorage.getItem('roomUsers'))
   },
@@ -143,8 +148,12 @@ a {
   content: none;
 }
 
-d-none {
-  display: none;
+.d-none {
+  display: none !important;
+}
+
+.d-block {
+  display: block;
 }
 
 .calendar {
