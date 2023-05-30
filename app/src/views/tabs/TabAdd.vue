@@ -61,6 +61,7 @@ export default defineComponent({
 
     data() {
       return {
+        testText:'',
         newName: null,
         taskName: null,
         assignTo: null,

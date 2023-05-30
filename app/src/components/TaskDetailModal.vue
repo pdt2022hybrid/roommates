@@ -20,7 +20,7 @@
           <ion-label position="stacked">
             Assigned to
           </ion-label>
-          <ion-select :disabled="inputsDisabled" v-model="inputs.assignedToName" :value="inputs.assignedToName" placeholder="Assign to a roommate">
+          <ion-select :class="{'pointer-events-none':inputsDisabled}" v-model="inputs.assignedToName" :value="inputs.assignedToName" placeholder="Assign to a roommate">
             <div class="options" v-for="user in users" v-bind:key="user">
               <ion-select-option :value="user.name">{{ user.name }}</ion-select-option>
             </div>
@@ -36,7 +36,7 @@
           <ion-label position="stacked">
             Room
           </ion-label>
-          <ion-select :disabled="inputsDisabled" :value="inputs.miniRoomName" v-model="inputs.miniRoomName" aria-label="fruit" placeholder="Room">
+          <ion-select :class="{'pointer-events-none':inputsDisabled}" :value="inputs.miniRoomName" v-model="inputs.miniRoomName" aria-label="fruit" placeholder="Room">
             <div class="options" v-for="miniroom in minirooms" v-bind:key="miniroom">
               <ion-select-option :value="miniroom.name">{{ miniroom.name }}</ion-select-option>
             </div>
@@ -196,6 +196,10 @@ export default {
 </script>
 
 <style scoped>
+
+.pointer-events-none {
+  pointer-events: none;
+}
 .header {
   background-color: white;
   padding: 16px
