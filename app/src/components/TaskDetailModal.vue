@@ -57,7 +57,7 @@
           </ion-input>
         </ion-item>
         <div :class="displayCal">
-          <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="updatedTask.deadline" class="date-time"></ion-datetime>
+          <ion-datetime :value="inputs.deadline" displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="updatedTask.deadline" class="date-time"></ion-datetime>
         </div>
         <div class="row">
           <ion-chip :disabled="chipsDisabled" @click="this.statusId = 3" :class="this.statusId == 3 ? 'completed' : 'dark'">Completed</ion-chip>

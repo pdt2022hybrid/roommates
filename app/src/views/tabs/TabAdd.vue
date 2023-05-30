@@ -35,7 +35,7 @@
               <ion-input v-model="description" placeholder="Description"></ion-input>
             </ion-item>
             <div class="calendar">
-              <ion-datetime :value="new Date()" mode="ios" displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="deadline" class="date-time"></ion-datetime>
+              <ion-datetime :value="deadline" mode="ios" displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="deadline" class="date-time"></ion-datetime>
             </div>
           </div>
           <div class="bottom">
@@ -117,6 +117,13 @@ export default defineComponent({
         const oldTasks = JSON.parse(localStorage.getItem('roomTasks'))
         oldTasks.push(data)
         localStorage.setItem('roomTasks', oldTasks)
+        this.newName = null
+        this.taskName = null
+        this.assignTo = null
+        this.userAssignedId = null
+        this.description = null
+        this.deadline = null
+        this.miniRoom = null
         await store.dispatch('storeTasks')
         this.$events.emit('reloadTasks')
         this.$router.push({path: '/tabs/home'})
