@@ -1,4 +1,7 @@
 <template>
+    <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
+        <ion-refresher-content/>
+    </ion-refresher>
     <div v-for="task in tasks" :key="task">
         <task-card @click="openModal(task)" v-if="check(task)" :task="task" />
     </div>
@@ -9,11 +12,11 @@ import {DefaultTaskFilter, getDateOptionsValueSort, Task, TaskFilter, taskFilter
 import TaskCard from "@/components/TaskCard.vue";
 import TaskDetailModal from "@/components/TaskDetailModal.vue";
 import {store} from "@/store";
-import {modalController} from "@ionic/vue";
+import {modalController, IonRefresher, IonRefresherContent} from "@ionic/vue";
 
 export default {
     name: "TaskList",
-    components: { TaskCard },
+    components: { TaskCard, IonRefresher, IonRefresherContent },
     props: {
         filter: DefaultTaskFilter as TaskFilter
     },
@@ -55,7 +58,13 @@ export default {
         this.sort();
         await store.dispatch('loaded')
       },
+      async handleRefresh(event) {
+          await this.$emit('refresh');
+          await this.reloadTask();
+          event.target.complete();
+      }
     },
+    emits: ['refresh'],
     mounted() {
       store.dispatch('storeMinirooms')
       store.dispatch('storeUsers')

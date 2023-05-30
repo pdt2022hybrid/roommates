@@ -12,7 +12,7 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-        <task-list :filter="filter" :key="filter"/>
+        <task-list :filter="filter" :key="filter" @refresh="refresh()"/>
     </ion-content>
 </ion-page>
 </template>
@@ -38,15 +38,18 @@ export default defineComponent({
         },
         getIcon: function (icon) {
             return require(`@/../resources/${icon}`)
+        },
+        async refresh() {
+            await store.dispatch('storeUsers');
+            const m = JSON.parse(localStorage.getItem('roomUsers'));
+            this.members = [];
+            for(let i=0; i < m.length; i++) {
+                this.members[i] = {member: m[i], select: false};
+            }
         }
     },
     async mounted() {
-        await store.dispatch('storeUsers');
-        const m = JSON.parse(localStorage.getItem('roomUsers'));
-        this.members = [];
-        for(let i=0; i < m.length; i++) {
-            this.members[i] = {member: m[i], select: false};
-        }
+        await this.refresh();
     }
 });
 </script>

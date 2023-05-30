@@ -1,5 +1,8 @@
 <template>
 <ion-page>
+    <!--<ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>-->
     <ion-content :fullscreen="true">
         <top-bar title="Home" :menu="true" @update-filter="(updateFilter)"/>
         <task-list :filter="filter" :key="filter"/>
@@ -12,22 +15,31 @@ import TopBar from '@/components/TopBar.vue';
 import TaskList from '@/components/TaskList.vue';
 import {DefaultTaskFilter, TaskFilter} from "@/types";
 import {defineComponent} from 'vue';
+import {IonRefresher, IonRefresherContent} from '@ionic/vue';
 
 export default defineComponent({
-      components: { TaskList, TopBar },
-      data() {
-          DefaultTaskFilter.assignedTo = [JSON.parse(localStorage.getItem('userId'))];
-          console.log(DefaultTaskFilter);
-          return {
-              filter: DefaultTaskFilter as TaskFilter,
-          }
-      },
-      methods: {
-          updateFilter(e) {
-              e.assignedTo = [JSON.parse(localStorage.getItem('userId'))]
-              this.filter = e;
-          }
-      }
+    components: { TaskList, TopBar, /*IonRefresher,IonRefresherContent*/ },
+    data() {
+        DefaultTaskFilter.assignedTo = [JSON.parse(localStorage.getItem('userId'))];
+        console.log(DefaultTaskFilter);
+        return {
+          filter: DefaultTaskFilter as TaskFilter,
+          updateList: 0
+        }
+    },
+    methods: {
+        updateFilter(e) {
+            e.assignedTo = [JSON.parse(localStorage.getItem('userId'))]
+            this.filter = e;
+            this.updateList++;
+        },
+        handleRefresh(event) {
+            setTimeout(() => {
+                this.updateList++;
+                event.target.complete();
+            }, 2000);
+        }
+    },
   });
 </script>
 
