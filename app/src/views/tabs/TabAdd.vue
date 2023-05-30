@@ -5,7 +5,7 @@
           <div class="content">
             <ion-item>
               <ion-select aria-label="name" v-model="taskName" placeholder="Title">
-                <div v-for="predefinedName in predefinedNames" v-bind:key="predefinedName" class="options">
+                <div v-for="predefinedName in predefinedNames" :key="predefinedName" class="options">
                   <ion-select-option :value="predefinedName">{{ predefinedName }}</ion-select-option>
                 </div>
               </ion-select>
@@ -74,13 +74,13 @@ export default defineComponent({
         miniroomId: null,
         predefinedNames: [
             'Cleaning',
-            'Take out rubish',
+            'Take out rubbish',
             'Buy groceries',
             'Unload the dishwasher',
-            'Vakuum up',
+            'Vacuum up',
             'Make dinner',
             'Make lunch',
-            'Make breakfeast',
+            'Make breakfast',
         ]
       }
     },
