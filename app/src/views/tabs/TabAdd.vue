@@ -5,7 +5,7 @@
           <div class="content">
             <ion-item>
               <ion-select aria-label="name" v-model="taskName" placeholder="Title">
-                <div v-for="predefinedName in predefinedNames" v-bind:key="predefinedName" class="options">
+                <div v-for="predefinedName in predefinedNames" :key="predefinedName" class="options">
                   <ion-select-option :value="predefinedName">{{ predefinedName }}</ion-select-option>
                 </div>
               </ion-select>
@@ -74,13 +74,13 @@ export default defineComponent({
         miniroomId: null,
         predefinedNames: [
             'Cleaning',
-            'Take out rubish',
+            'Take out rubbish',
             'Buy groceries',
             'Unload the dishwasher',
-            'Vakuum up',
+            'Vacuum up',
             'Make dinner',
             'Make lunch',
-            'Make breakfeast',
+            'Make breakfast',
         ]
       }
     },
@@ -113,20 +113,14 @@ export default defineComponent({
         }
         await axios.post('/v1/task/create', data, {headers: {
           Authorization: 'Bearer ' + localStorage.getItem('userToken')
-          }})
-        const oldTasks = JSON.parse(localStorage.getItem('roomTasks'))
-        oldTasks.push(data)
-        localStorage.setItem('roomTasks', oldTasks)
-        this.newName = null
-        this.taskName = null
-        this.assignTo = null
-        this.userAssignedId = null
-        this.description = null
-        this.deadline = null
-        this.miniRoom = null
-        await store.dispatch('storeTasks')
-        this.$events.emit('reloadTasks')
-        this.$router.push({path: '/tabs/home'})
+          }});
+        const oldTasks = JSON.parse(localStorage.getItem('roomTasks'));
+        oldTasks.push(data);
+        localStorage.setItem('roomTasks', oldTasks);
+        this.taskName = this.assignTo = this.miniRoom = this.description = this.deadline = this.miniroomId = this.userAssignedId = null; //clear
+        await store.dispatch('storeTasks');
+        this.$events.emit('reloadTasks');
+        this.$router.push({path: '/tabs/home'});
     }
   },
 

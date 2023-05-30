@@ -60,9 +60,9 @@
           <ion-datetime :value="inputs.deadline" displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="updatedTask.deadline" class="date-time"></ion-datetime>
         </div>
         <div class="row">
-          <ion-chip :disabled="chipsDisabled" @click="this.statusId = 3" :class="this.statusId == 3 ? 'completed' : 'dark'">Completed</ion-chip>
-          <ion-chip :disabled="chipsDisabled" @click="this.statusId = 2" :class="this.statusId == 2 ? 'inProgress' : 'dark'">In progress</ion-chip>
-          <ion-chip :disabled="chipsDisabled" @click="this.statusId = 1" :class="this.statusId == 1 ? 'notStarted' : 'dark'">Not started</ion-chip>
+          <ion-chip :disabled="chipsDisabled" @click="this.statusId = 3" :class="this.statusId === 3 ? 'completed' : 'dark'">Completed</ion-chip>
+          <ion-chip :disabled="chipsDisabled" @click="this.statusId = 2" :class="this.statusId === 2 ? 'inProgress' : 'dark'">In progress</ion-chip>
+          <ion-chip :disabled="chipsDisabled" @click="this.statusId = 1" :class="this.statusId === 1 ? 'notStarted' : 'dark'">Not started</ion-chip>
         </div>
       </ion-list>
       <ion-button @click="click(task.user_assigned.name)" class="bottom" shape="round">

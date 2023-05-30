@@ -4,15 +4,15 @@
         <top-bar title="Place Tasks" :menu="true"></top-bar>
         <ion-grid>
             <ion-row>
-                <ion-col class="member-col" size="auto" v-for="member in members" :key="member">
+                <ion-col @click="obj.select = !obj.select" class="member-col" size="auto" v-for="obj in members" :key="obj" :style="obj.select ? 'background: #AAAAAA;' : 'background: #DDDDDD;'">
                     <div class="member-bg">
-                        <img :src="this.getIcon('icon_user.svg')" alt="">
-                        <p class="member-text">{{ member.name }}</p>
+                        <img :src="this.getIcon(obj.select ? 'profile_select.svg' : 'profile_select2.svg')" alt="">
+                        <p class="member-text">{{ obj.member.name }}</p>
                     </div>
                 </ion-col>
             </ion-row>
         </ion-grid>
-        <task-list :filter="filter" :key="filter"/>
+        <task-list :filter="filter" :key="filter" @refresh="refresh()"/>
     </ion-content>
 </ion-page>
 </template>
@@ -20,7 +20,7 @@
 <script lang="ts">
 import TopBar from '@/components/TopBar.vue';
 import { defineComponent } from 'vue';
-import {DefaultTaskFilter, placeholderMembers, TaskFilter} from "@/types";
+import {DefaultTaskFilter, TaskFilter} from "@/types";
 import TaskList from "@/components/TaskList.vue";
 import {store} from "@/store";
 
@@ -28,7 +28,7 @@ export default defineComponent({
     components: { TaskList, TopBar },
     data() {
         return {
-            members: [],
+            members: [] as {member: object, select: boolean}[],
             filter: DefaultTaskFilter as TaskFilter
         }
     },
@@ -38,12 +38,18 @@ export default defineComponent({
         },
         getIcon: function (icon) {
             return require(`@/../resources/${icon}`)
+        },
+        async refresh() {
+            await store.dispatch('storeUsers');
+            const m = JSON.parse(localStorage.getItem('roomUsers'));
+            this.members = [];
+            for(let i=0; i < m.length; i++) {
+                this.members[i] = {member: m[i], select: false};
+            }
         }
     },
     async mounted() {
-        await store.dispatch('storeUsers');
-        this.members = JSON.parse(localStorage.getItem('roomUsers'));
-
+        await this.refresh();
     }
 });
 </script>
@@ -62,11 +68,9 @@ img {
 }
 
 .member-col {
-    background: #CCCCCC;
     border-radius: 10px;
     margin: 0 2px;
+    user-select: none;
 }
-
-
 
 </style>

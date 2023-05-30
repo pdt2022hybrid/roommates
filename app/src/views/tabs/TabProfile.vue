@@ -79,17 +79,20 @@ export default defineComponent({
     }
   },
   async mounted() {
-    this.picture = ref(localStorage.getItem('picture') || null)
     store.commit('loading', true)
     await axios.get('https://roomates.hybridlab.dev/cms/api/v1/user/room', {headers: {
         Authorization: 'Bearer ' + localStorage.getItem('userToken')
-      }})
-        .then(function (response) {
-          console.log(response)
-          localStorage.setItem('roomToken', response.data.data.room_identifier)
-        })
-    this.roomToken = localStorage.getItem('roomToken')
-    store.commit('loading', false)
+    }}).then(function (response) {
+        console.log(response);
+        localStorage.setItem('roomToken', response.data.data.room_identifier);
+        localStorage.setItem('picture', JSON.parse(localStorage.getItem('roomUsers'))
+            .find(o => o.email === localStorage.getItem('userEmail')).avatar);
+    })
+    this.roomToken = localStorage.getItem('roomToken');
+    this.picture = ref(localStorage.getItem('picture'));
+    if(!this.picture || this.picture === 'null') this.picture = avatar;
+    await store.dispatch('storeUsers');
+    store.commit('loading', false);
   },
   methods: {
     async onFileSelected(e) {
