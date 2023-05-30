@@ -62,7 +62,6 @@ import {store} from "@/store";
 import avatar from '../../../resources/Avatar.svg'
 import axios from "axios";
 
-
 export default defineComponent({
   components: {
     IonPage, IonContent, IonToolbar, IonTitle, IonHeader, IonChip, IonLabel, IonItem, IonButton
