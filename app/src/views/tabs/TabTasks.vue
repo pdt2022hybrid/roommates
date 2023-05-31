@@ -6,7 +6,7 @@
             <ion-row>
                 <ion-col @click="obj.select = !obj.select" class="member-col" size="auto" v-for="obj in members" :key="obj" :style="obj.select ? 'background: #AAAAAA;' : 'background: #DDDDDD;'">
                     <div class="member-bg">
-                        <img :src="this.getIcon(obj.select ? 'profile_select.svg' : 'profile_select2.svg')" alt="">
+                        <img :src="getAvatar(obj)" style="border-radius: 100%;" alt="">
                         <p class="member-text">{{ obj.member.name }}</p>
                     </div>
                 </ion-col>
@@ -38,6 +38,11 @@ export default defineComponent({
         },
         getIcon: function (icon) {
             return require(`@/../resources/${icon}`)
+        },
+        getAvatar(memberSel) {
+            if(!memberSel.member.avatar || memberSel.member.avatar === 'null')
+                return this.getIcon(memberSel.select ? 'profile_select.svg' : 'profile_select2.svg');
+            else return memberSel.member.avatar;
         },
         async refresh() {
             await store.dispatch('storeUsers');
