@@ -79,8 +79,8 @@ export const store = createStore<State>({
 
     },
     actions: {
-        async loaded({commit}) {
-            commit('loading', false)
+        async loaded({commit}, isLoading) {
+            commit('loading', isLoading)
         },
         login:  async function ({ commit }, credentials) {
             commit('loading', true)
