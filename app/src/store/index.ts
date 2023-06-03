@@ -15,7 +15,6 @@ export interface State {
     roomUsers: string,
     roomTasks: string,
     roomToken: string,
-    checker: boolean,
     isLoading: boolean,
 }
 
@@ -31,7 +30,6 @@ export const store = createStore<State>({
         roomUsers: localStorage.getItem('roomUsers') || '',
         roomTasks: localStorage.getItem('roomTasks') || '',
         roomToken: localStorage.getItem('roomToken') || '',
-        checker: false,
         isLoading: false,
     },
     mutations: {
@@ -83,9 +81,6 @@ export const store = createStore<State>({
         loading(state, isLoading) {
             state.isLoading = isLoading
         },
-        check(state, isChecking) {
-            state.checker = isChecking
-        }
 
     },
     actions: {
@@ -157,14 +152,13 @@ export const store = createStore<State>({
                 })
             commit('loading', false)
         },
-        storeUsers: async function ({commit}) {
+        storeUsers: async function ({commit}, checker?) {
             commit('loading', true)
             if(store.state.isLoading !== false) {
                 setTimeout(() => {
                     commit('loading', false)
-                    if(store.state.checker === true) {
+                    if(checker === true) {
                         alert('An error ocured please log out, sign in and try again.')
-                        commit('check', false)
                     }
                 },5000)
             }
@@ -174,8 +168,8 @@ export const store = createStore<State>({
                 .then((response) => {
                     store.commit('storeUsers', response)
                 })
+            checker = false
             commit('loading', false)
-            commit('check', false)
         },
         storeTasks: async function ({commit}, data) {
             commit('loading', true)
@@ -196,9 +190,6 @@ export const store = createStore<State>({
                     commit('storeRoomToken', localStorage.roomToken)
                 })
         },
-        check({commit}, isChecking) {
-            commit('check', isChecking)
-        }
     },
 })
 

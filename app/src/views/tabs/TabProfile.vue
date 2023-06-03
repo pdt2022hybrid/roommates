@@ -78,14 +78,15 @@ export default defineComponent({
     }
   },
   async mounted() {
-    store.dispatch('check', true)
     await store.dispatch('loaded', true)
 
     this.picture = localStorage.getItem('picture')
-    this.picture = ref(localStorage.getItem('picture'));
+    this.picture = ref(localStorage.getItem('picture'))
 
-    if(!this.picture || this.picture === 'null') this.picture = avatar;
-    await store.dispatch('storeUsers');
+    if(!this.picture || this.picture === 'null') this.picture = avatar
+    await store.dispatch('storeUsers', true)
+    await store.dispatch('storeRoomToken')
+    this.roomToken = localStorage.roomToken
     await store.dispatch('loaded', false)
   },
   methods: {
