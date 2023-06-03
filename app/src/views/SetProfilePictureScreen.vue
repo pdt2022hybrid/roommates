@@ -81,6 +81,12 @@ export default {
         }
       })
       store.commit('loading', false)
+      if(store.state.isLoading == true) {
+        setTimeout(() => {
+          store.state.isLoading = false
+          alert('An error ocured, try to log out and log in again.')
+        }, 5000)
+      }
     },
   },
 }

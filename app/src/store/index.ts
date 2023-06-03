@@ -14,6 +14,8 @@ export interface State {
     miniRooms: string,
     roomUsers: string,
     roomTasks: string,
+    roomToken: string,
+    checker: boolean,
     isLoading: boolean,
 }
 
@@ -28,6 +30,8 @@ export const store = createStore<State>({
         miniRooms: localStorage.getItem('miniRooms') || '',
         roomUsers: localStorage.getItem('roomUsers') || '',
         roomTasks: localStorage.getItem('roomTasks') || '',
+        roomToken: localStorage.getItem('roomToken') || '',
+        checker: false,
         isLoading: false,
     },
     mutations: {
@@ -73,8 +77,14 @@ export const store = createStore<State>({
             state.roomTasks = roomTasks.data.data
             localStorage.setItem('roomTasks', JSON.stringify(state.roomTasks))
         },
+        storeRoomToken(state, roomToken) {
+          state.roomToken = roomToken
+        },
         loading(state, isLoading) {
             state.isLoading = isLoading
+        },
+        check(state, isChecking) {
+            state.checker = isChecking
         }
 
     },
@@ -147,8 +157,17 @@ export const store = createStore<State>({
                 })
             commit('loading', false)
         },
-        storeUsers: async function ({commit}, data) {
+        storeUsers: async function ({commit}) {
             commit('loading', true)
+            if(store.state.isLoading !== false) {
+                setTimeout(() => {
+                    commit('loading', false)
+                    if(store.state.checker === true) {
+                        alert('An error ocured please log out, sign in and try again.')
+                        commit('check', false)
+                    }
+                },5000)
+            }
             await axios.get('/v1/room/' + localStorage.getItem('roomId') + '/users', {headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('userToken')
                 }})
@@ -156,6 +175,7 @@ export const store = createStore<State>({
                     store.commit('storeUsers', response)
                 })
             commit('loading', false)
+            commit('check', false)
         },
         storeTasks: async function ({commit}, data) {
             commit('loading', true)
@@ -166,6 +186,19 @@ export const store = createStore<State>({
                 commit('storeTasks', response)
             })
         },
+        storeRoomToken: async function ({commit}) {
+            await axios.get('/v1/user/room', {headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('userToken')
+                }})
+                .then((response) => {
+                    console.log(response)
+                    localStorage.setItem('roomToken', response.data.data.room_identifier)
+                    commit('storeRoomToken', localStorage.roomToken)
+                })
+        },
+        check({commit}, isChecking) {
+            commit('check', isChecking)
+        }
     },
 })
 
