@@ -39,7 +39,7 @@ export default {
         const roomId = response.data.data.id
         localStorage.setItem('roomId', roomId)
       })
-      this.$router.push({path: '/tabs/home'})
+      this.$router.push('/tabs/home')
     }
   },
 }

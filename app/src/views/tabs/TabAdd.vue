@@ -126,8 +126,8 @@ export default defineComponent({
         localStorage.setItem('roomTasks', oldTasks);
         this.taskName = this.assignTo = this.miniRoom = this.description = this.deadline = this.miniroomId = this.otherName = this.userAssignedId = null; //clear
         await store.dispatch('storeTasks');
-        this.$events.emit('reloadTasks');
-        this.$router.push({path: '/tabs/home'});
+        this.$events.emit('reloadTasks')
+        this.$router.push('/tabs/home')
     }
   },
 

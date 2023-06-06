@@ -3,7 +3,7 @@
 
     <ion-header class="header">
       <ion-toolbar>
-        <router-link to="/login">
+        <router-link to="/chooseTypeOfPlace">
           <ion-icon class="ion-float-left" :icon="chevronBackOutline"></ion-icon>
         </router-link>
         <ion-title>
@@ -87,7 +87,7 @@ export default {
       },
       createPlace: async function () {
         await store.dispatch('createRoom', {room_name: this.placeName, izby: this.rooms})
-        //this.$router.push({path: '/tabs/home'})
+        this.$router.push('/tabs/home')
       },
     }
 };
