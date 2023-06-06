@@ -16,6 +16,7 @@ export interface State {
     roomTasks: string,
     roomToken: string,
     isLoading: boolean,
+    errorMessage: string,
 }
 
 export const store = createStore<State>({
@@ -31,6 +32,7 @@ export const store = createStore<State>({
         roomTasks: localStorage.getItem('roomTasks') || '',
         roomToken: localStorage.getItem('roomToken') || '',
         isLoading: false,
+        errorMessage: ''
     },
     mutations: {
         login(state, userData) {
@@ -81,7 +83,12 @@ export const store = createStore<State>({
         loading(state, isLoading) {
             state.isLoading = isLoading
         },
-
+        setErrorMessage(state, message) {
+            state.errorMessage = message;
+        },
+        clearErrorMessage(state) {
+            state.errorMessage = ''
+        }
     },
     actions: {
         async loaded({commit}, isLoading) {
@@ -100,37 +107,55 @@ export const store = createStore<State>({
                     localStorage.setItem('userName', userName)
                     localStorage.setItem('userSureName', userSureName)
                     localStorage.setItem('userEmail', userEmail)
+                    axios.get('/v1/user/room', { headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('userToken')
+                    }})
+                    .then(function (response) {
+                        localStorage.setItem('roomId', response.data.data.id)
+                        commit('clearErrorMessage');
+                    })
             }).catch(function (error) {
-                console.error(error);
+                if(error.response) {
+                    const d = error.response.data;
+                    if(d.includes('User Not Found') || d.includes('Wrong Password'))
+                        commit('setErrorMessage', "Email or password is incorrect");
+                    else commit('setErrorMessage', "An error has occurred, please try again later");
+                }
+                console.error(error.toJSON());
             })
-            await axios.get('/v1/user/room', { headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('userToken')
-                }})
-                .then(function (response) {
-                    localStorage.setItem('roomId', response.data.data.id)
-                })
             commit('loading', false)
         },
         signup: async function ({commit}, credentials) {
-            commit('loading', true)
+            commit('loading', true);
             await axios.post('/auth/signup', credentials)
                 .then(function (response) {
-                    console.log(response)
+                    console.log(response);
                     const userToken = response.data.token
                     const userName = response.data.user.name
                     const userSureName = response.data.user.surname
                     const userEmail = response.data.user.email
                     const userId = response.data.user.id
-                    store.commit('signup', {token: userToken, userName: userName, userSurname: userSureName, userEmail: userEmail, userId: userId})
-                    localStorage.setItem('userToken', userToken)
-                    localStorage.setItem('userName', userName)
-                    localStorage.setItem('userSureName', userSureName)
-                    localStorage.setItem('userEmail', userEmail)
-                    localStorage.setItem('userId', userId)
+                    store.commit('signup', {token: userToken, userName: userName, userSurname: userSureName, userEmail: userEmail, userId: userId});
+                    localStorage.setItem('userToken', userToken);
+                    localStorage.setItem('userName', userName);
+                    localStorage.setItem('userSureName', userSureName);
+                    localStorage.setItem('userEmail', userEmail);
+                    localStorage.setItem('userId', userId);
                 }).catch(function (error) {
-                    console.error(error)
+                    if(error.response) {
+                        const d = error.response.data;
+                        if(d.includes('The email must be between 6 and 255 characters'))
+                            commit('setErrorMessage', "The email must be between 6 and 255 characters");
+                        else if(d.includes('The email must be a valid email address'))
+                            commit('setErrorMessage', "The email must be a valid email address");
+                        else if(d.includes('The password must be between 8 and 255 characters'))
+                            commit('setErrorMessage', "The password must be between 8 and 255 characters");
+                        else commit('setErrorMessage', "An error has occurred, please try again later");
+                        console.warn(d);
+                    }
+                    console.error(error);
                 })
-            commit('loading', false)
+            commit('loading', false);
         },
         createRoom: async function ({commit}, data) {
             commit('loading', true)

@@ -58,14 +58,17 @@
                   this.errorMsg = 'Please fill all fields...';
                   return;
                 } else this.errorMsg = '';
-                await store.dispatch('login', {email: this.email, password: this.password})
-                this.email = null
-                this.password = null
-              }catch (error) {
+                await store.dispatch('login', {email: this.email, password: this.password});
+                this.email = null;
+                this.password = null;
+                if(localStorage.getItem('userToken')) this.$router.push({path: '/tabs/home'});
+                else {
+                    this.errorMsg = store.state.errorMessage;
+                }
+              } catch (error) {
                 this.errorMsg = error
                 console.log(error)
               }
-              this.$router.push({path: '/tabs/home'})
             },
         },
       mounted() {

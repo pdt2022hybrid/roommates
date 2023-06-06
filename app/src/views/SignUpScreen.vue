@@ -29,27 +29,18 @@
         <ion-item>
           <ion-label position="stacked">Password</ion-label>
           <div class="row">
-            <ion-input v-model="password" :type="inputTypePassword" placeholder="johnSmith5319"></ion-input>
-            <span v-if="inputTypePassword == 'password'">
-              <ion-icon @click="toggleShowPassword" :icon="eyeOutline" class="show"></ion-icon>
-            </span>
-            <span v-else>
-              <ion-icon @click="toggleShowPassword" :icon="eyeOffOutline"></ion-icon>
-            </span>
+            <ion-input v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="johnSmith5319"></ion-input>
+            <ion-icon @click="showPassword = !showPassword" :icon="showConfirmed ? eyeOffOutline : eyeOutline" class="show"></ion-icon>
           </div>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Confirm password</ion-label>
           <div class="row">
-            <ion-input :type="inputTypeConfirmed" v-model="confirmPassword" placeholder="johnSmith5319"></ion-input>
-            <span v-if="inputTypeConfirmed == 'password'">
-              <ion-icon @click="toggleShowConfirmed" :icon="eyeOutline" class="show"></ion-icon>
-            </span>
-            <span v-else>
-              <ion-icon @click="toggleShowConfirmed" :icon="eyeOffOutline"></ion-icon>
-            </span>
+            <ion-input :type="showConfirmed ? 'text' : 'password'" v-model="confirmPassword" placeholder="johnSmith5319"></ion-input>
+            <ion-icon @click="showConfirmed = !showConfirmed" :icon="showConfirmed ? eyeOffOutline : eyeOutline" class="show"></ion-icon>
           </div>
         </ion-item>
+        <p style="color: #EC445A;">{{ this.errorMsg }}</p>
       </div>
       <div class="bottom">
         <ion-button v-on:click="signUp()">
@@ -84,34 +75,28 @@ export default {
       mail: "",
       password: "",
       confirmPassword: "",
-      inputTypePassword: "password",
-      inputTypeConfirmed: "password",
+      showPassword: false,
+      showConfirmed: false,
+      errorMsg: "",
     }
   },
   methods: {
     signUp: async function () {
-      if (this.password !== this.confirmPassword) {
-        alert("Passwords does not match")
+      if(!this.firstName || !this.lastName || !this.mail || !this.password || !this.confirmPassword) {
+          this.errorMsg = "Please fill all fields";
+      } else if (this.password !== this.confirmPassword) {
+        this.errorMsg = "Passwords does not match";
       } else {
         await store.dispatch('signup', {name: this.firstName, surname: this.lastName, email: this.mail, password: this.password, password_confirmation: this.confirmPassword})
-        this.firstName  = null
-        this.lastName = null
-        this.mail = null
-        this.password = null
-        this.confirmPassword = null
-        this.$router.push({path: '/setProfilePicture'})
+        this.firstName  = ""
+        this.lastName = ""
+        this.mail = ""
+        this.password = ""
+        this.confirmPassword = ""
+        if(localStorage.getItem('userToken')) this.$router.push({path: '/setProfilePicture'});
+        else this.errorMsg = store.state.errorMessage;
       }
     },
-
-    toggleShowPassword() {
-      this.inputTypePassword =
-          this.inputTypePassword === "password" ? "text" : "password"
-    },
-
-    toggleShowConfirmed() {
-      this.inputTypeConfirmed =
-          this.inputTypeConfirmed === "password" ? "text" : "password"
-    }
   },
 }
 

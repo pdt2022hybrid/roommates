@@ -87,7 +87,7 @@ export default {
       },
       createPlace: async function () {
         await store.dispatch('createRoom', {room_name: this.placeName, izby: this.rooms})
-        this.$router.push({path: '/tabs/home'})
+        //this.$router.push({path: '/tabs/home'})
       },
     }
 };
