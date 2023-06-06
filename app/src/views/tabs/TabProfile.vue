@@ -45,6 +45,11 @@
           </p>
         </ion-item>
       </div>
+      <ion-button shape="round" @click="leaveRoom">
+        <p>
+          LEAVE ROOM
+        </p>
+      </ion-button>
       <ion-button shape="round" @click="logOut">
         <p>
           LOG OUT
@@ -126,6 +131,27 @@ export default defineComponent({
       this.userName = null
       this.userEmail = null
       this.$router.push({path: '/'})
+    },
+    async leaveRoom() {
+      store.dispatch('loaded', true)
+      try {
+        await axios.get('v1/room/leave', {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('userToken')
+          }
+        })
+        this.roomToken = null
+        this.userName = null
+        this.userEmail = null
+        localStorage.removeItem('roomId')
+        localStorage.removeItem('roomUsers')
+        localStorage.removeItem('roomTasks')
+        localStorage.removeItem('roomToken')
+        this.$router.push({path: '/chooseTypeOfPlace'})
+        store.dispatch('loaded', false)
+      } catch(error) {
+        console.warn(error)
+      }
     }
   },
 
