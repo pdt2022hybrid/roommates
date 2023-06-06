@@ -2,7 +2,7 @@
 <ion-page>
     <ion-content :fullscreen="true">
         <top-bar title="Place Tasks" :menu="true"></top-bar>
-        <ion-grid>
+        <ion-grid style="padding-bottom: 1px">
             <ion-row>
                 <ion-col @click="obj.select = !obj.select" class="member-col" size="auto" v-for="obj in members" :key="obj" :style="obj.select ? 'background: #AAAAAA;' : 'background: #DDDDDD;'">
                     <div class="member-bg">
@@ -74,7 +74,7 @@ img {
 
 .member-col {
     border-radius: 10px;
-    margin: 0 2px;
+    margin: 0 2px 4px 2px;
     user-select: none;
 }
 
