@@ -7,7 +7,7 @@
           Set profile picture
         </ion-title>
         <ion-label class="later">
-          <router-link to="/ChooseTypeOfPlace">
+          <router-link to="/chooseTypeOfPlace">
            Later
           </router-link>
         </ion-label>
@@ -85,7 +85,7 @@ export default {
           alert('An error ocured, try to log out and log in again.')
         }, 5000)
       }
-      this.$router.push({path: '/chooseTypeOfPlace'})
+      this.$router.push('/chooseTypeOfPlace')
 
     },
   },
