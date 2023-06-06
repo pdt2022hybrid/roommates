@@ -62,9 +62,7 @@
                 this.email = null;
                 this.password = null;
                 if(localStorage.getItem('userToken')) this.$router.push({path: '/tabs/home'});
-                else {
-                    this.errorMsg = store.state.errorMessage;
-                }
+                else this.errorMsg = store.state.errorMessage;
               } catch (error) {
                 this.errorMsg = error
                 console.log(error)

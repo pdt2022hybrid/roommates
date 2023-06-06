@@ -119,7 +119,7 @@ export default defineComponent({
 
         await axios.post('/v1/task/create', data, {headers: {
           Authorization: 'Bearer ' + localStorage.getItem('userToken')
-          }});
+        }});
         const oldTasks = JSON.parse(localStorage.getItem('roomTasks'));
         oldTasks.push(data);
         localStorage.setItem('roomTasks', oldTasks);

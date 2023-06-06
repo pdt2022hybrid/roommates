@@ -7,7 +7,7 @@
                         <ion-col size="auto">
                             {{ task.name }}
                         </ion-col>
-                        <ion-col size="auto" class="status" :style="{ background: task.status.color }">
+                        <ion-col size="auto" class="status" :style="{ background: task.status.color, userSelect: 'none' }">
                             {{ task.status.name.toUpperCase() }}
                         </ion-col>
                     </ion-row>

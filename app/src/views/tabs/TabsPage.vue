@@ -46,7 +46,7 @@ export default defineComponent({
         getIcon: function (icon: string) {
             return require(`@/../resources/${icon}`)
         }
-    }
+    },
 });
 </script>
 
