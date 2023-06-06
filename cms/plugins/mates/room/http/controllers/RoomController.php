@@ -68,6 +68,31 @@ class RoomController extends Controller
         return new RoomResource($room);
     }
 
+    public function leaveRoom(Request $request) {
+        $user = User::find($request->tokenUserID);
+
+        if($user->room_id == null) {
+            return response()->json([
+                'error' => 'User is not in any room'
+            ], 404);
+        }
+
+        $room = Room::where('id', $user->room_id)->first();
+
+        if(!$room) {
+            return response()->json([
+                'error' => 'Room not found'
+            ], 404);
+        }
+
+        $user->room_id = null;
+        $user->save();
+
+        return response()->json([
+            'status' => 'Left successfully'
+        ], 202);
+    }
+
 //    public function createMiniRoom(Request $request)
 //    {
 //        $room_id = User::where('id', $request->get('tokenUserID'))->first()->room_id;
