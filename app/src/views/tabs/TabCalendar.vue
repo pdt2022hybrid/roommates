@@ -2,7 +2,9 @@
 <ion-page>
     <top-bar title="Calendar" :menu="true"></top-bar>
     <ion-content :fullscreen="true">
-        <ion-datetime :value="date" v-model="date" presentation="date" :multiple="false" :highlighted-dates="highlightedDates"></ion-datetime>
+        <div class="calendar">
+            <ion-datetime :value="date" v-model="date" presentation="date" :multiple="false" :highlighted-dates="highlightedDates"></ion-datetime>
+        </div>
         <task-list :filter="filter" :key="filter" @refresh="refresh()"/>
     </ion-content>
 </ion-page>
@@ -52,3 +54,12 @@ export default defineComponent({
     }
 });
 </script>
+
+<style>
+.calendar {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+}
+</style>

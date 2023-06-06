@@ -116,12 +116,12 @@ export default {
     IonPage, IonContent, IonToolbar, IonTitle, IonHeader, IonList, IonLabel, IonItem, IonDatetime, IonChip
   },
   mounted() {
-    if(this.task.user_created.name == localStorage.getItem('userName')) {
+    if(this.task.user_created.name === localStorage.getItem('userName')) {
       this.inputsDisabled = false
       this.displayCal = 'd-block calendar'
       this.displayDeadline = 'd-none'
     }
-    if(this.task.user_assigned.name == localStorage.getItem('userName')) {
+    if(this.task.user_assigned.name === localStorage.getItem('userName')) {
       this.chipsDisabled = false
     }
     if(this.inputs.description == null || this.inputs.description == '') {
@@ -130,7 +130,7 @@ export default {
   },
   methods: {
     click(name) {
-      name  == localStorage.getItem('userName') ? this.updateTask() && this.closeModal() : this.closeModal()
+      name  === localStorage.getItem('userName') ? this.updateTask() && this.closeModal() : this.closeModal()
     },
     closeModal() {
       modalController.dismiss({
@@ -139,12 +139,12 @@ export default {
     },
     async updateTask() {
       for (let i = 0; i <  this.minirooms.length; i++) {
-        if(this.inputs.miniRoomName == this.minirooms[i].name) {
+        if(this.inputs.miniRoomName === this.minirooms[i].name) {
           this.inputs.miniRoomId = this.minirooms[i].id
         }
       }
       for (let i = 0; i < this.users.length; i++) {
-        if(this.inputs.assignedToName == this.users[i].name) {
+        if(this.inputs.assignedToName === this.users[i].name) {
           this.inputs.assignedToName = this.users[i].id
         }
       }
