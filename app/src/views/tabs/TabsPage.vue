@@ -3,7 +3,7 @@
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
-          <ion-tab-button v-for="tab in this.tabs" :key="tab.tab" :tab="tab.tab" :href="tab.href">
+          <ion-tab-button v-for="tab in this.tabs" :key="tab.tab" :tab="tab.tab" @click="this.$router.push(tab.href)">
               <ion-icon :src="this.getIcon(tab.icon)" alt=""></ion-icon>
               <ion-label>{{ tab.text }}</ion-label>
           </ion-tab-button>

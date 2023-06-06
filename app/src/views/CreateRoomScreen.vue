@@ -3,7 +3,7 @@
 
     <ion-header class="header">
       <ion-toolbar>
-        <router-link to="/login">
+        <router-link to="/chooseTypeOfPlace">
           <ion-icon class="ion-float-left" :icon="chevronBackOutline"></ion-icon>
         </router-link>
         <ion-title>
@@ -86,13 +86,8 @@ export default {
           this.newRoomName = room;
       },
       createPlace: async function () {
-        if(!this.placeName) this.error = 'Place name must not be empty';
-        else if(this.rooms.length < 1) this.error = 'Add at least one room';
-        else {
-            await store.dispatch('createRoom', {room_name: this.placeName, izby: this.rooms});
-            this.$router.push({path: '/tabs/home'});
-        }
-
+        await store.dispatch('createRoom', {room_name: this.placeName, izby: this.rooms})
+        this.$router.push('/tabs/home')
       },
     }
 };

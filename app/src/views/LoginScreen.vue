@@ -61,8 +61,10 @@
                 await store.dispatch('login', {email: this.email, password: this.password});
                 this.email = null;
                 this.password = null;
-                if(localStorage.getItem('userToken')) this.$router.push({path: '/tabs/home'});
-                else {
+                if(localStorage.getItem('userToken')) {
+                  this.$router.push({name: 'home'})
+                  // this.$router.push('/tabs/home') funguje aj toto
+                } else {
                     this.errorMsg = store.state.errorMessage;
                 }
               } catch (error) {
@@ -73,11 +75,11 @@
         },
       mounted() {
         if(localStorage.userToken && localStorage.roomId) {
-          this.$router.push({path: '/tabs/home'})
+          this.$router.push('/tabs/home')
         } else if(localStorage.userToken) {
-          this.$router.push({path: '/chooseTypeOfPlace'})
+          this.$router.push('/chooseTypeOfPlace')
         } else {
-          this.$router.push({path: '/'})
+          this.$router.push('/')
         }
       },
     })

@@ -77,12 +77,13 @@ export default defineComponent({
       avatar,
       selectedFile: null,
       fileContents: null,
-      roomToken: '',
-      userName: localStorage.getItem('userName'),
-      userEmail: localStorage.getItem('userEmail'),
+      roomToken: null,
+      userName: null,
+      userEmail: null,
     }
   },
   async mounted() {
+    console.log('aidawd')
     await store.dispatch('loaded', true)
 
     this.picture = localStorage.getItem('picture')
@@ -91,7 +92,9 @@ export default defineComponent({
     if(!this.picture || this.picture === 'null') this.picture = avatar
     await store.dispatch('storeUsers', true)
     await store.dispatch('storeRoomToken')
-    this.roomToken = localStorage.roomToken
+    this.roomToken = localStorage.getItem('roomToken'),
+    this.userName = localStorage.getItem('userName'),
+    this.userEmail = localStorage.getItem('userEmail'),
     await store.dispatch('loaded', false)
   },
   methods: {
@@ -147,7 +150,7 @@ export default defineComponent({
         localStorage.removeItem('roomUsers')
         localStorage.removeItem('roomTasks')
         localStorage.removeItem('roomToken')
-        this.$router.push({path: '/chooseTypeOfPlace'})
+        this.$router.push('/chooseTypeOfPlace')
         store.dispatch('loaded', false)
       } catch(error) {
         console.warn(error)

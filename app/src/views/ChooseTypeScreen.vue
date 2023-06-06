@@ -3,9 +3,9 @@
         <ion-content>
             <p class="text-title">Welcome, {{ this.name }}</p>
             <img class="img-deco" src="@/../resources/img_typeofplace.png" alt="">
-            <ion-button @click="this.$router.push({path: '/createRoom'})" class="custom-btn btn-new" fill="outline" color="dark">Create a new place</ion-button>
+            <ion-button @click="this.$router.push({name: 'createRoom', component: () => import('../views/CreateRoomScreen.vue') })" class="custom-btn btn-new" fill="outline" color="dark">Create a new place</ion-button>
             <p class="text-or">or...</p>
-            <ion-button @click="this.$router.push({path: '/joinRoom'})" class="custom-btn btn-existing" fill="outline" color="dark">Join an existing place</ion-button>
+            <ion-button @click="this.$router.push({name: 'joinRoom', component: () => import('../views/joinRoomScreen.vue') })" class="custom-btn btn-existing" fill="outline" color="dark">Join an existing place</ion-button>
         </ion-content>
     </ion-page>
 </template>

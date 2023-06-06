@@ -93,7 +93,9 @@ export default {
         this.mail = ""
         this.password = ""
         this.confirmPassword = ""
-        if(localStorage.getItem('userToken')) this.$router.push({path: '/setProfilePicture'});
+        if(localStorage.getItem('userToken')) {
+          this.$router.push('/setProfilePicture')
+        }
         else this.errorMsg = store.state.errorMessage;
       }
     },
