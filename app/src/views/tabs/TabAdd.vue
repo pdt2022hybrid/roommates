@@ -36,6 +36,7 @@
               <ion-label position="stacked">Description of the task</ion-label>
               <ion-input v-model="description" placeholder="Description"></ion-input>
             </ion-item>
+            <p style="color: #EC445A;">{{ this.errorMsg }}</p>
             <div class="calendar">
               <ion-datetime :value="deadline" mode="ios" displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY" v-model="deadline" class="date-time"></ion-datetime>
             </div>
@@ -71,9 +72,10 @@ export default defineComponent({
         statusId: 1,
         deadline: null,
         miniRoom: null,
-          minirooms: JSON.parse(localStorage.getItem('miniRooms')),
+        minirooms: JSON.parse(localStorage.getItem('miniRooms')),
         members: JSON.parse(localStorage.getItem('roomUsers')),
         miniroomId: null,
+        errorMsg: '',
         predefinedNames: [
             'Other',
             'Cleaning',
@@ -100,14 +102,14 @@ export default defineComponent({
           }
         }
         if(this.taskName == null || this.deadline == null || this.miniroomId == null || this.assignTo == null || this.statusId == null) {
-          alert('Please fill all fields, the description is optional....');
+          this.errorMsg = 'Please fill all fields, the description is optional';
           return;
         }
-        if(this.description == null) {
-          this.description == 'There is no descripton'
-        }
+        /*if(this.description == null) {
+          this.description = 'There is no descripton'
+        }*/
         const data = {
-          task_name: this.taskName,
+          task_name: this.taskName == 'Other' ? this.otherName : this.taskName,
           task_description: this.description,
           deadline: this.deadline,
           miniroom_id: this.miniroomId,
@@ -115,9 +117,6 @@ export default defineComponent({
           status_id: this.statusId,
         }
 
-        if(this.taskName == 'Other') {
-          data.task_name = this.otherName
-        }
         await axios.post('/v1/task/create', data, {headers: {
           Authorization: 'Bearer ' + localStorage.getItem('userToken')
           }});

@@ -20,16 +20,16 @@
           </ion-label>
           <ion-input v-model="placeName" placeholder="Give your place a unique name"></ion-input>
         </ion-item>
-        <ion-item class="ion-invalid">
+        <ion-item>
           <ion-label position="stacked">
             Add some rooms to your place
           </ion-label>
           <ion-input class="" v-model="newRoomName" placeholder="e.g. Bathroom, Kitchen, Bedroom..."></ion-input>
-            <ion-note position="" slot="error">{{ this.error }}</ion-note>
           <ion-button slot="end" @click="newRoom" class="small">
             Add
           </ion-button>
         </ion-item>
+        <p style="color: #EC445A;">{{ this.error }}</p>
       </div>
       <div class="bottom">
         <ion-button @click="createPlace">
@@ -75,7 +75,7 @@ export default {
       },
       newRoom() {
           const room = this.newRoomName.trim().replace(/\s+/g, ' ');
-          if(!room) this.error = 'Name must not be empty';
+          if(!room) this.error = 'Room name must not be empty';
           else if(this.rooms.find(o => o === room)) this.error = 'Room already exists';
           else {
               this.error = '';
@@ -86,8 +86,13 @@ export default {
           this.newRoomName = room;
       },
       createPlace: async function () {
-        await store.dispatch('createRoom', {room_name: this.placeName, izby: this.rooms})
-        //this.$router.push({path: '/tabs/home'})
+        if(!this.placeName) this.error = 'Place name must not be empty';
+        else if(this.rooms.length < 1) this.error = 'Add at least one room';
+        else {
+            await store.dispatch('createRoom', {room_name: this.placeName, izby: this.rooms});
+            this.$router.push({path: '/tabs/home'});
+        }
+
       },
     }
 };
