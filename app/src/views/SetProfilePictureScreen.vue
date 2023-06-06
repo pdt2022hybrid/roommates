@@ -34,7 +34,7 @@
 
 import { IonPage, IonContent, IonHeader,IonTitle, IonLabel, IonToolbar } from '@ionic/vue';
 import avatar from '../../resources/SetProfilePicture.svg'
-import {ref} from 'vue'
+import { ref } from 'vue'
 import {store} from "@/store";
 import axios from "axios";
 
@@ -48,7 +48,7 @@ export default {
       avatar,
       selectedFile: null,
       fileContents: null,
-      picture: null
+      picture: null,
     }
   },
 
@@ -58,7 +58,7 @@ export default {
   methods: {
     async onFileSelected(e) {
       const file = e.target.files[0]
-      const fr = new FileReader();
+      const fr = new FileReader()
 
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const vm = this
@@ -69,8 +69,6 @@ export default {
       }.bind(vm)
 
       fr.readAsDataURL(file);
-      this.$router.push({path: '/chooseTypeOfPlace'})
-
       const formData = new FormData();
       formData.append('avatar', e.target.files[0]);
       store.commit('loading', true)
@@ -87,6 +85,8 @@ export default {
           alert('An error ocured, try to log out and log in again.')
         }, 5000)
       }
+      this.$router.push({path: '/chooseTypeOfPlace'})
+
     },
   },
 }

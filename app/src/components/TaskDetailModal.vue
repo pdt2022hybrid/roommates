@@ -2,6 +2,7 @@
   <ion-page>
     <ion-header class="header">
       <ion-toolbar>
+        <ion-icon @click="closeModal" :icon="chevronBackOutline"></ion-icon>
         <ion-title>
           Task Detail
         </ion-title>
@@ -74,8 +75,9 @@
 
 <script>
 import {modalController} from "@ionic/vue";
-import { IonPage, IonContent, IonChip, IonHeader,IonTitle, IonList, IonLabel, IonItem, IonToolbar, IonDatetime } from '@ionic/vue';
+import { IonPage, IonContent, IonIcon, IonChip, IonHeader,IonTitle, IonList, IonLabel, IonItem, IonToolbar, IonDatetime } from '@ionic/vue';
 import axios from "axios";
+import { chevronBackOutline } from 'ionicons/icons'
 import {store} from "@/store";
 export default {
   name: "TaskDetailModal",
@@ -91,6 +93,7 @@ export default {
   },
   data() {
     return {
+      chevronBackOutline,
       inputs: {
         name: this.task.name,
         description: this.task.description,
@@ -113,7 +116,7 @@ export default {
     }
   },
   components: {
-    IonPage, IonContent, IonToolbar, IonTitle, IonHeader, IonList, IonLabel, IonItem, IonDatetime, IonChip
+    IonPage, IonContent, IonToolbar, IonTitle, IonHeader, IonList, IonLabel, IonItem, IonDatetime, IonChip, IonIcon
   },
   mounted() {
     if(this.task.user_created.name == localStorage.getItem('userName')) {
@@ -222,6 +225,13 @@ export default {
   --background: #1abc9c;
   --color: #FFFFFF;
   opacity: 1;
+}
+
+ion-icon {
+  color: black;
+  width: 24px;
+  height: 24px;
+  float: left !important;
 }
 
 .d-block {
