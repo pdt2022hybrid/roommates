@@ -86,8 +86,12 @@ export default {
           this.newRoomName = room;
       },
       createPlace: async function () {
-        await store.dispatch('createRoom', {room_name: this.placeName, izby: this.rooms})
-        this.$router.push('/tabs/home')
+          if(!this.placeName) this.error = 'Place name must not be empty';
+          else if(this.rooms.length < 1) this.error = 'Add at least one room';
+          else {
+              await store.dispatch('createRoom', {room_name: this.placeName, izby: this.rooms});
+              this.$router.push('/tabs/home');
+          }
       },
     }
 };
