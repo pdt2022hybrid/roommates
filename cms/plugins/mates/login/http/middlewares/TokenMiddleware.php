@@ -25,7 +25,7 @@ class TokenMiddleware
 //        if (Carbon::create($tokenUser->token_created_at)->diffInMinutes(Carbon::now()) > 60) {
 //            return response()->json([
 //                'error' => 'Token expired'
-//            ], 401); //TODO: throwni nejaky exception, nie takto
+//            ], 401);
 //        }
 
         //$request->attributes->add(['tokenUserID' => $tokenUser->user_id]);
