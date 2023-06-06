@@ -102,11 +102,13 @@ export const store = createStore<State>({
                     const userName = response.data.user.name
                     const userSureName = response.data.user.surname
                     const userEmail = response.data.user.email
+                    const picture = response.data.user.avatar
                     store.commit('login', {token: userToken, userName: userName, userSurname: userSureName, userEmail: userEmail})
                     localStorage.setItem('userToken', userToken)
                     localStorage.setItem('userName', userName)
                     localStorage.setItem('userSureName', userSureName)
                     localStorage.setItem('userEmail', userEmail)
+                    localStorage.setItem('userProfilePicture', picture)
                     axios.get('/v1/user/room', { headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('userToken')
                     }})
