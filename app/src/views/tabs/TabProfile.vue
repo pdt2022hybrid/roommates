@@ -37,9 +37,9 @@
       <div id="share">
         <h1>
           Share Your place
-          <img src="../../../resources/share.svg">
+          <img src="../../../resources/share.svg" @click="copyRoomToken()" style="cursor: pointer" alt="share">
         </h1>
-        <ion-item>
+        <ion-item @click="copyRoomToken()" style="cursor: pointer">
           <p>
             {{ this.roomToken }}
           </p>
@@ -66,6 +66,7 @@ import {defineComponent, ref} from 'vue';
 import {store} from "@/store";
 import avatar from '../../../resources/Avatar.svg'
 import axios from "axios";
+import { Clipboard } from '@capacitor/clipboard';
 
 export default defineComponent({
   components: {
@@ -155,6 +156,11 @@ export default defineComponent({
       } catch(error) {
         console.warn(error)
       }
+    },
+    async copyRoomToken() {
+        await Clipboard.write({
+            string: this.roomToken
+        });
     }
   },
 
